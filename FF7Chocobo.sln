@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FF7Chocobo", "FF7Chocobo.vcproj", "{92E9607F-D03B-4266-98AC-74538CCBAED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92E9607F-D03B-4266-98AC-74538CCBAED7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{92E9607F-D03B-4266-98AC-74538CCBAED7}.Debug|Win32.Build.0 = Debug|Win32
+		{92E9607F-D03B-4266-98AC-74538CCBAED7}.Release|Win32.ActiveCfg = Release|Win32
+		{92E9607F-D03B-4266-98AC-74538CCBAED7}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
