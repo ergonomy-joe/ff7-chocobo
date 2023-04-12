@@ -11,15 +11,33 @@
 #include "chocobo_data.h"
 ////////////////////////////////////////
 struct t_chocobo_local_data_30 {//size 0x30
-	/*+00*/int dwNumAnimations;
-	/*+04*/const char *f_04;
-	/*+08*/const char *f_08[0xa];
+	/*00*/int dwAnimationsCount;
+	/*04*/const char *pszHRC;
+	/*08*/const char *pszANM[0xa];
 };
 ////////////////////////////////////////
+//-- DEVEL --
 struct t_chocobo_local_data_30 D_0096EBE0[] = {
-	{6,/*009704B8*/"data\\chr\\chocobo\\rsd\\chocobo.hrc",/*009704DC*/"data\\chr\\chocobo\\anm\\run.anm",/*009704FC*/"data\\chr\\chocobo\\anm\\turbo.anm",/*0097051C*/"data\\chr\\chocobo\\anm\\win.anm",/*0097053C*/"data\\chr\\chocobo\\anm\\draw.anm",/*0097055C*/"data\\chr\\chocobo\\anm\\lose.anm",/*0097057C*/"data\\chr\\chocobo\\anm\\tired.anm"},
-	{5,/*0097059C*/"data\\chr\\metman\\rsd\\metman.hrc",/*009705BC*/"data\\chr\\metman\\anm\\run.anm",/*009705D8*/"data\\chr\\metman\\anm\\turbo.anm",/*009705F8*/"data\\chr\\cloud\\anm\\win.anm",/*00970614*/"data\\chr\\metman\\anm\\draw.anm",/*00970634*/"data\\chr\\metman\\anm\\lose.anm"},
-	{6,/*00970654*/"data\\chr\\cloud\\rsd\\cloud.hrc",/*00970674*/"data\\chr\\cloud\\anm\\run.anm",/*00970690*/"data\\chr\\cloud\\anm\\turbo.anm",/*009706B0*/"data\\chr\\cloud\\anm\\win.anm",/*009706CC*/"data\\chr\\cloud\\anm\\draw.anm",/*009706E8*/"data\\chr\\cloud\\anm\\lose.anm",/*00970704*/"data\\chr\\cloud\\anm\\tired.anm"},
+	{6,/*009704B8*/"data\\chr\\chocobo\\rsd\\chocobo.hrc",
+		/*009704DC*/"data\\chr\\chocobo\\anm\\run.anm",
+		/*009704FC*/"data\\chr\\chocobo\\anm\\turbo.anm",
+		/*0097051C*/"data\\chr\\chocobo\\anm\\win.anm",
+		/*0097053C*/"data\\chr\\chocobo\\anm\\draw.anm",
+		/*0097055C*/"data\\chr\\chocobo\\anm\\lose.anm",
+		/*0097057C*/"data\\chr\\chocobo\\anm\\tired.anm"},
+	{5,/*0097059C*/"data\\chr\\metman\\rsd\\metman.hrc",
+		/*009705BC*/"data\\chr\\metman\\anm\\run.anm",
+		/*009705D8*/"data\\chr\\metman\\anm\\turbo.anm",
+		/*009705F8*/"data\\chr\\cloud\\anm\\win.anm",
+		/*00970614*/"data\\chr\\metman\\anm\\draw.anm",
+		/*00970634*/"data\\chr\\metman\\anm\\lose.anm"},
+	{6,/*00970654*/"data\\chr\\cloud\\rsd\\cloud.hrc",
+		/*00970674*/"data\\chr\\cloud\\anm\\run.anm",
+		/*00970690*/"data\\chr\\cloud\\anm\\turbo.anm",
+		/*009706B0*/"data\\chr\\cloud\\anm\\win.anm",
+		/*009706CC*/"data\\chr\\cloud\\anm\\draw.anm",
+		/*009706E8*/"data\\chr\\cloud\\anm\\lose.anm",
+		/*00970704*/"data\\chr\\cloud\\anm\\tired.anm"},
 	{1,/*00970724*/"data\\chr\\aurora\\rsd\\aurora.hrc",/*00970744*/"data\\chr\\aurora\\anm\\aurora.anm"},
 	{1,/*00970764*/"data\\chr\\ufo\\rsd\\ufo.hrc",/*00970780*/"data\\chr\\ufo\\anm\\ufo.anm"},
 	{1,/*0097079C*/"data\\chr\\conya\\rsd\\conya.hrc",/*009707BC*/"data\\chr\\conya\\anm\\conya.anm"},
@@ -53,14 +71,49 @@ struct t_chocobo_local_data_30 D_0096EBE0[] = {
 	{1,/*00970E38*/"data\\chr\\fuusha\\rsd\\fuusha.hrc",/*00970E58*/"data\\chr\\fuusha\\anm\\fuusha.anm"},
 	{1,/*00970E78*/"data\\chr\\morgly\\rsd\\morgly.hrc",/*00970E98*/"data\\chr\\morgly\\anm\\win.anm"},
 	{1,/*00970EB4*/"data\\chr\\tobira\\rsd\\tobira.hrc",/*00970ED4*/"data\\chr\\tobira\\anm\\tobira.anm"},
-	{5,/*00970EF4*/"data\\chr\\metman1\\rsd\\metman1.hrc",/*00970F18*/"data\\chr\\cloud\\anm\\run.anm",/*00970F34*/"data\\chr\\metman\\anm\\turbo.anm",/*00970F54*/"data\\chr\\metman\\anm\\win.anm",/*00970F70*/"data\\chr\\metman\\anm\\draw.anm",/*00970F90*/"data\\chr\\metman\\anm\\lose.anm"},
-	{6,/*00970FB0*/"data\\chr\\cid\\rsd\\cid.hrc",/*00970FCC*/"data\\chr\\cloud\\anm\\run.anm",/*00970FE8*/"data\\chr\\cloud\\anm\\turbo.anm",/*00971008*/"data\\chr\\cloud\\anm\\win.anm",/*00971024*/"data\\chr\\cloud\\anm\\draw.anm",/*00971040*/"data\\chr\\cloud\\anm\\lose.anm",/*0097105C*/"data\\chr\\cloud\\anm\\tired.anm"},
-	{6,/*0097107C*/"data\\chr\\tifa\\rsd\\tifa.hrc",/*00971098*/"data\\chr\\cloud\\anm\\run.anm",/*009710B4*/"data\\chr\\cloud\\anm\\turbo.anm",/*009710D4*/"data\\chr\\tifa\\anm\\win.anm",/*009710F0*/"data\\chr\\cloud\\anm\\draw.anm",/*0097110C*/"data\\chr\\cloud\\anm\\lose.anm",/*00971128*/"data\\chr\\cloud\\anm\\tired.anm"}
+	{5,/*00970EF4*/"data\\chr\\metman1\\rsd\\metman1.hrc",
+		/*00970F18*/"data\\chr\\cloud\\anm\\run.anm",
+		/*00970F34*/"data\\chr\\metman\\anm\\turbo.anm",
+		/*00970F54*/"data\\chr\\metman\\anm\\win.anm",
+		/*00970F70*/"data\\chr\\metman\\anm\\draw.anm",
+		/*00970F90*/"data\\chr\\metman\\anm\\lose.anm"},
+	{6,/*00970FB0*/"data\\chr\\cid\\rsd\\cid.hrc",
+		/*00970FCC*/"data\\chr\\cloud\\anm\\run.anm",
+		/*00970FE8*/"data\\chr\\cloud\\anm\\turbo.anm",
+		/*00971008*/"data\\chr\\cloud\\anm\\win.anm",
+		/*00971024*/"data\\chr\\cloud\\anm\\draw.anm",
+		/*00971040*/"data\\chr\\cloud\\anm\\lose.anm",
+		/*0097105C*/"data\\chr\\cloud\\anm\\tired.anm"},
+	{6,/*0097107C*/"data\\chr\\tifa\\rsd\\tifa.hrc",
+		/*00971098*/"data\\chr\\cloud\\anm\\run.anm",
+		/*009710B4*/"data\\chr\\cloud\\anm\\turbo.anm",
+		/*009710D4*/"data\\chr\\tifa\\anm\\win.anm",
+		/*009710F0*/"data\\chr\\cloud\\anm\\draw.anm",
+		/*0097110C*/"data\\chr\\cloud\\anm\\lose.anm",
+		/*00971128*/"data\\chr\\cloud\\anm\\tired.anm"}
 };
+//-- RELEASE --
 struct t_chocobo_local_data_30 D_0096F330[] = {
-	{6,/*00971148*/"CD.hrc",/*00971150*/"DB.anm",/*00971158*/"DC.anm",/*00971160*/"DD.anm",/*00971168*/"DE.anm",/*00971170*/"DF.anm",/*00971178*/"DG.anm"},
-	{5,/*00971180*/"DH.hrc",/*00971188*/"DV.anm",/*00971190*/"DW.anm",/*00971198*/"DX.anm",/*009711A0*/"DY.anm",/*009711A8*/"DZ.anm"},
-	{6,/*009711B0*/"EA.hrc",/*009711B8*/"EO.anm",/*009711C0*/"EP.anm",/*009711C8*/"EQ.anm",/*009711D0*/"ER.anm",/*009711D8*/"ES.anm",/*009711E0*/"ET.anm"},
+	{6,/*00971148*/"CD.hrc",
+		/*00971150*/"DB.anm",
+		/*00971158*/"DC.anm",
+		/*00971160*/"DD.anm",
+		/*00971168*/"DE.anm",
+		/*00971170*/"DF.anm",
+		/*00971178*/"DG.anm"},
+	{5,/*00971180*/"DH.hrc",
+		/*00971188*/"DV.anm",
+		/*00971190*/"DW.anm",
+		/*00971198*/"DX.anm",
+		/*009711A0*/"DY.anm",
+		/*009711A8*/"DZ.anm"},
+	{6,/*009711B0*/"EA.hrc",
+		/*009711B8*/"EO.anm",
+		/*009711C0*/"EP.anm",
+		/*009711C8*/"EQ.anm",
+		/*009711D0*/"ER.anm",
+		/*009711D8*/"ES.anm",
+		/*009711E0*/"ET.anm"},
 	{1,/*009711E8*/"EU.hrc",/*009711F0*/"EY.anm"},
 	{1,/*009711F8*/"EZ.hrc",/*00971200*/"FH.anm"},
 	{1,/*00971208*/"FI.hrc",/*00971210*/"GJ.anm"},
@@ -94,10 +147,28 @@ struct t_chocobo_local_data_30 D_0096F330[] = {
 	{1,/*00971438*/"KX.hrc",/*00971440*/"KZ.anm"},
 	{1,/*00971448*/"LA.hrc",/*00971450*/"LJ.anm"},
 	{1,/*00971458*/"LK.hrc",/*00971460*/"LO.anm"},
-	{5,/*00971468*/"LP.hrc",/*00971470*/"MD.anm",/*00971478*/"ME.anm",/*00971480*/"MF.anm",/*00971488*/"MG.anm",/*00971490*/"MH.anm"},
-	{6,/*00971498*/"MI.hrc",/*009714A0*/"MW.anm",/*009714A8*/"MX.anm",/*009714B0*/"MY.anm",/*009714B8*/"MZ.anm",/*009714C0*/"NA.anm",/*009714C8*/"NB.anm"},
-	{6,/*009714D0*/"NC.hrc",/*009714D8*/"NQ.anm",/*009714E0*/"NR.anm",/*009714E8*/"NS.anm",/*009714F0*/"NT.anm",/*009714F8*/"NU.anm",/*00971500*/"NV.anm"}
+	{5,/*00971468*/"LP.hrc",
+		/*00971470*/"MD.anm",
+		/*00971478*/"ME.anm",
+		/*00971480*/"MF.anm",
+		/*00971488*/"MG.anm",
+		/*00971490*/"MH.anm"},
+	{6,/*00971498*/"MI.hrc",
+		/*009714A0*/"MW.anm",
+		/*009714A8*/"MX.anm",
+		/*009714B0*/"MY.anm",
+		/*009714B8*/"MZ.anm",
+		/*009714C0*/"NA.anm",
+		/*009714C8*/"NB.anm"},
+	{6,/*009714D0*/"NC.hrc",
+		/*009714D8*/"NQ.anm",
+		/*009714E0*/"NR.anm",
+		/*009714E8*/"NS.anm",
+		/*009714F0*/"NT.anm",
+		/*009714F8*/"NU.anm",
+		/*00971500*/"NV.anm"}
 };
+//-- long course --
 int D_0096FA80[][2] = {
 	{0x00,0},
 	{0x00,0},
@@ -131,6 +202,7 @@ int D_0096FA80[][2] = {
 	{0x05,0},
 	{0x05,0}
 };
+//-- short course --
 int D_0096FB78[][2] = {
 	{0x00,0},
 	{0x00,0},
@@ -168,7 +240,8 @@ int D_0096FB78[][2] = {
 	{0x0F,1},
 	{0x04,1}
 };
-
+//== LORES ==
+//-- DEVEL --
 const char *D_0096FC90[7] = {
 	/*00971594*/"FIRE.TIM",
 	/*009715A0*/"HANA1.TIM",
@@ -179,6 +252,7 @@ const char *D_0096FC90[7] = {
 	/*009715DC*/"MATE.TIM"
 };
 //00 00 00 00
+//-- RELEASE --
 const char *D_0096FCB0[7] = {
 	/*009715E8*/"PN.TIM",
 	/*009715F0*/"PO.TIM",
@@ -189,6 +263,8 @@ const char *D_0096FCB0[7] = {
 	/*00971618*/"PT.TIM"
 };
 //00 00 00 00
+//== HIRES ==
+//-- DEVEL --
 const char *D_0096FCD0[7] = {
 	/*00971620*/"FIRE_1.TIM",
 	/*0097162C*/"HANA1_1.TIM",
@@ -199,6 +275,7 @@ const char *D_0096FCD0[7] = {
 	/*0097166C*/"MATE_1.TIM"
 };
 //00 00 00 00
+//-- RELEASE --
 const char *D_0096FCF0[7] = {
 	/*00971678*/"NW.tim",
 	/*00971680*/"NX.tim",
@@ -209,6 +286,8 @@ const char *D_0096FCF0[7] = {
 	/*009716A8*/"OC.tim"
 };
 //00 00 00 00
+//== LORES ==
+//-- DEVEL --
 const char *D_0096FD10[0x24] = {
 	/*009716B0*/"AMMONITE.TIM",
 	/*009716C0*/"ANEMONE.TIM",
@@ -247,6 +326,7 @@ const char *D_0096FD10[0x24] = {
 	/*00971850*/"TAIMATUT.TIM",
 	/*00971860*/"WHALE.TIM"
 };
+//-- RELEASE --
 const char *D_0096FDA0[0x24] = {
 	/*0097186C*/"PU.TIM",
 	/*00971874*/"PV.TIM",
@@ -285,6 +365,8 @@ const char *D_0096FDA0[0x24] = {
 	/*0097197C*/"RC.TIM",
 	/*00971984*/"RD.TIM"
 };
+//== HIRES ==
+//-- DEVEL --
 const char *D_0096FE30[0x24] = {
 	/*0097198C*/"AMMONIT1.TIM",
 	/*0097199C*/"ANEMONE1.TIM",
@@ -323,6 +405,7 @@ const char *D_0096FE30[0x24] = {
 	/*00971B5C*/"TAIMT_1.TIM",
 	/*00971B68*/"WHALE_1.TIM"
 };
+//-- RELEASE --
 const char *D_0096FEC0[0x24] = {
 	/*00971B74*/"OD.tim",
 	/*00971B7C*/"OE.tim",
@@ -361,6 +444,7 @@ const char *D_0096FEC0[0x24] = {
 	/*00971C84*/"PL.tim",
 	/*00971C8C*/"PM.tim"
 };
+//== ==
 //sprite id->D_00E71C60[long course]
 int D_0096FF50[] = {
 	0x00,0x00,0x00,0x01,0x01,0x01,0x02,0x02,0x02,0x03,0x03,0x03,0x03,0x03,0x03,0x03,
@@ -405,7 +489,7 @@ int D_00970350[] = {
 //00971C8C	"PM.tim"
 ////////////////////////////////////////
 extern int *D_00E72980;
-extern int D_00E72984;
+extern int D_00E72984;//3D sprites/billboard count
 ////////////////////////////////////////
 //ch_chr:clean(1)?
 int C_0076EFF0() {
@@ -416,22 +500,25 @@ int C_0076EFF0() {
 
 	if(D_00E719E8) {//else 0076F1A7
 		for(lolo.i = 0; lolo.i < D_00E719EC; lolo.i ++) {
-			if(D_00E719E8[lolo.i].f_34) {//else 0076F0A6
-				if(D_00E719E8[lolo.i].f_34->f_b4)
-					C_00692CEE(D_00E719E8[lolo.i].f_34->f_b4);//plytopd:release skeleton
-				mem_free(D_00E719E8[lolo.i].f_34, __FF7FILE__, 0x8b);
-				D_00E719E8[lolo.i].f_34 = 0;
+			//-- ".HRC" --
+			if(D_00E719E8[lolo.i].pHRC) {//else 0076F0A6
+				if(D_00E719E8[lolo.i].pHRC->f_b4)
+					C_00692CEE(D_00E719E8[lolo.i].pHRC->f_b4);//plytopd:release skeleton
+				mem_free(D_00E719E8[lolo.i].pHRC, __FF7FILE__, 0x8b);
+				D_00E719E8[lolo.i].pHRC = 0;
 			}
-			for(lolo.j = 0; lolo.j < D_00E719E8[lolo.i].wMaxAnmNum; lolo.j ++) {
-				if(D_00E719E8[lolo.i].f_38 && D_00E719E8[lolo.i].f_38[lolo.j]) {
-					C_00691E8E(D_00E719E8[lolo.i].f_38[lolo.j]);
-					D_00E719E8[lolo.i].f_38[lolo.j] = 0;
+			//-- ".ANM" --
+			for(lolo.j = 0; lolo.j < D_00E719E8[lolo.i].wAnimationCount; lolo.j ++) {
+				if(D_00E719E8[lolo.i].ppANM && D_00E719E8[lolo.i].ppANM[lolo.j]) {
+					C_00691E8E(D_00E719E8[lolo.i].ppANM[lolo.j]);
+					D_00E719E8[lolo.i].ppANM[lolo.j] = 0;
 				}
 			}//end for
-			if(D_00E719E8[lolo.i].f_38) {
-				mem_free(D_00E719E8[lolo.i].f_38, __FF7FILE__, 0x99);
-				D_00E719E8[lolo.i].f_38 = 0;
+			if(D_00E719E8[lolo.i].ppANM) {
+				mem_free(D_00E719E8[lolo.i].ppANM, __FF7FILE__, 0x99);
+				D_00E719E8[lolo.i].ppANM = 0;
 			}
+			//-- --
 		}//end for
 		mem_free(D_00E719E8, __FF7FILE__, 0x9e);
 		D_00E719E8 = 0;
@@ -450,22 +537,22 @@ int C_0076F1B0(struct t_rsd_74 *bp08, struct t_aa0 *bp0c, int bp10) {
 		char ext[_MAX_EXT];//local_196
 		unsigned short j; char _ocal_132[2];//local_132
 		unsigned short i; char _ocal_131[2];//local_131
-		struct t_chocobo_3c *local_130;
-		int local_129;
-		char local_128[0x100];
-		char local_64[0x100];
+		struct t_chocobo_Model3D *pModel;//local_130
+		int dwModelsCount;//local_129
+		char szPath[0x100];//local_128
+		char szFileName[0x100];//local_64
 	}lolo;
 
 	if(bp10 == 0) {
-		lolo.local_129 = 0x1f;
+		lolo.dwModelsCount = 0x1f;
 		lolo.local_261 = D_0096FA80;
 	} else {
-		lolo.local_129 = 0x23;
+		lolo.dwModelsCount = 0x23;
 		lolo.local_261 = D_0096FB78;
 	}
-	D_00E719EC = lolo.local_129;
+	D_00E719EC = lolo.dwModelsCount;
 	D_00E719EE = 0;
-	D_00E719E8 = (struct t_chocobo_3c *)mem_malloc(D_00E719EC * sizeof(struct t_chocobo_3c), __FF7FILE__, 0xbb);
+	D_00E719E8 = (struct t_chocobo_Model3D *)mem_malloc(D_00E719EC * sizeof(struct t_chocobo_Model3D), __FF7FILE__, 0xbb);
 	if(D_00E719E8 == 0)
 		return 0;
 	//== RELEASE ==
@@ -476,19 +563,19 @@ int C_0076F1B0(struct t_rsd_74 *bp08, struct t_aa0 *bp0c, int bp10) {
 	}
 	//== ==
 	for(lolo.i = 0; lolo.i < D_00E719EC; lolo.i ++) {
-		lolo.local_130 = &(D_00E719E8[lolo.i]);
-		lolo.local_130->f_00 = 0;
-		lolo.local_130->f_02 = 0;
-		lolo.local_130->f_04 = 0;
-		lolo.local_130->f_08 = 0x80;
-		lolo.local_130->f_07 = 0x80;
-		lolo.local_130->f_06 = 0x80;
-		lolo.local_130->f_0c = 0x280;
+		lolo.pModel = &(D_00E719E8[lolo.i]);
+		lolo.pModel->wX = 0;
+		lolo.pModel->wY = 0;
+		lolo.pModel->wZ = 0;
+		lolo.pModel->bR =
+		lolo.pModel->bG =
+		lolo.pModel->bB = 0x80;
+		lolo.pModel->wScaling = 640;
 		if(lolo.local_261[lolo.i][1] == 1)
-			lolo.local_130->dwIsTransparent = 1;
+			lolo.pModel->dwIsTransparent = 1;
 		else
-			lolo.local_130->dwIsTransparent = 0;
-		if(lolo.local_130->dwIsTransparent == 0) {//else 0076F392
+			lolo.pModel->dwIsTransparent = 0;
+		if(lolo.pModel->dwIsTransparent == 0) {//else 0076F392
 			C_0067455E(bp08);//rsd:init with blend mode 4?
 			//== RELEASE ==
 			if(D_00972174) {
@@ -511,51 +598,55 @@ int C_0076F1B0(struct t_rsd_74 *bp08, struct t_aa0 *bp0c, int bp10) {
 			bp08->dwRSDFlags |= RSD_02000000 | RSD_00100000;
 			C_00674659(1, bp08);//rsd:set blend mode?
 		}
-		bp08->fScaling = ((float)lolo.local_130->f_0c / 4096.0f) * 30.4309f;
-		lolo.local_130->f_10 = lolo.i;
-		lolo.local_130->wMaxAnmNum = D_0096EBE0[lolo.local_261[lolo.i][0]].dwNumAnimations;
+		bp08->fScaling = ((float)lolo.pModel->wScaling / 4096.0f) * 30.4309f;
+		lolo.pModel->f_10 = (char)lolo.i;
+		lolo.pModel->wAnimationCount = D_0096EBE0[lolo.local_261[lolo.i][0]].dwAnimationsCount;
 		if(lolo.i >= 0x10 || lolo.i < 6)
-			lolo.local_130->dwAdjustYPos = 1;
+			lolo.pModel->dwAdjustYPos = 1;
 		else
-			lolo.local_130->dwAdjustYPos = 0;
-		lolo.local_130->f_20 = 0;
-		lolo.local_130->f_28 = 1;
-		lolo.local_130->wAnmNum = 0;
-		lolo.local_130->wPrevAnmNum = 0;
-		lolo.local_130->f_24 = 0;
-		if(bp10 && (lolo.i == 0x11 || lolo.i == 0x13 || lolo.i == 0x16 || lolo.i == 0x1f))
-			lolo.local_130->f_24 = 1;
-		lolo.local_130->f_38 = (struct t_animationHeader **)mem_malloc(lolo.local_130->wMaxAnmNum * sizeof(struct t_animationHeader *), __FF7FILE__, 0xfb);
-		for(lolo.j = 0; lolo.j < lolo.local_130->wMaxAnmNum; lolo.j ++) {
-			strcpy(lolo.local_64, D_00E3B640);
-			if(D_00972174 == 0)
-				//== DEVEL ==
-				strcat(lolo.local_64, D_0096EBE0[lolo.local_261[lolo.i][0]].f_08[lolo.j]);
-			else
-				//== RELEASE ==
-				strcat(lolo.local_64, D_0096F330[lolo.local_261[lolo.i][0]].f_08[lolo.j]);
-			lolo.local_130->f_38[lolo.j] = C_0077A150(bp08, lolo.local_64);//load ".anm" file(renamed ".a")?
-			C_00692412(((float)lolo.local_130->f_0c / 4096.0f) * 30.4309f, lolo.local_130->f_38[lolo.j]);
+			lolo.pModel->dwAdjustYPos = 0;
+		lolo.pModel->dwDoRender = 0;
+		lolo.pModel->dwActive = 1;
+		lolo.pModel->wAnimationId = 0;
+		lolo.pModel->wPrevAnimationId = 0;
+		lolo.pModel->dwPatchRotY = 0;
+		//-- --
+		if(bp10) {
+			if(lolo.i == 0x11 || lolo.i == 0x13 || lolo.i == 0x16 || lolo.i == 0x1f)
+				lolo.pModel->dwPatchRotY = 1;
 		}
-		//-- ".HRC" --
-		if(lolo.local_130->wMaxAnmNum > 0) {//else 0076F90F
-			strcpy(lolo.local_64, D_00E3B640);
+		//-- ".ANM" --
+		lolo.pModel->ppANM = (struct t_animationHeader **)mem_malloc(lolo.pModel->wAnimationCount * sizeof(struct t_animationHeader *), __FF7FILE__, 0xfb);
+		for(lolo.j = 0; lolo.j < lolo.pModel->wAnimationCount; lolo.j ++) {
+			strcpy(lolo.szFileName, D_00E3B640);
 			if(D_00972174 == 0)
 				//== DEVEL ==
-				strcat(lolo.local_64, D_0096EBE0[lolo.local_261[lolo.i][0]].f_04);
+				strcat(lolo.szFileName, D_0096EBE0[lolo.local_261[lolo.i][0]].pszANM[lolo.j]);
 			else
 				//== RELEASE ==
-				strcat(lolo.local_64, D_0096F330[lolo.local_261[lolo.i][0]].f_04);
-			_splitpath(lolo.local_64, lolo.drive, lolo.dir, lolo.fname, lolo.ext);
-			strcpy(lolo.local_128, lolo.drive);
-			strcat(lolo.local_128, lolo.dir);
-			lolo.local_130->f_34 = C_0077A2E9(30, lolo.local_130->f_38[0], bp08, bp0c, lolo.local_64, lolo.local_128);
-			for(lolo.j = 0; lolo.j < lolo.local_130->wMaxAnmNum; lolo.j ++)
-				C_00684C32(lolo.local_130->f_38[lolo.j], lolo.local_130->f_34->f_b4);
-			C_0077A339(lolo.local_130, 0);//set animation #
-			if(lolo.local_130->f_34 == 0)
+				strcat(lolo.szFileName, D_0096F330[lolo.local_261[lolo.i][0]].pszANM[lolo.j]);
+			lolo.pModel->ppANM[lolo.j] = C_0077A150(bp08, lolo.szFileName);//chocobo:load ".anm" file(renamed ".a")?
+			C_00692412(((float)lolo.pModel->wScaling / 4096.0f) * 30.4309f, lolo.pModel->ppANM[lolo.j]);//plytopd:scale TX,TY,TZ?
+		}//end for
+		//-- ".HRC" --
+		if(lolo.pModel->wAnimationCount > 0) {//else 0076F90F
+			strcpy(lolo.szFileName, D_00E3B640);
+			if(D_00972174 == 0)
+				//== DEVEL ==
+				strcat(lolo.szFileName, D_0096EBE0[lolo.local_261[lolo.i][0]].pszHRC);
+			else
+				//== RELEASE ==
+				strcat(lolo.szFileName, D_0096F330[lolo.local_261[lolo.i][0]].pszHRC);
+			_splitpath(lolo.szFileName, lolo.drive, lolo.dir, lolo.fname, lolo.ext);
+			strcpy(lolo.szPath, lolo.drive);
+			strcat(lolo.szPath, lolo.dir);
+			lolo.pModel->pHRC = C_0077A2E9(30, lolo.pModel->ppANM[0], bp08, bp0c, lolo.szFileName, lolo.szPath);//chocobo:load ".HRC" file?
+			for(lolo.j = 0; lolo.j < lolo.pModel->wAnimationCount; lolo.j ++)
+				C_00684C32(lolo.pModel->ppANM[lolo.j], lolo.pModel->pHRC->f_b4);
+			C_0077A339(lolo.pModel, 0);//chocobo:set animation id
+			if(lolo.pModel->pHRC == 0)
 				return 0;
-			lolo.local_130->f_34->f_00 = 1;
+			lolo.pModel->pHRC->f_00 = 1;
 		}
 	}//end for
 
@@ -677,9 +768,9 @@ void C_0076F920(struct t_rsd_74 *bp08, struct t_aa0 *bp0c, int bp10) {
 			bp08->dwRSDFlags |= RSD_00000010;
 		}
 		D_00E71C60[lolo.i].f_48 = C_006710AC(1, DX_SFX_TYPE_0C, bp08, lolo.local_34[lolo.i], bp0c->f_910);//dx_sfx:alloc/create?
-		D_00E71C60[lolo.i].f_4c = 1;
-		D_00E71C60[lolo.i].f_50 = 0;
-		D_00E71C60[lolo.i].f_38 = D_00E71C60[lolo.i].f_3c = D_00E3BA94;
+		D_00E71C60[lolo.i].dwActive = 1;
+		D_00E71C60[lolo.i].dwDoRender = 0;
+		D_00E71C60[lolo.i].dwWidth = D_00E71C60[lolo.i].dwHeight = D_00E3BA94;
 		D_00E71C60[lolo.i].f_00.c.r = D_00E71C60[lolo.i].f_00.c.g = D_00E71C60[lolo.i].f_00.c.b = 0x80;
 		D_00E71C60[lolo.i].f_40 = 0;
 	}//end for
@@ -690,21 +781,21 @@ void C_0076FD68() {
 	int i;
 
 	for(i = 0; i < D_00E72984; i ++) {
-		if(D_00E71C60[i].f_4c) {
-			C_00670FD3(D_00E71C60[i].f_48);
+		if(D_00E71C60[i].dwActive) {
+			C_00670FD3(D_00E71C60[i].f_48);//dx_sfx:release "struct t_dx_sfx_e0 *"
 			D_00E71C60[i].f_48 = 0;
-			D_00E71C60[i].f_4c = 0;
+			D_00E71C60[i].dwActive = 0;
 		}
 	}//end for
 }
 
-//ch_chr:reset?
+//ch_chr:reset
 void C_0076FDD3() {
 	unsigned short i;//local_1
 
 	for(i = 0; i < D_00E72984; i ++) {
-		if(D_00E71C60[i].f_4c && D_00E71C60[i].f_50) {
-			D_00E71C60[i].f_50 = 0;
+		if(D_00E71C60[i].dwActive && D_00E71C60[i].dwDoRender) {
+			D_00E71C60[i].dwDoRender = 0;
 		}
 	}//end for
 }
@@ -714,7 +805,7 @@ void C_0076FE41(struct t_aa0 *bp08) {
 	unsigned short i;//local_1
 
 	for(i = 0; i < D_00E72984; i ++) {
-		if(D_00E71C60[i].f_4c && D_00E71C60[i].f_50 && !D_00E71C60[i].dwIsTransparent)
+		if(D_00E71C60[i].dwActive && D_00E71C60[i].dwDoRender && !D_00E71C60[i].dwIsTransparent)
 			C_0066E641(D_00E71C60[i].f_48, bp08);//dx_spr:render
 	}//end for
 }
@@ -724,7 +815,7 @@ void C_0076FECC(struct t_aa0 *bp08) {
 	unsigned short i;//local_1
 
 	for(i = 0; i < D_00E72984; i ++) {
-		if(D_00E71C60[i].f_4c && D_00E71C60[i].f_50 && D_00E71C60[i].dwIsTransparent)
+		if(D_00E71C60[i].dwActive && D_00E71C60[i].dwDoRender && D_00E71C60[i].dwIsTransparent)
 			C_0066E641(D_00E71C60[i].f_48, bp08);//dx_spr:render
 	}//end for
 }

@@ -19,6 +19,7 @@ const char *D_00971DF4 = /*009721DC*/"data\\tim\\kao";
 //=================
 //== DEVEL HIRES ==
 //=================
+//"class_a"[DEVEL]
 const char *D_00971DF8[] = {
 	/*009721EC*/"A00-0.TIM",
 	/*009721F8*/"A00-1.TIM",
@@ -31,6 +32,7 @@ const char *D_00971DF8[] = {
 	/*0097224C*/"A03B_1.TIM",
 	/*00972258*/"A04.TIM"
 };
+//"class_b"[DEVEL]
 const char *D_00971E20[] = {
 	/*00972260*/"B00-0.TIM",
 	/*0097226C*/"B00-1.TIM",
@@ -43,6 +45,7 @@ const char *D_00971E20[] = {
 	/*009722C0*/"B03B_1.TIM",
 	/*009722CC*/"B04.TIM"
 };
+//"class_c"[DEVEL]
 const char *D_00971E48[] = {
 	/*009722D4*/"C00-0.TIM",
 	/*009722E0*/"C00-1.TIM",
@@ -55,6 +58,7 @@ const char *D_00971E48[] = {
 	/*00972334*/"C03B.TIM",
 	/*00972340*/"C04.TIM"
 };
+//"class_s"[DEVEL]
 const char *D_00971E70[] = {
 	/*00972348*/"S00-0.TIM",
 	/*00972354*/"S00-1.TIM",
@@ -67,12 +71,14 @@ const char *D_00971E70[] = {
 	/*009723A8*/"S03B_1.TIM",
 	/*009723B4*/"S04.TIM"
 };
+//"class_z"[DEVEL]
 const char *D_00971E98[] = {
 	/*009723BC*/"z01_1.tim",
 	/*009723C8*/"z02.tim",
 	/*009723D0*/"z04_1.tim",
 	/*009723DC*/"z05_1.tim"
 };
+//"kao"[DEVEL]
 const char *D_00971EA8[] = {
 	/*009723E8*/"C_KAN1.TIM",
 	/*009723F4*/"C_KAN2.TIM",
@@ -90,6 +96,7 @@ const char *D_00971EA8[] = {
 //===================
 //== RELEASE HIRES ==
 //===================
+//"class_a"[RELEASE]
 const char *D_00971ED8[] = {
 	/*00972478*/"AA.tim",
 	/*00972480*/"AB.tim",
@@ -102,6 +109,7 @@ const char *D_00971ED8[] = {
 	/*009724B8*/"AI.tim",
 	/*009724C0*/"AJ.tim"
 };
+//"class_b"[RELEASE]
 const char *D_00971F00[] = {
 	/*009724C8*/"AK.tim",
 	/*009724D0*/"AL.tim",
@@ -114,6 +122,7 @@ const char *D_00971F00[] = {
 	/*00972508*/"AS.tim",
 	/*00972510*/"AT.tim"
 };
+//"class_c"[RELEASE]
 const char *D_00971F28[] = {
 	/*00972518*/"AU.tim",
 	/*00972520*/"AV.tim",
@@ -126,6 +135,7 @@ const char *D_00971F28[] = {
 	/*00972558*/"BC.tim",
 	/*00972560*/"BD.tim"
 };
+//"class_s"[RELEASE]
 const char *D_00971F50[] = {
 	/*00972568*/"BE.tim",
 	/*00972570*/"BF.tim",
@@ -138,12 +148,14 @@ const char *D_00971F50[] = {
 	/*009725A8*/"BM.tim",
 	/*009725B0*/"BN.tim"
 };
+//"class_z"[RELEASE]
 const char *D_00971F78[] = {
 	/*009725B8*/"BO.tim",
 	/*009725C0*/"BP.tim",
 	/*009725C8*/"BQ.tim",
 	/*009725D0*/"BR.tim"
 };
+//"kao"[RELEASE]
 const char *D_00971F88[] = {
 	/*009725D8*/"BS.tim",
 	/*009725E0*/"BT.tim",
@@ -161,6 +173,7 @@ const char *D_00971F88[] = {
 //=================
 //== DEVEL LORES ==
 //=================
+//"class_a"[DEVEL]
 const char *D_00971FB8[] = {
 	/*00972630*/"A00-0.TIM",
 	/*0097263C*/"A00-1.TIM",
@@ -173,6 +186,7 @@ const char *D_00971FB8[] = {
 	/*00972690*/"A03B.TIM",
 	/*0097269C*/"A04.TIM"
 };
+//"class_b"[DEVEL]
 const char *D_00971FE0[] = {
 	/*009726A4*/"B00-0.TIM",
 	/*009726B0*/"B00-1.TIM",
@@ -185,6 +199,7 @@ const char *D_00971FE0[] = {
 	/*00972704*/"B03B.TIM",
 	/*00972710*/"B04.TIM"
 };
+//"class_c"[DEVEL]
 const char *D_00972008[] = {
 	/*00972718*/"C00-0.TIM",
 	/*00972724*/"C00-1.TIM",
@@ -197,6 +212,7 @@ const char *D_00972008[] = {
 	/*00972778*/"C03B.TIM",
 	/*00972784*/"C04.TIM"
 };
+//"class_s"[DEVEL]
 const char *D_00972030[] = {
 	/*0097278C*/"S00-0.TIM",
 	/*00972798*/"S00-1.TIM",
@@ -209,12 +225,14 @@ const char *D_00972030[] = {
 	/*009727EC*/"S03B.TIM",
 	/*009727F8*/"S04.TIM"
 };
+//"class_z"[DEVEL]
 const char *D_00972058[] = {
 	/*00972800*/"z01.tim",
 	/*00972808*/"z02.tim",
 	/*00972810*/"z04.tim",
 	/*00972818*/"z05.tim"
 };
+//"kao"[DEVEL]
 const char *D_00972068[] = {
 	/*00972820*/"CHO_KAN1.TIM",
 	/*00972830*/"CHO_KAN2.TIM",
@@ -232,6 +250,7 @@ const char *D_00972068[] = {
 //===================
 //== RELEASE LORES ==
 //===================
+//"class_a"[RELEASE]
 const char *D_00972098[] = {
 	/*009728B0*/"AA.tim",
 	/*009728B8*/"AB.tim",
@@ -244,6 +263,7 @@ const char *D_00972098[] = {
 	/*009728F4*/"RH.tim",
 	/*009728FC*/"AJ.tim"
 };
+//"class_b"[RELEASE]
 const char *D_009720C0[] = {
 	/*00972904*/"AK.tim",
 	/*0097290C*/"AL.tim",
@@ -256,6 +276,7 @@ const char *D_009720C0[] = {
 	/*00972948*/"RL.TIM",
 	/*00972950*/"AT.tim"
 };
+//"class_c"[RELEASE]
 const char *D_009720E8[] = {
 	/*00972958*/"AU.tim",
 	/*00972960*/"AV.tim",
@@ -268,6 +289,7 @@ const char *D_009720E8[] = {
 	/*0097299C*/"RP.TIM",
 	/*009729A4*/"BD.tim"
 };
+//"class_s"[RELEASE]
 const char *D_00972110[] = {
 	/*009729AC*/"BE.tim",
 	/*009729B4*/"BF.tim",
@@ -280,12 +302,14 @@ const char *D_00972110[] = {
 	/*009729F0*/"RT.TIM",
 	/*009729F8*/"BN.tim"
 };
+//"class_z"[RELEASE]
 const char *D_00972138[] = {
 	/*00972A00*/"RU.tim",
 	/*00972A08*/"BP.tim",
 	/*00972A10*/"RV.tim",
 	/*00972A18*/"RW.tim"
 };
+//"kao"[RELEASE]
 const char *D_00972148[] = {
 	/*00972A20*/"RX.TIM",
 	/*00972A28*/"RY.TIM",
@@ -302,8 +326,12 @@ const char *D_00972148[] = {
 //== ==
 int D_00972174 = 1;//{devel,fs}/{release,archive} flag
 ////////////////////////////////////////
-extern struct t_chocobo_local_1c D_00E72DF0;
+struct t_chocobo_local_1c D_00E72990[0x28];//renderers for UI?//check
+struct t_chocobo_local_1c D_00E72DF0;//[for SW patch]
+int D_00E72E0C;//index in D_00E72990[] for init
+//D_00E72E10
 ////////////////////////////////////////
+//chocobo:2D elements.init
 void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceRank/*bp14*/) {
 	struct {
 		unsigned short i; char _p_118[2];//bp_118
@@ -317,7 +345,7 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 
 	D_00E72E0C = 0;
 	switch(dwRaceRank) {
-		case 0:
+		case 0://"class_c"
 			if(D_00972174 == 0) {
 				//===========
 				//== DEVEL ==
@@ -337,7 +365,7 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			}
 			lolo.bp_110 = 0;
 		break;
-		case 1:
+		case 1://"class_b"
 			if(D_00972174 == 0) {
 				//===========
 				//== DEVEL ==
@@ -357,7 +385,7 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			}
 			lolo.bp_110 = 1;
 		break;
-		case 2:
+		case 2://"class_a"
 			if(D_00972174 == 0) {
 				//===========
 				//== DEVEL ==
@@ -377,7 +405,7 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			}
 			lolo.bp_110 = 1;
 		break;
-		case 3:
+		case 3://"class_s"
 			if(D_00972174 == 0) {
 				//===========
 				//== DEVEL ==
@@ -409,7 +437,7 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			continue;
 		}
 		D_00E72990[D_00E72E0C].dwIsTransparent = 0;
-		if((lolo.i != 2 && lolo.i != 3) || lolo.bp_110 == 0) {//else 00770B69
+		if((lolo.i != 2 && lolo.i != 3) || !lolo.bp_110) {//else 00770B69
 			lolo.dwBlendMode = 4;
 			C_006745E6(lolo.dwBlendMode, bp0c);//rsd:init with blend mode?
 			//== RELEASE ==
@@ -441,8 +469,8 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			bp0c->dwRSDFlags |= RSD_00000010;
 		}
 		D_00E72990[D_00E72E0C].f_00 = C_006710AC(1, DX_SFX_TYPE_0C, bp0c, lolo.bp_108[lolo.i], bp08->f_910);//dx_sfx:alloc/create?
-		D_00E72990[D_00E72E0C].f_10 = 1;
-		D_00E72990[D_00E72E0C].f_14 = 0;
+		D_00E72990[D_00E72E0C].dwActive = 1;
+		D_00E72990[D_00E72E0C].dwDoRender = 0;
 		D_00E72E0C ++;
 	}//end for
 	//-- --
@@ -462,8 +490,8 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 		bp0c->dwRSDFlags |= RSD_00000010;
 		D_00E72990[0x1a].dwIsTransparent = 0;
 		D_00E72990[0x1a].f_00 = C_006710AC(1, DX_SFX_TYPE_0C, bp0c, lolo.bp_108[3], bp08->f_910);//dx_sfx:alloc/create?
-		D_00E72990[0x1a].f_10 = 1;
-		D_00E72990[0x1a].f_14 = 0;
+		D_00E72990[0x1a].dwActive = 1;
+		D_00E72990[0x1a].dwDoRender = 0;
 	}
 	//-- "data\\tim\\class_z" --
 	strcpy(lolo.bp_100, D_00E3B640);
@@ -490,8 +518,8 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 	for(lolo.i = 0; lolo.i < 4; lolo.i ++) {
 		D_00E72990[D_00E72E0C].dwIsTransparent = 0;
 		D_00E72990[D_00E72E0C].f_00 = C_006710AC(1, DX_SFX_TYPE_0C, bp0c, lolo.bp_114[lolo.i], bp08->f_910);//dx_sfx:alloc/create?
-		D_00E72990[D_00E72E0C].f_10 = 1;
-		D_00E72990[D_00E72E0C].f_14 = 0;
+		D_00E72990[D_00E72E0C].dwActive = 1;
+		D_00E72990[D_00E72E0C].dwDoRender = 0;
 		D_00E72E0C ++;
 	}//end for
 	//-- "data\\tim\\kao" --
@@ -566,16 +594,16 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 			if(lolo.i == 8 || lolo.i == 7)
 				bp0c->f_70 |= SWRENDERFLAG_00000020;
 			D_00E72990[D_00E72E0C].f_00 = C_006710AC(1, DX_SFX_TYPE_0C, bp0c, lolo.bp_104[lolo.i], bp08->f_910);//dx_sfx:alloc/create?
-			D_00E72990[D_00E72E0C].f_10 = 1;
-			D_00E72990[D_00E72E0C].f_14 = 0;
+			D_00E72990[D_00E72E0C].dwActive = 1;
+			D_00E72990[D_00E72E0C].dwDoRender = 0;
 			D_00E72E0C ++;
 		}
 	}//end for
 	//-- --
 	D_00E72E0C = 0x18;
 	D_00E72990[0x18].f_00 = C_006710AC(1, DX_SFX_TYPE_08, bp0c, 0, bp08->f_910);//dx_sfx:alloc/create?
-	D_00E72990[0x18].f_10 = 1;
-	D_00E72990[0x18].f_14 = 0;
+	D_00E72990[0x18].dwActive = 1;
+	D_00E72990[0x18].dwDoRender = 0;
 	D_00E72E0C ++;
 	//-- --
 	lolo.dwBlendMode = 0;
@@ -589,57 +617,57 @@ void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceR
 	}
 	//== ==
 	D_00E72990[D_00E72E0C].f_00 = C_006710AC(1, DX_SFX_TYPE_08, bp0c, 0, bp08->f_910);//dx_sfx:alloc/create?
-	D_00E72990[D_00E72E0C].f_10 = 1;
-	D_00E72990[D_00E72E0C].f_14 = 0;
+	D_00E72990[D_00E72E0C].dwActive = 1;
+	D_00E72990[D_00E72E0C].dwDoRender = 0;
 	D_00E72990[D_00E72E0C].dwIsTransparent = 1;
 	D_00E72E0C ++;
-	//-- SW patch --
+	//-- [for SW patch] --
 	if(D_00E3BA68.dwSWRenderer) {
 		lolo.dwBlendMode = 1;
 		C_006745E6(lolo.dwBlendMode, bp0c);//rsd:init with blend mode?
 		bp0c->f_70 |= SWRENDERFLAG_00004000;
 		D_00E72DF0.f_00 = C_006710AC(1, DX_SFX_TYPE_08, bp0c, 0, bp08->f_910);//dx_sfx:alloc/create?
-		D_00E72DF0.f_14 = 0;
-		D_00E72DF0.f_10 = 1;
+		D_00E72DF0.dwDoRender = 0;
+		D_00E72DF0.dwActive = 1;
 	}
 }
 
-//[release this module]
+//chocobo:2D elements.clean
 void C_007714E9() {
 	unsigned short i;//local_1
 
 	for(i = 0; i < 0x28; i ++) {
-		if(D_00E72990[i].f_10) {
-			C_00670FD3(D_00E72990[i].f_00);
+		if(D_00E72990[i].dwActive) {
+			C_00670FD3(D_00E72990[i].f_00);//dx_sfx:release "struct t_dx_sfx_e0 *"
 			D_00E72990[i].f_00 = 0;
-			D_00E72990[i].f_10 = 0;
+			D_00E72990[i].dwActive = 0;
 		}
 	}//end for
-	//-- SW patch --
+	//-- [for SW patch] --
 	if(D_00E3BA68.dwSWRenderer) {
-		if(D_00E72DF0.f_10) {
-			C_00670FD3(D_00E72DF0.f_00);
+		if(D_00E72DF0.dwActive) {
+			C_00670FD3(D_00E72DF0.f_00);//dx_sfx:release "struct t_dx_sfx_e0 *"
 			D_00E72DF0.f_00 = 0;
-			D_00E72DF0.f_10 = 0;
+			D_00E72DF0.dwActive = 0;
 		}
 	}
 }
 
-//[reset this module]
+//chocobo:2D elements.reset
 void C_007715A4() {
 	unsigned short i;//local_1
 
 	for(i = 0; i < 0x28; i ++) {
-		if(D_00E72990[i].f_10 && D_00E72990[i].f_14) {
+		if(D_00E72990[i].dwActive && D_00E72990[i].dwDoRender) {
 			C_006716F5(D_00E72990[i].f_00);//dx_sfx:reset something?
-			D_00E72990[i].f_14 = 0;
+			D_00E72990[i].dwDoRender = 0;
 		}
 	}//end for
-	//-- SW patch --
+	//-- [for SW patch] --
 	if(D_00E3BA68.dwSWRenderer) {
-		if(D_00E72DF0.f_14) {
+		if(D_00E72DF0.dwDoRender) {
 			C_006716F5(D_00E72DF0.f_00);//dx_sfx:reset something?
-			D_00E72DF0.f_14 = 0;
+			D_00E72DF0.dwDoRender = 0;
 		}
-	}//end for
+	}
 }

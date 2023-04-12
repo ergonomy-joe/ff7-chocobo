@@ -279,7 +279,7 @@ struct t_dx_sfx_84 {//size 0x84
 	/*08*/int f_08;//[unused?]
 	/*0c*/struct t_g_drv_0c f_0c[4];
 	/*3c*/struct { float f_00,f_04; } f_3c[4];//texcoords
-	/*5c*/tRGBA f_5c[4];//colors
+	/*5c*/tBGRA f_5c[4];//colors
 	/*6c*/float f_6c[4];
 	/*7c*/void *f_7c;
 	/*80*/int f_80;//palette index
@@ -806,7 +806,7 @@ struct t_f0 {//size 0xf0
 	/*20*/void (*f_20)(struct fBGRA *, struct t_aa0 *);//ClearColor
 	/*24*/int f_24;
 	/*28*/struct fBGRA f_28;
-	/*38*/tRGBA f_38;
+	/*38*/tRGBA f_38;//TODO or is it tBGRA?
 	/*3c*/char __3c[4];
 	/*40*/int (*f_40)(struct tPolygonInfo *);//PolyAllocMemory
 	/*44*/int (*f_44)(int, struct tMatrixInfo *, struct tRenderState *, struct t_g_drv_GroupInfo *, struct tPolygonData *, struct tPolygonInfo *, struct t_aa0 *);//PolyLoad

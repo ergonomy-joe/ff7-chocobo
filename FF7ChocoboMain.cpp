@@ -853,7 +853,7 @@ struct t_menu_shop_local___ *D_00C06910 = 0;
 unsigned char D_00C06914 = 0;
 unsigned short D_00C069B0[3];
 
-unsigned char *C_0041963C(unsigned int bp08, int bp0c, int bp10) { return 0; }
+unsigned char *C_0041963C(unsigned bp08, int bp0c, int bp10) { return 0; }
 
 void C_005C7336(struct t_loadmenu_charaInfo *bp08) {}
 int C_005C81A3(int bp08) { return 0;}
@@ -863,7 +863,7 @@ int C_005C8684(int bp08,int bp0c) { return 0;}
 void C_005CB127() { /*OutputDebugString(__FUNCTION__);*/ }
 void C_005CB2CC(char bp08) { /*OutputDebugString(__FUNCTION__);*/ }
 
-void C_005CD078(unsigned int bp08) {}
+void C_005CD078(unsigned bp08) {}
 ////////////////////////////////////////
 struct t_script_20 *D_00CBF5E8;
 struct t_main_infos *D_00CBF9D8;
@@ -891,20 +891,15 @@ void C_0061C577() {}
 ////////////////////////////////////////
 //used by Chocobo development mode
 ////////////////////////////////////////
-//field:fopen?
-FILE *C_00620510(char const *f, char const *mode) { return fopen(f, mode); }
+/*C_00620510*/FILE *ad_fopen(char const *f, char const *mode) { return fopen(f, mode); }
 
-//field:fclose?
-short C_0062052E(FILE *f) { return fclose(f); }
+/*C_0062052E*/short ad_fclose(FILE *f) { return fclose(f); }
 
-//field:fseek?
-void C_00620550(FILE *f, int ofs, unsigned short org) { fseek(f, ofs, org); }
+/*C_00620550*/void ad_fseek(FILE *f, int ofs, unsigned short org) { fseek(f, ofs, org); }
 
-//field:fread n bytes?
-short C_0062066E(FILE *f, void *p, unsigned int sz) { return fread(p, sz, 1, f); }
+/*C_0062066E*/short ad_freadn(FILE *f, void *p, unsigned sz) { return fread(p, sz, 1, f); }
 
-//filesize?
-int C_0062057F(FILE *f) {
+/*C_0062057F*/int ad_filesize(FILE *f) {
 	long pos = ftell(f);
 	fseek(f, 0, SEEK_END);
 	long ret = ftell(f);

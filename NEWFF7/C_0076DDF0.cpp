@@ -11,7 +11,7 @@
 //"condor"(C_005FAB70.cpp) and "chocobo"(C_0076DDF0.cpp)
 // input modules are very similar.
 ////////////////////////////////////////
-int D_0096E518[0xe][3] = {
+int D_0096E518[14][3] = {
 	{DIK_LEFT,0,LOCAL_DIK_JOY_LEFT},
 	{DIK_DOWN,0,LOCAL_DIK_JOY_DOWN},
 	{DIK_RIGHT,0,LOCAL_DIK_JOY_RIGHT},
@@ -29,27 +29,27 @@ int D_0096E518[0xe][3] = {
 };
 ////////////////////////////////////////
 unsigned D_00E71620;//input mask
-int D_00E71624;
+int D_00E71624;//1st/tracked chocobo
 int D_00E71628[15];
 //00E71664
 ////////////////////////////////////////
-//chobobo.input.reset?
+//chobobo:input.reset
 void C_0076DDF0() {
-	D_00E71628[0] = 0;
-	D_00E71628[1] = 0;
-	D_00E71628[2] = 0;
-	D_00E71628[3] = 0;
+	D_00E71628[0] = 0;//LEFT
+	D_00E71628[1] = 0;//UP
+	D_00E71628[2] = 0;//DOWN
+	D_00E71628[3] = 0;//RIGHT
 
-	D_00E71628[5] = 0;
-	D_00E71628[6] = 0;
-	D_00E71628[7] = 0;
-	D_00E71628[8] = 0;
-	D_00E71628[9] = 0;
-	D_00E71628[10] = 0;
-	D_00E71628[11] = 0;
-	D_00E71628[12] = 0;
-	D_00E71628[13] = 0;
-	D_00E71628[14] = 0;
+	D_00E71628[5] = 0;//SWITCH
+	D_00E71628[6] = 0;//OK
+	D_00E71628[7] = 0;//MENU
+	D_00E71628[8] = 0;//CANCEL
+	D_00E71628[9] = 0;//PGDN
+	D_00E71628[10] = 0;//TARGET
+	D_00E71628[11] = 0;//PGUP
+	D_00E71628[12] = 0;//CAMERA
+	D_00E71628[13] = 0;//START
+	D_00E71628[14] = 0;//ASSIST
 }
 
 int C_0076DECF(int);//get mask?
@@ -60,7 +60,7 @@ void __0076DE81() {
 		int i;//local_1
 	}lolo;
 
-	for(lolo.i = 0; lolo.i < 0xe; lolo.i ++) {
+	for(lolo.i = 0; lolo.i < 14; lolo.i ++) {
 		lolo.dwMask = C_0076DECF(lolo.i);//get mask?
 		PAD_setCommand(0, lolo.dwMask, D_0096E518[lolo.i][0]);
 	}//end for
@@ -91,7 +91,7 @@ int C_0076DECF(int bp08) {
 int C_0076E10D(int);//test triggered mask for choboco?
 int C_0076E12B(int);//test pressed mask for chocobo?
 
-//chocobo:refresh input
+//chocobo:input.refresh
 void C_0076DF8C() {
 	struct t_aa0 *local_1;
 
@@ -130,7 +130,7 @@ int C_0076E12B(int bp08) {
 		return 0;
 }
 
-//chocobo:compute input mask
+//chocobo:input.compute_mask
 void C_0076E149() {
 	D_00E71620 = 
 		(D_00E71628[0] << CH_KEY_LEFT) |

@@ -10,8 +10,8 @@
 #include "ff7.h"
 #include "chocobo_data.h"
 ////////////////////////////////////////
-int D_00E73C10;
-int D_00E73C14,D_00E73C18,D_00E73C1C;
+int D_00E73C10;//0=RGB565,1=...
+int D_00E73C14,D_00E73C18,D_00E73C1C;//RGB mask
 LPDIRECTDRAW D_00E73C20;
 LPDIRECTDRAWSURFACE D_00E73C24;
 LPDIRECTDRAWSURFACE D_00E73C28;
@@ -151,7 +151,7 @@ void C_0077977B(LPDIRECTDRAWSURFACE bp08, int bp0c, int bp10) {
 }
 
 //ch_ddraw:CreateSurface
-LPDIRECTDRAWSURFACE __007797A5(int bp08, int bp0c) {
+LPDIRECTDRAWSURFACE __007797A5(int dwWidth/*bp08*/, int dwHeight/*bp0c*/) {
 	struct {
 		LPDIRECTDRAWSURFACE local_29;
 		DDSURFACEDESC local_28;
@@ -162,8 +162,8 @@ LPDIRECTDRAWSURFACE __007797A5(int bp08, int bp0c) {
 	lolo.local_28.dwFlags = DDSD_WIDTH|DDSD_HEIGHT|DDSD_CAPS;
 	lolo.local_28.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
 	lolo.local_28.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
-	lolo.local_28.dwWidth = bp08;
-	lolo.local_28.dwHeight = bp0c;
+	lolo.local_28.dwWidth = dwWidth;
+	lolo.local_28.dwHeight = dwHeight;
 	lolo.hResult = D_00E73C20->CreateSurface(&lolo.local_28, &lolo.local_29, 0);
 	if(lolo.hResult != 0)
 		return 0;

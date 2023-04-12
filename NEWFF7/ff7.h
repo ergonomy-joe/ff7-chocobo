@@ -212,19 +212,19 @@ extern LPDIDEVICEOBJECTDATA C_0041F1C3(void);
 
 
 //====---- from C_00620510.cpp ----====
-extern FILE *C_00620510(const char *, const char *);//sort of fopen?
-extern short C_0062052E(FILE *);//sort of fclose?
-extern void C_00620550(FILE *, int, unsigned short);//sort of fseek?
-extern int C_0062056E(FILE *);//sort of ftell?
-extern int C_0062057F(FILE *);//filesize?
-extern short C_006205CC(FILE *, void *);//sort of fread 1 byte
-extern short C_00620602(FILE *, void *);//sort of fread 2 bytes?
-//extern short __00620638(FILE *, void *);//sort of fread 4 bytes?
-extern short C_0062066E(FILE *, void *, unsigned);//sort of fread n bytes?
-extern short C_006206B3(FILE *, void *, int);//sort of fwrite n bytes?
-extern short C_006206ED(FILE *, unsigned char);//sort of fwrite 1 byte?
-extern short C_00620723(FILE *, unsigned short);//sort of fwrite 2 bytes?
-extern short C_00620759(FILE *, unsigned int);//sort of fwrite 4 bytes?
+/*00620510*/extern FILE *ad_fopen(const char *, const char *);
+/*0062052E*/extern short ad_fclose(FILE *);
+/*00620550*/extern void ad_fseek(FILE *, int, unsigned short);
+/*0062056E*/extern int ad_ftell(FILE *);
+/*0062057F*/extern int ad_filesize(FILE *);
+/*006205CC*/extern short ad_fread8(FILE *, void *);
+/*00620602*/extern short ad_fread16(FILE *, void *);
+/*00620638*/extern short ad_fread32(FILE *, void *);//[unused]
+/*0062066E*/extern short ad_freadn(FILE *, void *, unsigned);
+/*006206B3*/extern short ad_fwriten(FILE *, void *, int);
+/*006206ED*/extern short ad_fwrite8(FILE *, unsigned char);
+/*00620723*/extern short ad_fwrite16(FILE *, unsigned short);
+/*00620759*/extern short ad_fwrite32(FILE *, unsigned int);
 //====---- ----====
 
 

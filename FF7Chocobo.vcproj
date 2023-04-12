@@ -294,6 +294,10 @@
 				RelativePath="NEWFF7\menu_data.h"
 				>
 			</File>
+			<File
+				RelativePath=".\NEWFF7\psx.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="REGISTRY"

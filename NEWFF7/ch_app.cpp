@@ -10,25 +10,27 @@
 #include "ff7.h"
 #include "chocobo_data.h"
 ////////////////////////////////////////
-extern struct t_chocobo_48 D_0096E8D8[];//HIRES
-extern struct t_chocobo_48 D_0096E968[];//HIRES
-extern struct t_chocobo_48 D_0096E9F8[];//LORES
-extern struct t_chocobo_48 D_0096EA88[];//LORES
+extern struct t_chocobo_SpriteUI D_0096E8D8[];//[HIRES][crown #1]/[crown #2]
+extern struct t_chocobo_SpriteUI D_0096E968[];//[HIRES][manual]/[automatic]
+extern struct t_chocobo_SpriteUI D_0096E9F8[];//[LORES][crown #1]/[crown #2]
+extern struct t_chocobo_SpriteUI D_0096EA88[];//[LORES][manual]/[automatic]
 
-extern struct t_chocobo_48 D_0097A4F8[];//HIRES
-extern struct t_chocobo_48 D_0097A810[];//HIRES
-extern struct t_chocobo_48 D_0097AB28[];//HIRES
-extern struct t_chocobo_48 D_0097ACD8[];//LORES
-extern struct t_chocobo_48 D_0097AFA8[];//LORES
-extern struct t_chocobo_48 D_0097B2C0[];//LORES
+extern struct t_chocobo_SpriteUI D_0097A4F8[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097A810[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097AB28[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097ACD8[];//[LORES]
+extern struct t_chocobo_SpriteUI D_0097AFA8[];//[LORES]
+extern struct t_chocobo_SpriteUI D_0097B2C0[];//[LORES]
 
-extern struct t_chocobo_48 D_0097B800[];//HIRES
-extern struct t_chocobo_48 D_0097B9B0[];//LORES
+extern struct t_chocobo_SpriteUI D_0097B800[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097B9B0[];//[LORES]
 
-extern struct t_chocobo_48 D_0097BC98[];//HIRES
-extern struct t_chocobo_48 D_0097BF20[];//LORES
-extern struct t_chocobo_48 D_0097C1A8[];//HIRES
-extern struct t_chocobo_48 D_0097C478[];//LORES
+//== for "bet results" ==
+extern struct t_chocobo_SpriteUI D_0097BC98[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097BF20[];//[LORES]
+//== for "bet menu" ==
+extern struct t_chocobo_SpriteUI D_0097C1A8[];//[HIRES]
+extern struct t_chocobo_SpriteUI D_0097C478[];//[LORES]
 ////////////////////////////////////////
 //=== ===
 LARGE_INTEGER D_00E3BA30;
@@ -36,18 +38,19 @@ LARGE_INTEGER D_00E3BA38;
 struct t_sound_related_24 D_00E3BA40;
 struct tScreenInfo D_00E3BA68;
 int D_00E3BA8C;
-int D_00E3BA90;
+int D_00E3BA90;//# of elements in D_00E3BA9C[0][]
 int D_00E3BA94;
 float D_00E3BA98;
-struct t_chocobo_48 *D_00E3BA9C;
-struct t_chocobo_48 *D_00E3BAA0;
-struct t_chocobo_48 *D_00E3BAA4;
-struct t_chocobo_48 *D_00E3BAA8;
-struct t_chocobo_48 *D_00E3BAAC;
-struct t_chocobo_48 *D_00E3BAB0;
-struct t_chocobo_48 *D_00E3BAB4;
-struct t_chocobo_48 *D_00E3BAB8;
-void (*D_00E3BABC)(unsigned, int, int);//render integer(callback)
+struct t_chocobo_SpriteUI *D_00E3BA9C[8];
+	//[0]
+	//[1]
+	//[2]for "bet menu"
+	//[3]for "bet results"
+	//[4]
+	//[5]
+	//[6][crown #1]/[crown #2]
+	//[7][manual]/[automatic]
+void (*D_00E3BABC)(unsigned, int, int);//draw integer(callback)
 double D_00E3BAC0;
 int D_00E3BAC8;
 int D_00E3BAD0;//endgame flag?
@@ -70,31 +73,31 @@ void C_0076D320(int dwSWRenderer/*bp08*/, int dwGrMode/*bp0c*/) {
 		D_00E3BA68.dwScrXOfs = 0;
 		D_00E3BA68.dwScrYOfs = 0;
 		D_00E3BA8C = 8;
-		D_00E3BA9C = D_0097A4F8;
-		D_00E3BAA0 = D_0097A810;
-		D_00E3BAA4 = D_0097C1A8;
-		D_00E3BAA8 = D_0097BC98;
-		D_00E3BAAC = D_0097AB28;
-		D_00E3BAB4 = D_0096E8D8;
-		D_00E3BAB8 = D_0096E968;
-		D_00E3BA90 = 0xb;
-		D_00E3BABC = C_00776D2B;
-		D_00E3BAB0 = D_0097B800;
+		D_00E3BA9C[0] = D_0097A4F8;
+		D_00E3BA9C[1] = D_0097A810;
+		D_00E3BA9C[2] = D_0097C1A8;//for "bet menu"
+		D_00E3BA9C[3] = D_0097BC98;//for "bet results"
+		D_00E3BA9C[4] = D_0097AB28;
+		D_00E3BA9C[6] = D_0096E8D8;//[crown #1]/[crown #2]
+		D_00E3BA9C[7] = D_0096E968;//[manual]/[automatic]
+		D_00E3BA90 = 11;//# of elements in D_00E3BA9C[0][]
+		D_00E3BABC = C_00776D2B;//chocobo:draw integer(callback)[HIRES]
+		D_00E3BA9C[5] = D_0097B800;
 		D_00E3BA94 = 0x20;
 	} else {
 		//===========
 		//== LORES ==
 		//===========
-		D_00E3BA9C = D_0097ACD8;
-		D_00E3BAA0 = D_0097AFA8;
-		D_00E3BAA4 = D_0097C478;
-		D_00E3BAA8 = D_0097BF20;
-		D_00E3BAAC = D_0097B2C0;
-		D_00E3BAB4 = D_0096E9F8;
-		D_00E3BAB8 = D_0096EA88;
-		D_00E3BA90 = 0xa;
-		D_00E3BABC = C_00776B8C;
-		D_00E3BAB0 = D_0097B9B0;
+		D_00E3BA9C[0] = D_0097ACD8;
+		D_00E3BA9C[1] = D_0097AFA8;
+		D_00E3BA9C[2] = D_0097C478;//for "bet menu"
+		D_00E3BA9C[3] = D_0097BF20;//for "bet results"
+		D_00E3BA9C[4] = D_0097B2C0;
+		D_00E3BA9C[6] = D_0096E9F8;//[crown #1]/[crown #2]
+		D_00E3BA9C[7] = D_0096EA88;//[manual]/[automatic]
+		D_00E3BA90 = 10;//# of elements in D_00E3BA9C[0][]
+		D_00E3BABC = C_00776B8C;//chocobo:draw integer(callback)[LORES]
+		D_00E3BA9C[5] = D_0097B9B0;
 		D_00E3BA94 = 0x10;
 		D_00E3BA68.f_18 = 1;
 		D_00E3BA98 = 232.0f;
@@ -187,8 +190,8 @@ void C_0076D597(struct t_aa0 *bp08) {
 
 void C_0076D6DF() {
 	struct {
-		struct SVECTOR local_37;
-		struct VECTOR local_35;
+		struct SVECTOR sVectRot;//local_37
+		struct VECTOR lVectTrans;//local_35
 		struct t_rsd_74 *local_31;
 		struct t_aa0 *local_30;
 		struct t_rsd_74 local_29;
@@ -200,32 +203,38 @@ void C_0076D6DF() {
 	C_0067455E(lolo.local_31);//rsd:init with blend mode 4?
 	lolo.local_31->dwRSDFlags |= RSD_00100000;
 	C_00674659(4, lolo.local_31);//rsd:set blend mode?
-	C_0077C430(lolo.local_30, lolo.local_31);
-
+	C_0077C430(lolo.local_30, lolo.local_31);//chocobo:init
+	//-- set transformation matrix for "bet menu" --
+	//(running chocobo model)
 	C_00661B68(0, 0);//psx:set view x,y?
-	lolo.local_37.f_00 = 0;
-	lolo.local_37.f_02 = 0;
-	lolo.local_37.f_04 = 0x800;
-	psx_RotMatrixXYZ(&lolo.local_37, &D_00E73DB0);
-	lolo.local_35.f_00 = 320;
-	lolo.local_35.f_04 = 0xf0;
-	lolo.local_35.f_08 = 0x384;
-	psx_TransMatrix(&D_00E73DB0, &lolo.local_35);
+	lolo.sVectRot.f_00 = 0;
+	lolo.sVectRot.f_02 = 0;
+	lolo.sVectRot.f_04 = 0x800;
+	psx_RotMatrixXYZ(&lolo.sVectRot, &D_00E73DB0);
+	//====
+	//D_00E73354, D_00E7334C and D_00E73350 hold the
+	// same values: 320, 240 and 900.
+	//====
+	lolo.lVectTrans.f_00 = 320;
+	lolo.lVectTrans.f_04 = 240;
+	lolo.lVectTrans.f_08 = 900;
+	psx_TransMatrix(&D_00E73DB0, &lolo.lVectTrans);
 	psx_SetRotMatrix(&D_00E73DB0);
 	psx_SetTransMatrix(&D_00E73DB0);
 	C_006611FB(&D_00E73DB0, &D_00E72E18);//psx:transformation to D3DMATRIX(1)
-	C_0077B9A9(lolo.local_30);
+	C_0077B9A9(lolo.local_30);//chocobo:set transformation matrix[3D models]?
 }
 
+//release data from "chocobo.wat"
 void C_0076D7D8() {
 	if(D_00E7112C) {
 		if(D_00972174 == 0) {//else 0076D997
 			//===========
 			//== DEVEL ==
 			//===========
-			if(D_00E7112C->f_08) {
-				mem_free(D_00E7112C->f_08, __FF7FILE__, 0x179);
-				D_00E7112C->f_08 = 0;
+			if(D_00E7112C->pTrackElement) {
+				mem_free(D_00E7112C->pTrackElement, __FF7FILE__, 0x179);
+				D_00E7112C->pTrackElement = 0;
 			}
 			if(D_00E7112C->pDG4) {
 				mem_free(D_00E7112C->pDG4, __FF7FILE__, 0x17e);
@@ -286,14 +295,14 @@ void C_0076D7D8() {
 //chocobo[END][callback]
 void C_0076DA88(struct t_aa0 *_p08) {
 	C_0076EFF0();//ch_chr:clean(1)?
-	C_007714E9();//[release this module]
-	C_0076D7D8();
+	C_007714E9();//chocobo:2D elements.clean
+	C_0076D7D8();//release data from "chocobo.wat"
 	if(D_00E3B754) {
 		mem_free(D_00E3B754, __FF7FILE__, 0x1ca);
 		D_00E3B754 = 0;
 	}
 	C_0076FD68();//ch_chr:clean(2)?
-	C_007700D9();//chocobo:clean this module
+	C_007700D9();//chocobo:terrain/scenery.clean
 	D_00E73C20 = 0;
 	D_00E73C24 = 0;
 	D_00E3BAD0 = 1;
@@ -305,6 +314,7 @@ void __0076DAEF(int dwX/*bp08*/, int dwY/*bp0c*/, const char *szText/*bp10*/, HD
 	TextOut(hdc, dwX, dwY, szText, lstrlen(szText));
 }
 
+//end chocobo(if necessary)
 void C_0076DB33(struct t_aa0 *bp08) {
 	struct {
 		struct tMainCallbacks local_11;
@@ -330,42 +340,53 @@ void C_0076DB33(struct t_aa0 *bp08) {
 //chocobo[UPDATE][callback]
 void C_0076DBD1(struct t_aa0 *bp08) {
 	struct {
-		int local_6;
-		int local_5;
+		int unused_local_6;
+		int unused_local_5;
 		struct fBGRA local_4;
 	}lolo;
 
-	lolo.local_5 = 0;
-	lolo.local_6 = 1;
+	//-- --
+	lolo.unused_local_5 = 0;
+	lolo.unused_local_6 = 1;
+	//-- --
 	TS_getCPUTimeStamp(&D_00E3BA38);
+
 	lolo.local_4.r = 0; lolo.local_4.g = 0; lolo.local_4.b = 0; lolo.local_4.a = 1.0f;
 	g_drv_clearColor(&lolo.local_4, bp08);
 	g_drv_clearAll(bp08);
 
-	C_0076DF8C();//chocobo:refresh input
+	C_0076DF8C();//chocobo:input.refresh
 	C_0077C462();//chocobo:refresh
 	if(D_00E3BAD0 == 0)
-		C_00779E14(bp08);
+		C_00779E14(bp08);//chocobo:reset+tempo+frameskip
 	else
-		C_0076DB33(bp08);
+		C_0076DB33(bp08);//end chocobo(if necessary)
 }
 
+//ch_app:similar to "chocobo[UPDATE][callback]"
 void C_0076DC5B(struct t_aa0 *bp08) {
 	struct {
-		int local_6;
-		int local_5;
+		int unused_local_6;
+		int unused_local_5;
 		struct fBGRA _ocal_4;
 	}lolo;
 
-	lolo.local_5 = 0;
-	lolo.local_6 = 1;
+	//-- --
+	lolo.unused_local_5 = 0;
+	lolo.unused_local_6 = 1;
+	//-- --
 	TS_getCPUTimeStamp(&D_00E3BA38);
 
-	C_0076DF8C();//chocobo:refresh input
+	//
+	//
+	//
+
+	C_0076DF8C();//chocobo:input.refresh
 	C_0077C462();//chocobo:refresh
 	if(D_00E3BAD0 == 0)
-		C_00779E14(bp08);
-	C_0076DB33(bp08);
+		C_00779E14(bp08);//chocobo:reset+tempo+frameskip
+	//
+		C_0076DB33(bp08);//end chocobo(if necessary)
 }
 
 //chocobo[ONMOUSE][callback]

@@ -3,15 +3,14 @@
 	(c) 1997 Square
 	decompiled by ergonomy_joe in 2018
 */
-//Chocobo --
+//Chocobo -- trigonometry
 
 #include "ff7.h"
-
 #include "chocobo_data.h"
 
 extern short D_0097CDA0[];
 
-//chocobo:some atan2?
+//chocobo:atan2?
 short C_0077CF40(short bp08, short bp0c) {
 	if(bp08 > 0xfff)
 		return 0x400;
@@ -34,5 +33,5 @@ short C_0077CFBF(struct SVECTOR *bp08, struct SVECTOR *bp0c) {
 	local_4.f_08 = bp0c->f_04 - bp08->f_04;
 	psx_VectorNormal(&local_4, &local_4);
 
-	return C_0077CF40(local_4.f_00, local_4.f_08);//chocobo:some atan2?
+	return C_0077CF40(local_4.f_00, local_4.f_08);//chocobo:atan2?
 }

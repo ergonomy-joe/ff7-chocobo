@@ -3,11 +3,12 @@
 	(c) 1997 Square
 	decompiled by ergonomy_joe in 2018
 */
-//Chocobo -- sound FX?
+//Chocobo -- sound FX
 
 #include "ff7.h"
 #include "chocobo_data.h"
 ////////////////////////////////////////
+//-- long course --
 int D_0096E5C0[9] = {
 	0x026,
 	0x0C5,
@@ -43,6 +44,7 @@ struct t_chocobo_data_SoundEventInfo D_0096E5E8[] = {
 	{0x29,{0x040,0x231,0,0,0,0}},
 	{0x28,{0x064,0x1D0,0,0,0,0}}
 };
+//-- short course --
 int D_0096E738[7] = {
 	0x026,
 	0x0C5,
@@ -77,8 +79,8 @@ struct t_chocobo_data_SoundEventInfo D_0096E758[] = {
 int *D_00E71668;//SFX list
 int D_00E7166C;//# of SFX
 ////////////////////////////////////////
-//chocobo:get sounds info?
-struct t_chocobo_data_SoundEventInfo *C_0076E1F0(int bp08) {
+//chocobo:get sounds info
+struct t_chocobo_data_SoundEventInfo *C_0076E1F0(int bp08/*long/short race*/) {
 	if(bp08 == 0) {
 		D_00E71668 = D_0096E5C0;
 		D_00E7166C = 9;
