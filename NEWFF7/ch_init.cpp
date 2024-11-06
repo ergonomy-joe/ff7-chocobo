@@ -285,13 +285,13 @@ void C_0076B87E() {
 
 //ch_init:reset snd channels?
 void C_0076BA66() {
-	D_00E71664->f_00 = 0x23;//play 4 sfx
+	D_00E71664->wOpCode = SOUND_OP_23;//play 4 sfx
 	D_00E71664->f_04[0] = 0x40;
 	D_00E71664->f_04[1] =
 	D_00E71664->f_04[2] =
 	D_00E71664->f_04[3] =
 	D_00E71664->f_04[4] = 0;
-	C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], D_00E71664->f_04[1], D_00E71664->f_04[2], D_00E71664->f_04[3], D_00E71664->f_04[4], 0, 0, 0);
+	C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], D_00E71664->f_04[1], D_00E71664->f_04[2], D_00E71664->f_04[3], D_00E71664->f_04[4], 0, 0, 0);
 }
 
 void C_0076C01F(int);
@@ -320,9 +320,9 @@ void C_0076BAFD(struct t_aa0 *bp08, struct t_rsd_74 *bp0c) {
 	C_0076F920(bp0c, bp08, D_00E3B74C);//ch_chr:init(2)?
 	psx_SetGeomOffset(320 / 2, 240 / 2);
 	psx_SetGeomScreen(270);
-	D_00E71040.f_00 = 0;
-	D_00E71040.f_02 = 0;
-	D_00E71040.f_04 = 0;
+	D_00E71040.vx = 0;
+	D_00E71040.vy = 0;
+	D_00E71040.vz = 0;
 	C_0076D316();//<empty>
 	C_0076C57E(D_00DC0AE3, D_00DC0AF3);//load/parse "chocobo.wat"
 	C_0076E22F();//chocobo:load/prepare SFX
@@ -534,8 +534,8 @@ char *__0076C3C1(const char *bp08) {
 	struct {
 		struct t_chocobo_data_floatDG3 *pDst;//local_4
 		struct t_chocobo_data_DOMEG3 *pSrc;//local_3
-		unsigned short i; char _ocal_2[2];//local_2
-		unsigned char cTemp; char _ocal_1[3];//local_1
+		DECL_unsigned_short(i);//local_2
+		DECL_unsigned_char(cTemp);//local_1
 	}lolo;
 
 	D_00E7112C->pFloatDOMEG3 = (struct t_chocobo_data_floatDG3 *)mem_malloc(D_00E7112C->wCountDOMEG3 * sizeof(struct t_chocobo_data_floatDG3) + 1, /*0096E1C4*/__FF7FILE__, 0x22e);
@@ -566,17 +566,17 @@ char *__0076C3C1(const char *bp08) {
 		lolo.pDst->color2.bgra = lolo.pSrc->color2.rgba | 0xff000000;
 		SWAP(lolo.pDst->color2.c.b, lolo.pDst->color2.c.r, lolo.cTemp);
 
-		lolo.pDst->fvect0.f_00 = (float)lolo.pSrc->svect0.f_00;
-		lolo.pDst->fvect0.f_04 = (float)lolo.pSrc->svect0.f_02;
-		lolo.pDst->fvect0.f_08 = (float)lolo.pSrc->svect0.f_04;
+		lolo.pDst->fvect0.x = (float)lolo.pSrc->svect0.vx;
+		lolo.pDst->fvect0.y = (float)lolo.pSrc->svect0.vy;
+		lolo.pDst->fvect0.z = (float)lolo.pSrc->svect0.vz;
 
-		lolo.pDst->fvect1.f_00 = (float)lolo.pSrc->svect1.f_00;
-		lolo.pDst->fvect1.f_04 = (float)lolo.pSrc->svect1.f_02;
-		lolo.pDst->fvect1.f_08 = (float)lolo.pSrc->svect1.f_04;
+		lolo.pDst->fvect1.x = (float)lolo.pSrc->svect1.vx;
+		lolo.pDst->fvect1.y = (float)lolo.pSrc->svect1.vy;
+		lolo.pDst->fvect1.z = (float)lolo.pSrc->svect1.vz;
 
-		lolo.pDst->fvect2.f_00 = (float)lolo.pSrc->svect2.f_00;
-		lolo.pDst->fvect2.f_04 = (float)lolo.pSrc->svect2.f_02;
-		lolo.pDst->fvect2.f_08 = (float)lolo.pSrc->svect2.f_04;
+		lolo.pDst->fvect2.x = (float)lolo.pSrc->svect2.vx;
+		lolo.pDst->fvect2.y = (float)lolo.pSrc->svect2.vy;
+		lolo.pDst->fvect2.z = (float)lolo.pSrc->svect2.vz;
 	}//end for
 }
 
@@ -586,8 +586,8 @@ char *__0076C3C1(const char *bp08) {
 		unsigned dwColor_0;//local_8
 		struct t_chocobo_data_floatDG3 *pDst;//local_7
 		struct t_chocobo_data_DG3 *pSrc;//local_6
-		unsigned short i; char _ocal_5[2];//local_5
-		unsigned char cTemp; char _ocal_4[3];//local_4
+		DECL_unsigned_short(i);//local_5
+		DECL_unsigned_char(cTemp);//local_4
 		unsigned dwColor_2;//local_3
 		union {
 			unsigned asUnsigned;
@@ -602,18 +602,18 @@ char *__0076C3C1(const char *bp08) {
 		lolo.pDst = &(D_00E7112C->pFloatDG3[lolo.i]);
 		lolo.pSrc = &(D_00E7112C->pDG3[lolo.i]);
 
-		lolo.local_2.asShort = lolo.pSrc->svect0.f_06;
-		lolo.local_2.asByte[2] = lolo.pSrc->svect1.f_06 & 0xff;
+		lolo.local_2.asShort = lolo.pSrc->svect0.pad;
+		lolo.local_2.asByte[2] = lolo.pSrc->svect1.pad & 0xff;
 		lolo.dwColor_1 = lolo.local_2.asUnsigned;
 
 		lolo.dwColor_0 = lolo.pSrc->color0.rgba;
 
-		lolo.local_2.asShort = lolo.pSrc->svect0.f_06;
-		lolo.local_2.asByte[2] = lolo.pSrc->svect1.f_06 & 0xff;
+		lolo.local_2.asShort = lolo.pSrc->svect0.pad;
+		lolo.local_2.asByte[2] = lolo.pSrc->svect1.pad & 0xff;
 		//same as lolo.dwColor_1/not used?
 
-		lolo.local_2.asShort = lolo.pSrc->svect2.f_06;
-		lolo.local_2.asByte[2] = lolo.pSrc->svect1.f_06 >> 8;
+		lolo.local_2.asShort = lolo.pSrc->svect2.pad;
+		lolo.local_2.asByte[2] = lolo.pSrc->svect1.pad >> 8;
 		lolo.dwColor_2 = lolo.local_2.asUnsigned;
 
 		lolo.pDst->color0.bgra = lolo.dwColor_0 | 0xff000000;
@@ -625,17 +625,17 @@ char *__0076C3C1(const char *bp08) {
 		lolo.pDst->color2.bgra = lolo.dwColor_2 | 0xff000000;
 		SWAP(lolo.pDst->color2.c.b, lolo.pDst->color2.c.r, lolo.cTemp);
 
-		lolo.pDst->fvect0.f_00 = (float)lolo.pSrc->svect0.f_00;
-		lolo.pDst->fvect0.f_04 = (float)lolo.pSrc->svect0.f_02;
-		lolo.pDst->fvect0.f_08 = (float)lolo.pSrc->svect0.f_04;
+		lolo.pDst->fvect0.x = (float)lolo.pSrc->svect0.vx;
+		lolo.pDst->fvect0.y = (float)lolo.pSrc->svect0.vy;
+		lolo.pDst->fvect0.z = (float)lolo.pSrc->svect0.vz;
 
-		lolo.pDst->fvect1.f_00 = (float)lolo.pSrc->svect1.f_00;
-		lolo.pDst->fvect1.f_04 = (float)lolo.pSrc->svect1.f_02;
-		lolo.pDst->fvect1.f_08 = (float)lolo.pSrc->svect1.f_04;
+		lolo.pDst->fvect1.x = (float)lolo.pSrc->svect1.vx;
+		lolo.pDst->fvect1.y = (float)lolo.pSrc->svect1.vy;
+		lolo.pDst->fvect1.z = (float)lolo.pSrc->svect1.vz;
 
-		lolo.pDst->fvect2.f_00 = (float)lolo.pSrc->svect2.f_00;
-		lolo.pDst->fvect2.f_04 = (float)lolo.pSrc->svect2.f_02;
-		lolo.pDst->fvect2.f_08 = (float)lolo.pSrc->svect2.f_04;
+		lolo.pDst->fvect2.x = (float)lolo.pSrc->svect2.vx;
+		lolo.pDst->fvect2.y = (float)lolo.pSrc->svect2.vy;
+		lolo.pDst->fvect2.z = (float)lolo.pSrc->svect2.vz;
 	}//end for
 }
 
@@ -645,8 +645,8 @@ char *__0076C3C1(const char *bp08) {
 		unsigned dwColor_0;//local_9
 		struct t_chocobo_data_floatDG4 *pDst;//local_8
 		struct t_chocobo_data_DG4 *pSrc;//local_7
-		unsigned short i; char _ocal_6[2];//local_6
-		unsigned char cTemp; char _ocal_5[3];//local_5
+		DECL_unsigned_short(i);//local_6
+		DECL_unsigned_char(cTemp);//local_5
 		unsigned dwColor_3;//local_4
 		unsigned dwColor_2;//local_3
 		union {
@@ -665,11 +665,11 @@ char *__0076C3C1(const char *bp08) {
 		lolo.dwColor_0 = lolo.pSrc->color1.rgba;
 		lolo.dwColor_3 = lolo.pSrc->color0.rgba;
 
-		lolo.local_2.asByte[2] = lolo.pSrc->svect1.f_06 >> 8;
-		lolo.local_2.asShort = lolo.pSrc->svect2.f_06;
+		lolo.local_2.asByte[2] = lolo.pSrc->svect1.pad >> 8;
+		lolo.local_2.asShort = lolo.pSrc->svect2.pad;
 		lolo.dwColor_1 = lolo.local_2.asUnsigned;
 
-		lolo.local_2.asShort = lolo.pSrc->svect3.f_06;
+		lolo.local_2.asShort = lolo.pSrc->svect3.pad;
 		lolo.local_2.asByte[2] = lolo.pSrc->color0.c.a;
 		lolo.dwColor_2 = lolo.local_2.asUnsigned;
 
@@ -685,21 +685,21 @@ char *__0076C3C1(const char *bp08) {
 		lolo.pDst->color3.bgra = lolo.dwColor_3 | 0xff000000;
 		SWAP(lolo.pDst->color3.c.b, lolo.pDst->color3.c.r, lolo.cTemp);
 
-		lolo.pDst->fvect0.f_00 = (float)lolo.pSrc->svect0.f_00;
-		lolo.pDst->fvect0.f_04 = (float)lolo.pSrc->svect0.f_02;
-		lolo.pDst->fvect0.f_08 = (float)lolo.pSrc->svect0.f_04;
+		lolo.pDst->fvect0.x = (float)lolo.pSrc->svect0.vx;
+		lolo.pDst->fvect0.y = (float)lolo.pSrc->svect0.vy;
+		lolo.pDst->fvect0.z = (float)lolo.pSrc->svect0.vz;
 
-		lolo.pDst->fvect1.f_00 = (float)lolo.pSrc->svect1.f_00;
-		lolo.pDst->fvect1.f_04 = (float)lolo.pSrc->svect1.f_02;
-		lolo.pDst->fvect1.f_08 = (float)lolo.pSrc->svect1.f_04;
+		lolo.pDst->fvect1.x = (float)lolo.pSrc->svect1.vx;
+		lolo.pDst->fvect1.y = (float)lolo.pSrc->svect1.vy;
+		lolo.pDst->fvect1.z = (float)lolo.pSrc->svect1.vz;
 
-		lolo.pDst->fvect2.f_00 = (float)lolo.pSrc->svect2.f_00;
-		lolo.pDst->fvect2.f_04 = (float)lolo.pSrc->svect2.f_02;
-		lolo.pDst->fvect2.f_08 = (float)lolo.pSrc->svect2.f_04;
+		lolo.pDst->fvect2.x = (float)lolo.pSrc->svect2.vx;
+		lolo.pDst->fvect2.y = (float)lolo.pSrc->svect2.vy;
+		lolo.pDst->fvect2.z = (float)lolo.pSrc->svect2.vz;
 
-		lolo.pDst->fvect3.f_00 = (float)lolo.pSrc->svect3.f_00;
-		lolo.pDst->fvect3.f_04 = (float)lolo.pSrc->svect3.f_02;
-		lolo.pDst->fvect3.f_08 = (float)lolo.pSrc->svect3.f_04;
+		lolo.pDst->fvect3.x = (float)lolo.pSrc->svect3.vx;
+		lolo.pDst->fvect3.y = (float)lolo.pSrc->svect3.vy;
+		lolo.pDst->fvect3.z = (float)lolo.pSrc->svect3.vz;
 	}//end for
 }
 

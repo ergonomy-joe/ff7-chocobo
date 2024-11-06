@@ -20,15 +20,15 @@ extern unsigned char D_0097CC58[][7];//chocobo names
 #define CHOCOBO_TYPE_MAX 4
 
 #define MK_TRACK_POS(v,path_t,r_left,r_right) { \
-	(v).f_00 = (D_00E715FC[path_t].sVect_Left.f_00 * r_left + D_00E715FC[path_t].sVect_Right.f_00 * r_right) / 256; \
-	(v).f_04 = (D_00E715FC[path_t].sVect_Left.f_02 * r_left + D_00E715FC[path_t].sVect_Right.f_02 * r_right) / 256; \
-	(v).f_08 = (D_00E715FC[path_t].sVect_Left.f_04 * r_left + D_00E715FC[path_t].sVect_Right.f_04 * r_right) / 256; \
+	(v).vx = (D_00E715FC[path_t].sVect_Left.vx * r_left + D_00E715FC[path_t].sVect_Right.vx * r_right) / 256; \
+	(v).vy = (D_00E715FC[path_t].sVect_Left.vy * r_left + D_00E715FC[path_t].sVect_Right.vy * r_right) / 256; \
+	(v).vz = (D_00E715FC[path_t].sVect_Left.vz * r_left + D_00E715FC[path_t].sVect_Right.vz * r_right) / 256; \
 }
 
 #define S_MK_TRACK_POS(v,path_t,r_left,r_right) { \
-	(v).f_00 = (D_00E715FC[path_t].sVect_Left.f_00 * r_left + D_00E715FC[path_t].sVect_Right.f_00 * r_right) / 256; \
-	(v).f_02 = (D_00E715FC[path_t].sVect_Left.f_02 * r_left + D_00E715FC[path_t].sVect_Right.f_02 * r_right) / 256; \
-	(v).f_04 = (D_00E715FC[path_t].sVect_Left.f_04 * r_left + D_00E715FC[path_t].sVect_Right.f_04 * r_right) / 256; \
+	(v).vx = (D_00E715FC[path_t].sVect_Left.vx * r_left + D_00E715FC[path_t].sVect_Right.vx * r_right) / 256; \
+	(v).vy = (D_00E715FC[path_t].sVect_Left.vy * r_left + D_00E715FC[path_t].sVect_Right.vy * r_right) / 256; \
+	(v).vz = (D_00E715FC[path_t].sVect_Left.vz * r_left + D_00E715FC[path_t].sVect_Right.vz * r_right) / 256; \
 }
 ////////////////////////////////////////
 extern int D_00E71000[/*6*/];//chocobo signed distance from camera
@@ -74,7 +74,7 @@ void C_00772357() {
 		int bp_f4;
 		int dwTemp_1;//bp_f0
 		int bp_ec;
-		short i; char _p_e8[2];//bp_e8
+		DECL_short(i);//bp_e8
 		int bp_e4;
 		int bp_e0;
 		struct t_chocobo_ChocoboInfo *pChocobo;//bp_dc
@@ -164,24 +164,24 @@ void C_00772357() {
 
 		S_MK_TRACK_POS(lolo.pChocobo->sPos_cur, lolo.pChocobo->wPathT_cur, lolo.pChocobo->f_7c, lolo.bp_f4);
 
-		lolo.pChocobo->sPos_orig.f_00 = lolo.pChocobo->sPos_cur.f_00;
-		lolo.pChocobo->sPos_orig.f_02 = lolo.pChocobo->sPos_cur.f_02;
-		lolo.pChocobo->sPos_orig.f_04 = lolo.pChocobo->sPos_cur.f_04;
+		lolo.pChocobo->sPos_orig.vx = lolo.pChocobo->sPos_cur.vx;
+		lolo.pChocobo->sPos_orig.vy = lolo.pChocobo->sPos_cur.vy;
+		lolo.pChocobo->sPos_orig.vz = lolo.pChocobo->sPos_cur.vz;
 
 		S_MK_TRACK_POS(lolo.pChocobo->sPos_next, lolo.pChocobo->wPathT_next, lolo.pChocobo->f_7c, lolo.bp_f4);
 
-		lolo.pChocobo->sRot_cur.f_00 = 0;
-		lolo.pChocobo->sRot_cur.f_02 = 0;
-		lolo.pChocobo->sRot_cur.f_04 = 0;
+		lolo.pChocobo->sRot_cur.vx = 0;
+		lolo.pChocobo->sRot_cur.vy = 0;
+		lolo.pChocobo->sRot_cur.vz = 0;
 
-		lolo.pChocobo->sRot_next.f_00 = 0;
-		lolo.pChocobo->sRot_next.f_02 = 0;
-		lolo.pChocobo->sRot_next.f_04 = 0;
+		lolo.pChocobo->sRot_next.vx = 0;
+		lolo.pChocobo->sRot_next.vy = 0;
+		lolo.pChocobo->sRot_next.vz = 0;
 
 		//0x800 and 0x801?!?
 		// anyway, this value is overwritten a
 		// few lines below.
-		lolo.pChocobo->sRot_cur.f_02 = C_0077CFBF(&(D_00E715FC[0x800].sVect_Left), &(D_00E715FC[0x801].sVect_Left));//chocobo:make dir angle?
+		lolo.pChocobo->sRot_cur.vy = C_0077CFBF(&(D_00E715FC[0x800].sVect_Left), &(D_00E715FC[0x801].sVect_Left));//chocobo:make dir angle?
 
 		lolo.pChocobo->wPosition = 0;
 		lolo.pChocobo->wAnimationCounter = 0;
@@ -189,11 +189,11 @@ void C_00772357() {
 		lolo.pChocobo->wFinished = 0;
 		lolo.pChocobo->wAnimationId = 0;//run
 
-		lolo.bp_d8.f_00 = lolo.pChocobo->sPos_next.f_00 - lolo.pChocobo->sPos_cur.f_00;
-		lolo.bp_d8.f_04 = lolo.pChocobo->sPos_next.f_02 - lolo.pChocobo->sPos_cur.f_02;
-		lolo.bp_d8.f_08 = lolo.pChocobo->sPos_next.f_04 - lolo.pChocobo->sPos_cur.f_04;
+		lolo.bp_d8.vx = lolo.pChocobo->sPos_next.vx - lolo.pChocobo->sPos_cur.vx;
+		lolo.bp_d8.vy = lolo.pChocobo->sPos_next.vy - lolo.pChocobo->sPos_cur.vy;
+		lolo.bp_d8.vz = lolo.pChocobo->sPos_next.vz - lolo.pChocobo->sPos_cur.vz;
 		psx_VectorNormal(&lolo.bp_d8, &lolo.bp_d8);
-		lolo.pChocobo->sRot_cur.f_02 = lolo.pChocobo->sRot_next.f_02 = C_0077CF40(lolo.bp_d8.f_00, lolo.bp_d8.f_08);//chocobo:atan2?
+		lolo.pChocobo->sRot_cur.vy = lolo.pChocobo->sRot_next.vy = C_0077CF40(lolo.bp_d8.vx, lolo.bp_d8.vz);//chocobo:atan2?
 	}//end for
 	//-- "TEIOH" --
 	if(D_00DC0AF2) {//else 00772EA7
@@ -479,8 +479,8 @@ void C_007737B4(short bp08) {
 		if(lolo.i == bp08)
 			continue;
 		lolo.pChocobo_2 = &(D_00E71158[lolo.i]);
-		lolo.dwDiffX = lolo.pChocobo_1->sPos_cur.f_00 - lolo.pChocobo_2->sPos_cur.f_00;
-		lolo.dwDiffZ = lolo.pChocobo_1->sPos_cur.f_04 - lolo.pChocobo_2->sPos_cur.f_04;
+		lolo.dwDiffX = lolo.pChocobo_1->sPos_cur.vx - lolo.pChocobo_2->sPos_cur.vx;
+		lolo.dwDiffZ = lolo.pChocobo_1->sPos_cur.vz - lolo.pChocobo_2->sPos_cur.vz;
 		lolo.dwDiffX = psx_SquareRoot0(lolo.dwDiffX * lolo.dwDiffX + lolo.dwDiffZ * lolo.dwDiffZ);
 		if(lolo.dwDiffX < 150) {//else 00773C8E
 			if(lolo.pChocobo_2->wFinished) {
@@ -489,38 +489,38 @@ void C_007737B4(short bp08) {
 			}
 			if(lolo.pChocobo_2->wSpeed == 0 || lolo.pChocobo_1->wSpeed == 0)
 				continue;
-			lolo.local_17.f_00 = lolo.pChocobo_1->sPos_cur.f_00 - lolo.pChocobo_2->sPos_cur.f_00;
-			lolo.local_17.f_04 = 0;
-			lolo.local_17.f_08 = lolo.pChocobo_1->sPos_cur.f_04 - lolo.pChocobo_2->sPos_cur.f_04;
+			lolo.local_17.vx = lolo.pChocobo_1->sPos_cur.vx - lolo.pChocobo_2->sPos_cur.vx;
+			lolo.local_17.vy = 0;
+			lolo.local_17.vz = lolo.pChocobo_1->sPos_cur.vz - lolo.pChocobo_2->sPos_cur.vz;
 			lolo.dwInvSpeed_2 = 0x80000 / lolo.pChocobo_2->wSpeed;
 			psx_VectorNormal(&lolo.local_17, &lolo.local_17);
 			lolo.dwInvSpeed_1 = 0x80000 / lolo.pChocobo_1->wSpeed;
-			lolo.dwAngle = C_0077CF40(lolo.local_17.f_00, lolo.local_17.f_08);//chocobo:atan2?
+			lolo.dwAngle = C_0077CF40(lolo.local_17.vx, lolo.local_17.vz);//chocobo:atan2?
 			//-- chocobo makes noise --
 			if(lolo.pChocobo_1->wJockeyId == 0 && lolo.pChocobo_1->wSFXCounter < 0) {//else 00773BC4
 				lolo.pChocobo_1->wSFXCounter = 30;
 				//note: problem here when D_00E71000[bp08] < 0
 				lolo.dwVolume = 0x7f - (D_00E71000[bp08] >> 5);
-				D_00E71664->f_00 = 0xa3;//set volume
+				D_00E71664->wOpCode = SOUND_OP_A3;//set volume
 				D_00E71664->f_04[0] = lolo.dwVolume;
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
 
-				D_00E71664->f_00 = 0x2b;//play SFX[ch 4]
+				D_00E71664->wOpCode = SOUND_OP_2B;//play SFX[ch 4]
 				D_00E71664->f_04[0] = lolo.pChocobo_1->f_7c / 2;//pan
 				D_00E71664->f_04[1] = (rand() & 1) + 0x114;//soundId
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0, 0);
 			}
 			//-- --
 			if(lolo.dwInvSpeed_2) {//else 00773C44
-				lolo.pChocobo_1->sPos_cur.f_00 += psx_rsin(lolo.dwAngle) / lolo.dwInvSpeed_2;
-				lolo.pChocobo_1->sPos_cur.f_04 += -psx_rcos(lolo.dwAngle) / lolo.dwInvSpeed_2;
+				lolo.pChocobo_1->sPos_cur.vx += psx_rsin(lolo.dwAngle) / lolo.dwInvSpeed_2;
+				lolo.pChocobo_1->sPos_cur.vz += -psx_rcos(lolo.dwAngle) / lolo.dwInvSpeed_2;
 				lolo.pChocobo_1->wSpeed -= lolo.pChocobo_1->wSpeed / 8;
 				if(lolo.pChocobo_1->wSpeed < 100)
 					lolo.pChocobo_1->wSpeed = 100;
 			}
 			if(lolo.dwInvSpeed_1) {//else 00773C8E
-				lolo.pChocobo_2->sPos_cur.f_00 -= psx_rsin(lolo.dwAngle) / lolo.dwInvSpeed_1;
-				lolo.pChocobo_2->sPos_cur.f_04 -= -psx_rcos(lolo.dwAngle) / lolo.dwInvSpeed_1;
+				lolo.pChocobo_2->sPos_cur.vx -= psx_rsin(lolo.dwAngle) / lolo.dwInvSpeed_1;
+				lolo.pChocobo_2->sPos_cur.vz -= -psx_rcos(lolo.dwAngle) / lolo.dwInvSpeed_1;
 			}
 		}
 		//-- --
@@ -534,14 +534,14 @@ void C_007737B4(short bp08) {
 	lolo.dwDistance = psx_RotTransPers(&(lolo.pChocobo_1->sPos_cur), (int *)&lolo.local_10, &lolo.local_1, &lolo.local_3);
 	if(
 		lolo.dwDistance < 2200 &&
-		lolo.local_10.f_00 > -20 && lolo.local_10.f_00 < 350 &&
-		lolo.local_10.f_02 > 0 && lolo.local_10.f_02 < 320
+		lolo.local_10.vx > -20 && lolo.local_10.vx < 350 &&
+		lolo.local_10.vy > 0 && lolo.local_10.vy < 320
 	) {
 		lolo.pModelC->dwPatchRotY = 0; lolo.pModelJ->dwPatchRotY = 0;
-		lolo.pModelC->bRotY = lolo.pModelJ->bRotY = 256 - (lolo.pChocobo_1->sRot_cur.f_02 >> 4);
-		lolo.pModelC->wX = lolo.pModelJ->wX = lolo.pChocobo_1->sPos_cur.f_00;
-		lolo.pModelC->wY = lolo.pModelJ->wY = lolo.pChocobo_1->sPos_cur.f_02;
-		lolo.pModelC->wZ = lolo.pModelJ->wZ = lolo.pChocobo_1->sPos_cur.f_04;
+		lolo.pModelC->bRotY = lolo.pModelJ->bRotY = 256 - (lolo.pChocobo_1->sRot_cur.vy >> 4);
+		lolo.pModelC->wX = lolo.pModelJ->wX = lolo.pChocobo_1->sPos_cur.vx;
+		lolo.pModelC->wY = lolo.pModelJ->wY = lolo.pChocobo_1->sPos_cur.vy;
+		lolo.pModelC->wZ = lolo.pModelJ->wZ = lolo.pChocobo_1->sPos_cur.vz;
 		D_00E71020[bp08] = 1;
 		D_00E71000[bp08] = lolo.dwDistance;
 	}
@@ -558,7 +558,7 @@ void C_00773DD8(short bp08) {
 		int bp_68;
 		struct VECTOR bp_64;
 		int bp_54;
-		short wEvent; char _p_50[2];
+		DECL_short(wEvent);
 		struct SVECTOR *vTrackRight;//bp_4c
 		struct VECTOR bp_48;
 		struct SVECTOR *vTrackLeft;//bp_38
@@ -592,15 +592,15 @@ void C_00773DD8(short bp08) {
 	lolo.vTrackLeft = &(D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left);
 	lolo.vTrackRight = &(D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right);
 
-	lolo.bp_10.f_00 = lolo.vTrackRight->f_00 - lolo.vTrackLeft->f_00;
-	lolo.bp_10.f_04 = 0;
-	lolo.bp_10.f_08 = lolo.vTrackRight->f_04 - lolo.vTrackLeft->f_04;
+	lolo.bp_10.vx = lolo.vTrackRight->vx - lolo.vTrackLeft->vx;
+	lolo.bp_10.vy = 0;
+	lolo.bp_10.vz = lolo.vTrackRight->vz - lolo.vTrackLeft->vz;
 
-	lolo.bp_20.f_00 = lolo.pChocobo->sPos_cur.f_00 - lolo.vTrackLeft->f_00;
-	lolo.bp_20.f_04 = 0;
-	lolo.bp_20.f_08 = lolo.pChocobo->sPos_cur.f_04 - lolo.vTrackLeft->f_04;
+	lolo.bp_20.vx = lolo.pChocobo->sPos_cur.vx - lolo.vTrackLeft->vx;
+	lolo.bp_20.vy = 0;
+	lolo.bp_20.vz = lolo.pChocobo->sPos_cur.vz - lolo.vTrackLeft->vz;
 	psx_OuterProduct12(&lolo.bp_10, &lolo.bp_20, &lolo.bp_10);
-	if(lolo.bp_10.f_04 >= 0) {//else ________
+	if(lolo.bp_10.vy >= 0) {//else ________
 		//crossed new "segment"
 		lolo.pChocobo->f_84 = 0;
 		lolo.j = lolo.pChocobo->wPathT_cur + 20;
@@ -610,15 +610,15 @@ void C_00773DD8(short bp08) {
 			lolo.vTrackLeft = &(D_00E715FC[lolo.dwPathT].sVect_Left);
 			lolo.vTrackRight = &(D_00E715FC[lolo.dwPathT].sVect_Right);
 
-			lolo.bp_10.f_00 = lolo.vTrackRight->f_00 - lolo.vTrackLeft->f_00;
-			lolo.bp_10.f_04 = 0;
-			lolo.bp_10.f_08 = lolo.vTrackRight->f_04 - lolo.vTrackLeft->f_04;
+			lolo.bp_10.vx = lolo.vTrackRight->vx - lolo.vTrackLeft->vx;
+			lolo.bp_10.vy = 0;
+			lolo.bp_10.vz = lolo.vTrackRight->vz - lolo.vTrackLeft->vz;
 
-			lolo.bp_20.f_00 = lolo.pChocobo->sPos_cur.f_00 - lolo.vTrackLeft->f_00;
-			lolo.bp_20.f_04 = 0;
-			lolo.bp_20.f_08 = lolo.pChocobo->sPos_cur.f_04 - lolo.vTrackLeft->f_04;
+			lolo.bp_20.vx = lolo.pChocobo->sPos_cur.vx - lolo.vTrackLeft->vx;
+			lolo.bp_20.vy = 0;
+			lolo.bp_20.vz = lolo.pChocobo->sPos_cur.vz - lolo.vTrackLeft->vz;
 			psx_OuterProduct12(&lolo.bp_10, &lolo.bp_20, &lolo.bp_10);
-			if(lolo.bp_10.f_04 < 0)
+			if(lolo.bp_10.vy < 0)
 				break;
 		}//end for
 		lolo.pChocobo->wPathT_cur = lolo.pChocobo->wPathT_next;
@@ -838,11 +838,11 @@ void C_00773DD8(short bp08) {
 		lolo.dwPathT_next = (lolo.pChocobo->wPathT_next + 1) % D_00E710E4;
 		MK_TRACK_POS(lolo.bp_7c, lolo.dwPathT_next, lolo.pChocobo->f_7c, lolo.bp_90);
 
-		lolo.bp_8c.f_00 = lolo.bp_7c.f_00 - lolo.pChocobo->sPos_cur.f_00;
-		lolo.bp_8c.f_04 = 0;
-		lolo.bp_8c.f_08 = lolo.bp_7c.f_08 - lolo.pChocobo->sPos_cur.f_04;
+		lolo.bp_8c.vx = lolo.bp_7c.vx - lolo.pChocobo->sPos_cur.vx;
+		lolo.bp_8c.vy = 0;
+		lolo.bp_8c.vz = lolo.bp_7c.vz - lolo.pChocobo->sPos_cur.vz;
 		psx_VectorNormal(&lolo.bp_8c, &lolo.bp_8c);
-		lolo.pChocobo->sRot_next.f_02 = C_0077CF40(lolo.bp_8c.f_00, lolo.bp_8c.f_08);//chocobo:atan2?
+		lolo.pChocobo->sRot_next.vy = C_0077CF40(lolo.bp_8c.vx, lolo.bp_8c.vz);//chocobo:atan2?
 		//-- camera event --
 		lolo.wEvent = D_00E715FC[lolo.pChocobo->wPathT_cur].bCameraEvent;
 		if(lolo.wEvent) {
@@ -852,7 +852,7 @@ void C_00773DD8(short bp08) {
 			D_00E715FC[lolo.pChocobo->wPathT_cur + 1].bCameraEvent = 0;
 		}
 		//-- animation event --
-		lolo.wEvent = D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Right.f_06;
+		lolo.wEvent = D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Right.pad;
 		if(lolo.wEvent)
 			C_007722F6(lolo.wEvent);//chocobo:set animation event?
 		//goto 007750B3
@@ -869,19 +869,19 @@ void C_00773DD8(short bp08) {
 			lolo.pChocobo->wSpeed = lolo.pChocobo->f_54 = lolo.pChocobo->f_4e = lolo.pChocobo->f_56;
 			lolo.pChocobo->f_84 = 0;
 
-			lolo.bp_64.f_00 = lolo.pChocobo->sPos_next.f_00 - lolo.pChocobo->sPos_cur.f_00;
-			lolo.bp_64.f_04 = 0;
-			lolo.bp_64.f_08 = lolo.pChocobo->sPos_next.f_04 - lolo.pChocobo->sPos_cur.f_04;
+			lolo.bp_64.vx = lolo.pChocobo->sPos_next.vx - lolo.pChocobo->sPos_cur.vx;
+			lolo.bp_64.vy = 0;
+			lolo.bp_64.vz = lolo.pChocobo->sPos_next.vz - lolo.pChocobo->sPos_cur.vz;
 			psx_VectorNormal(&lolo.bp_64, &lolo.bp_64);
-			lolo.pChocobo->sRot_cur.f_02 = lolo.pChocobo->sRot_next.f_02 = C_0077CF40(lolo.bp_64.f_00, lolo.bp_64.f_08);//chocobo:atan2?
+			lolo.pChocobo->sRot_cur.vy = lolo.pChocobo->sRot_next.vy = C_0077CF40(lolo.bp_64.vx, lolo.bp_64.vz);//chocobo:atan2?
 		}
 	}
 	//-- --
 	if(lolo.pChocobo->wPathT_cur > D_00E710E4 - 10 && lolo.pChocobo->wFinished == 0) {//else 00775238
 		lolo.pChocobo->wFinished = -1;
-		lolo.pChocobo->sPos_next.f_00 = lolo.pChocobo->sPos_orig.f_00;
-		lolo.pChocobo->sPos_next.f_02 = lolo.pChocobo->sPos_orig.f_02;
-		lolo.pChocobo->sPos_next.f_04 = lolo.pChocobo->sPos_orig.f_04;
+		lolo.pChocobo->sPos_next.vx = lolo.pChocobo->sPos_orig.vx;
+		lolo.pChocobo->sPos_next.vy = lolo.pChocobo->sPos_orig.vy;
+		lolo.pChocobo->sPos_next.vz = lolo.pChocobo->sPos_orig.vz;
 		lolo.dwPosition = 1;
 		for(lolo.bp_68 = 0; lolo.bp_68 < 6; lolo.bp_68 ++) {
 			if(D_00E71158[lolo.bp_68].wPosition >= lolo.dwPosition)
@@ -892,9 +892,9 @@ void C_00773DD8(short bp08) {
 			D_00E71134 = bp08;
 			//-- finish line BGM --
 			if(D_00E71128 == 0) {
-				D_00E71664->f_00 = 0x10;//"MUSIC"
+				D_00E71664->wOpCode = SOUND_OP_10;//"MUSIC"
 				D_00E71664->f_04[0] = 0x3b;
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
 			}
 			//-- --
 		}
@@ -906,34 +906,34 @@ void C_00773DD8(short bp08) {
 				D_00E71664->f_04[0] = 0x3b;
 			else
 				D_00E71664->f_04[0] = 0x3c;
-			D_00E71664->f_00 = 0x10;//"MUSIC"
-			C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
+			D_00E71664->wOpCode = SOUND_OP_10;//"MUSIC"
+			C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
 		}
 		//-- --
 	}
 	//-- --
-	if(lolo.pChocobo->sRot_cur.f_02 - lolo.pChocobo->sRot_next.f_02 > 3000)
-		lolo.pChocobo->sRot_cur.f_02 -= 0x1000;
-	if(lolo.pChocobo->sRot_cur.f_02 - lolo.pChocobo->sRot_next.f_02 < -3000)
-		lolo.pChocobo->sRot_cur.f_02 += 0x1000;
-	lolo.pChocobo->sRot_cur.f_02 = (lolo.pChocobo->sRot_cur.f_02 * 3 + lolo.pChocobo->sRot_next.f_02) / 4;
+	if(lolo.pChocobo->sRot_cur.vy - lolo.pChocobo->sRot_next.vy > 3000)
+		lolo.pChocobo->sRot_cur.vy -= 0x1000;
+	if(lolo.pChocobo->sRot_cur.vy - lolo.pChocobo->sRot_next.vy < -3000)
+		lolo.pChocobo->sRot_cur.vy += 0x1000;
+	lolo.pChocobo->sRot_cur.vy = (lolo.pChocobo->sRot_cur.vy * 3 + lolo.pChocobo->sRot_next.vy) / 4;
 	if(lolo.dwSpeed) {//else 0077537B
-		lolo.pChocobo->vSpeed_dec.f_00 += (psx_rsin(lolo.pChocobo->sRot_cur.f_02) * lolo.dwSpeed) / 64;
-		lolo.pChocobo->vSpeed_dec.f_08 += (-psx_rcos(lolo.pChocobo->sRot_cur.f_02) * lolo.dwSpeed) / 64;
-		lolo.pChocobo->sPos_cur.f_00 += lolo.pChocobo->vSpeed_dec.f_00 / 0x1000;
-		lolo.pChocobo->sPos_cur.f_04 += lolo.pChocobo->vSpeed_dec.f_08 / 0x1000;
-		lolo.pChocobo->vSpeed_dec.f_00 &= 0x80000fff;
-		lolo.pChocobo->vSpeed_dec.f_08 &= 0x80000fff;
+		lolo.pChocobo->vSpeed_dec.vx += (psx_rsin(lolo.pChocobo->sRot_cur.vy) * lolo.dwSpeed) / 64;
+		lolo.pChocobo->vSpeed_dec.vz += (-psx_rcos(lolo.pChocobo->sRot_cur.vy) * lolo.dwSpeed) / 64;
+		lolo.pChocobo->sPos_cur.vx += lolo.pChocobo->vSpeed_dec.vx / 0x1000;
+		lolo.pChocobo->sPos_cur.vz += lolo.pChocobo->vSpeed_dec.vz / 0x1000;
+		lolo.pChocobo->vSpeed_dec.vx &= 0x80000fff;
+		lolo.pChocobo->vSpeed_dec.vz &= 0x80000fff;
 	}
-	lolo.bp_10.f_00 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.f_00 - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_00;
-	lolo.bp_10.f_04 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.f_02 - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_02;
-	lolo.bp_10.f_08 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.f_04 - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_04;
+	lolo.bp_10.vx = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.vx - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vx;
+	lolo.bp_10.vy = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.vy - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vy;
+	lolo.bp_10.vz = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Right.vz - D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vz;
 
-	lolo.bp_20.f_00 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_00 - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_00;
-	lolo.bp_20.f_04 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_02 - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_02;
-	lolo.bp_20.f_08 = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.f_04 - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_04;
+	lolo.bp_20.vx = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vx - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vx;
+	lolo.bp_20.vy = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vy - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vy;
+	lolo.bp_20.vz = D_00E715FC[lolo.pChocobo->wPathT_next].sVect_Left.vz - D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vz;
 	psx_OuterProduct12(&lolo.bp_20, &lolo.bp_10, &lolo.bp_48);
-	if(lolo.bp_48.f_04) {
+	if(lolo.bp_48.vy) {
 		//-- --
 		//
 		//
@@ -943,15 +943,15 @@ void C_00773DD8(short bp08) {
 		//
 		//-- --
 		lolo.i = (
-			(D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_00 - lolo.pChocobo->sPos_cur.f_00) * lolo.bp_48.f_00 +
-			(D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_04 - lolo.pChocobo->sPos_cur.f_04) * lolo.bp_48.f_08 +
-			lolo.bp_48.f_04 * D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.f_02
-		) / lolo.bp_48.f_04;
+			(D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vx - lolo.pChocobo->sPos_cur.vx) * lolo.bp_48.vx +
+			(D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vz - lolo.pChocobo->sPos_cur.vz) * lolo.bp_48.vz +
+			lolo.bp_48.vy * D_00E715FC[lolo.pChocobo->wPathT_cur].sVect_Left.vy
+		) / lolo.bp_48.vy;
 	} else {
-		lolo.i = lolo.pChocobo->sPos_cur.f_02;
+		lolo.i = lolo.pChocobo->sPos_cur.vy;
 	}
-	lolo.pChocobo->sPos_cur.f_02 = (lolo.pChocobo->sPos_prev.f_02 + lolo.i) / 2;
-	lolo.pChocobo->sPos_prev.f_02 = lolo.pChocobo->sPos_cur.f_02;
+	lolo.pChocobo->sPos_cur.vy = (lolo.pChocobo->sPos_prev.vy + lolo.i) / 2;
+	lolo.pChocobo->sPos_prev.vy = lolo.pChocobo->sPos_cur.vy;
 }
 
 //chocobo:for camera:track chocobo?
@@ -979,11 +979,11 @@ void C_0077554D(int bp08) {
 	S_MK_TRACK_POS(lolo.pTracker->sPos_cur, lolo.pTracker->wPathT_cur, lolo.pTracker->f_7c, lolo.local_7);
 	S_MK_TRACK_POS(lolo.pTracker->sPos_next, lolo.pTracker->wPathT_next, lolo.pTracker->f_7c, lolo.local_7);
 
-	lolo.local_5.f_00 = lolo.pTracker->sPos_next.f_00 - lolo.pTracker->sPos_cur.f_00;
-	lolo.local_5.f_04 = 0;
-	lolo.local_5.f_08 = lolo.pTracker->sPos_next.f_04 - lolo.pTracker->sPos_cur.f_04;
+	lolo.local_5.vx = lolo.pTracker->sPos_next.vx - lolo.pTracker->sPos_cur.vx;
+	lolo.local_5.vy = 0;
+	lolo.local_5.vz = lolo.pTracker->sPos_next.vz - lolo.pTracker->sPos_cur.vz;
 	psx_VectorNormal(&lolo.local_5, &lolo.local_5);
-	lolo.pTracker->sRot_next.f_02 = C_0077CF40(lolo.local_5.f_00, lolo.local_5.f_08);//chocobo:atan2?
+	lolo.pTracker->sRot_next.vy = C_0077CF40(lolo.local_5.vx, lolo.local_5.vz);//chocobo:atan2?
 }
 
 //chocobo:for camera(bType 2):track chocobo?
@@ -1009,11 +1009,11 @@ void C_007757CE(int bp08, int dwSpeed/*bp0c*/, int dwPathT/*bp10*/) {
 	S_MK_TRACK_POS(lolo.pTracker->sPos_cur, dwPathT, lolo.pTracker->f_7c, lolo.local_7);
 	S_MK_TRACK_POS(lolo.pTracker->sPos_next, lolo.dwPathT_next, lolo.pTracker->f_7c, lolo.local_7);
 
-	lolo.local_5.f_00 = lolo.pTracker->sPos_next.f_00 - lolo.pTracker->sPos_cur.f_00;
-	lolo.local_5.f_04 = 0;
-	lolo.local_5.f_08 = lolo.pTracker->sPos_next.f_04 - lolo.pTracker->sPos_cur.f_04;
+	lolo.local_5.vx = lolo.pTracker->sPos_next.vx - lolo.pTracker->sPos_cur.vx;
+	lolo.local_5.vy = 0;
+	lolo.local_5.vz = lolo.pTracker->sPos_next.vz - lolo.pTracker->sPos_cur.vz;
 	psx_VectorNormal(&lolo.local_5, &lolo.local_5);
-	lolo.pTracker->sRot_next.f_02 = C_0077CF40(lolo.local_5.f_00, lolo.local_5.f_08);//chocobo:atan2?
+	lolo.pTracker->sRot_next.vy = C_0077CF40(lolo.local_5.vx, lolo.local_5.vz);//chocobo:atan2?
 }
 
 //move tracker?
@@ -1041,15 +1041,15 @@ void C_00775A45(int dwPlayerAsJockey/*bp08*/) {
 	lolo.vTrackLeft = &(D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left);
 	lolo.vTrackRight = &(D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right);
 
-	lolo.bp_10.f_00 = lolo.vTrackRight->f_00 - lolo.vTrackLeft->f_00;
-	lolo.bp_10.f_04 = 0;
-	lolo.bp_10.f_08 = lolo.vTrackRight->f_04 - lolo.vTrackLeft->f_04;
+	lolo.bp_10.vx = lolo.vTrackRight->vx - lolo.vTrackLeft->vx;
+	lolo.bp_10.vy = 0;
+	lolo.bp_10.vz = lolo.vTrackRight->vz - lolo.vTrackLeft->vz;
 
-	lolo.bp_20.f_00 = lolo.pTracker->sPos_cur.f_00 - lolo.vTrackLeft->f_00;
-	lolo.bp_20.f_04 = 0;
-	lolo.bp_20.f_08 = lolo.pTracker->sPos_cur.f_04 - lolo.vTrackLeft->f_04;
+	lolo.bp_20.vx = lolo.pTracker->sPos_cur.vx - lolo.vTrackLeft->vx;
+	lolo.bp_20.vy = 0;
+	lolo.bp_20.vz = lolo.pTracker->sPos_cur.vz - lolo.vTrackLeft->vz;
 	psx_OuterProduct12(&lolo.bp_10, &lolo.bp_20, &lolo.bp_10);
-	if(lolo.bp_10.f_04 >= 0) {//else 00775F25
+	if(lolo.bp_10.vy >= 0) {//else 00775F25
 		//crossed new "segment"
 		lolo.pTracker->f_84 = 0;
 		lolo.j = lolo.pTracker->wPathT_cur + 60;
@@ -1059,15 +1059,15 @@ void C_00775A45(int dwPlayerAsJockey/*bp08*/) {
 			lolo.vTrackLeft = &(D_00E715FC[lolo.dwPathT].sVect_Left);
 			lolo.vTrackRight = &(D_00E715FC[lolo.dwPathT].sVect_Right);
 
-			lolo.bp_10.f_00 = lolo.vTrackRight->f_00 - lolo.vTrackLeft->f_00;
-			lolo.bp_10.f_04 = 0;
-			lolo.bp_10.f_08 = lolo.vTrackRight->f_04 - lolo.vTrackLeft->f_04;
+			lolo.bp_10.vx = lolo.vTrackRight->vx - lolo.vTrackLeft->vx;
+			lolo.bp_10.vy = 0;
+			lolo.bp_10.vz = lolo.vTrackRight->vz - lolo.vTrackLeft->vz;
 
-			lolo.bp_20.f_00 = lolo.pTracker->sPos_cur.f_00 - lolo.vTrackLeft->f_00;
-			lolo.bp_20.f_04 = 0;
-			lolo.bp_20.f_08 = lolo.pTracker->sPos_cur.f_04 - lolo.vTrackLeft->f_04;
+			lolo.bp_20.vx = lolo.pTracker->sPos_cur.vx - lolo.vTrackLeft->vx;
+			lolo.bp_20.vy = 0;
+			lolo.bp_20.vz = lolo.pTracker->sPos_cur.vz - lolo.vTrackLeft->vz;
 			psx_OuterProduct12(&lolo.bp_10, &lolo.bp_20, &lolo.bp_10);
-			if(lolo.bp_10.f_04 < 0)
+			if(lolo.bp_10.vy < 0)
 				break;
 		}//end for
 		lolo.pTracker->wPathT_cur = lolo.pTracker->wPathT_next;
@@ -1082,69 +1082,69 @@ void C_00775A45(int dwPlayerAsJockey/*bp08*/) {
 		lolo.dwPathT_next = (lolo.pTracker->wPathT_next + 1) % D_00E710E4;
 		MK_TRACK_POS(lolo.bp_64, lolo.dwPathT_next, lolo.pTracker->f_7c, lolo.bp_78);
 
-		lolo.bp_74.f_00 = lolo.bp_64.f_00 - lolo.pTracker->sPos_cur.f_00;
-		lolo.bp_74.f_04 = 0;
-		lolo.bp_74.f_08 = lolo.bp_64.f_08 - lolo.pTracker->sPos_cur.f_04;
+		lolo.bp_74.vx = lolo.bp_64.vx - lolo.pTracker->sPos_cur.vx;
+		lolo.bp_74.vy = 0;
+		lolo.bp_74.vz = lolo.bp_64.vz - lolo.pTracker->sPos_cur.vz;
 		psx_VectorNormal(&lolo.bp_74, &lolo.bp_74);
-		lolo.pTracker->sRot_next.f_02 = C_0077CF40(lolo.bp_74.f_00, lolo.bp_74.f_08);//chocobo:atan2?
+		lolo.pTracker->sRot_next.vy = C_0077CF40(lolo.bp_74.vx, lolo.bp_74.vz);//chocobo:atan2?
 		//-- animation event --
-		lolo.dwEvent = D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Right.f_06;
+		lolo.dwEvent = D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Right.pad;
 		if(lolo.dwEvent)
 			C_007722F6(lolo.dwEvent);//chocobo:set animation event?
 		//-- sound event[player as jockey only] --
 		if(D_00E71128) {//else 00775F25
-			lolo.dwEvent = D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_06;
+			lolo.dwEvent = D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.pad;
 			if(lolo.dwEvent) {//else 00775F25
 				lolo.dwEvent --;
-				D_00E71664->f_00 = D_00E7112C->pSoundEvent[lolo.dwEvent].f_00;
+				D_00E71664->wOpCode = D_00E7112C->pSoundEvent[lolo.dwEvent].f_00;
 				for(lolo.bp_50 = 0; lolo.bp_50 < 6; lolo.bp_50 ++)
 					D_00E71664->f_04[lolo.bp_50] = D_00E7112C->pSoundEvent[lolo.dwEvent].f_02[lolo.bp_50];
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], D_00E71664->f_04[1], D_00E71664->f_04[2], D_00E71664->f_04[3], D_00E71664->f_04[4], D_00E71664->f_04[5], 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], D_00E71664->f_04[1], D_00E71664->f_04[2], D_00E71664->f_04[3], D_00E71664->f_04[4], D_00E71664->f_04[5], 0, 0);
 			}
 		}
 		//-- --
 	}
 	//-- --
-	if(lolo.pTracker->sRot_cur.f_02 - lolo.pTracker->sRot_next.f_02 > 3000)
-		lolo.pTracker->sRot_cur.f_02 -= 0x1000;
-	if(lolo.pTracker->sRot_cur.f_02 - lolo.pTracker->sRot_next.f_02 < -3000)
-		lolo.pTracker->sRot_cur.f_02 += 0x1000;
-	lolo.pTracker->sRot_cur.f_02 = (lolo.pTracker->sRot_cur.f_02 * 7 + lolo.pTracker->sRot_next.f_02) / 8;
+	if(lolo.pTracker->sRot_cur.vy - lolo.pTracker->sRot_next.vy > 3000)
+		lolo.pTracker->sRot_cur.vy -= 0x1000;
+	if(lolo.pTracker->sRot_cur.vy - lolo.pTracker->sRot_next.vy < -3000)
+		lolo.pTracker->sRot_cur.vy += 0x1000;
+	lolo.pTracker->sRot_cur.vy = (lolo.pTracker->sRot_cur.vy * 7 + lolo.pTracker->sRot_next.vy) / 8;
 	{
-		lolo.pTracker->vSpeed_dec.f_00 += (psx_rsin(lolo.pTracker->sRot_cur.f_02) * lolo.pTracker->wSpeed) / 64;
-		lolo.pTracker->vSpeed_dec.f_08 += (-psx_rcos(lolo.pTracker->sRot_cur.f_02) * lolo.pTracker->wSpeed) / 64;
-		lolo.pTracker->sPos_cur.f_00 += lolo.pTracker->vSpeed_dec.f_00 / 0x1000;
-		lolo.pTracker->sPos_cur.f_04 += lolo.pTracker->vSpeed_dec.f_08 / 0x1000;
-		lolo.pTracker->vSpeed_dec.f_00 &= 0x80000fff;
-		lolo.pTracker->vSpeed_dec.f_08 &= 0x80000fff;
+		lolo.pTracker->vSpeed_dec.vx += (psx_rsin(lolo.pTracker->sRot_cur.vy) * lolo.pTracker->wSpeed) / 64;
+		lolo.pTracker->vSpeed_dec.vz += (-psx_rcos(lolo.pTracker->sRot_cur.vy) * lolo.pTracker->wSpeed) / 64;
+		lolo.pTracker->sPos_cur.vx += lolo.pTracker->vSpeed_dec.vx / 0x1000;
+		lolo.pTracker->sPos_cur.vz += lolo.pTracker->vSpeed_dec.vz / 0x1000;
+		lolo.pTracker->vSpeed_dec.vx &= 0x80000fff;
+		lolo.pTracker->vSpeed_dec.vz &= 0x80000fff;
 	}
-	lolo.bp_10.f_00 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.f_00 - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_00;
-	lolo.bp_10.f_04 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.f_02 - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_02;
-	lolo.bp_10.f_08 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.f_04 - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_04;
+	lolo.bp_10.vx = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.vx - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vx;
+	lolo.bp_10.vy = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.vy - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vy;
+	lolo.bp_10.vz = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Right.vz - D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vz;
 
-	lolo.bp_20.f_00 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_00 - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_00;
-	lolo.bp_20.f_04 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_02 - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_02;
-	lolo.bp_20.f_08 = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.f_04 - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_04;
+	lolo.bp_20.vx = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vx - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vx;
+	lolo.bp_20.vy = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vy - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vy;
+	lolo.bp_20.vz = D_00E715FC[lolo.pTracker->wPathT_next].sVect_Left.vz - D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vz;
 	psx_OuterProduct12(&lolo.bp_20, &lolo.bp_10, &lolo.bp_44);
-	if(lolo.bp_44.f_04) {//else 007762A3
+	if(lolo.bp_44.vy) {//else 007762A3
 		//-- camera height[bType -1] --
 		lolo.i = (
-			(D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.f_00 - lolo.pTracker->sPos_cur.f_00) * lolo.bp_44.f_00 +
-			(D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.f_04 - lolo.pTracker->sPos_cur.f_04) * lolo.bp_44.f_08 + 
-			lolo.bp_44.f_04 * D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.f_02
-		) / lolo.bp_44.f_04;
+			(D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.vx - lolo.pTracker->sPos_cur.vx) * lolo.bp_44.vx +
+			(D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.vz - lolo.pTracker->sPos_cur.vz) * lolo.bp_44.vz + 
+			lolo.bp_44.vy * D_00E715FC[TARGET_CHOCOBO.wPathT_cur].sVect_Left.vy
+		) / lolo.bp_44.vy;
 		D_00E3BAF4 = (D_00E3BAF4 * 7 + lolo.i) / 8;
 		//-- --
 		lolo.i = (
-			(D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_00 - lolo.pTracker->sPos_cur.f_00) * lolo.bp_44.f_00 +
-			(D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_04 - lolo.pTracker->sPos_cur.f_04) * lolo.bp_44.f_08 + 
-			lolo.bp_44.f_04 * D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.f_02
-		) / lolo.bp_44.f_04;
+			(D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vx - lolo.pTracker->sPos_cur.vx) * lolo.bp_44.vx +
+			(D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vz - lolo.pTracker->sPos_cur.vz) * lolo.bp_44.vz + 
+			lolo.bp_44.vy * D_00E715FC[lolo.pTracker->wPathT_cur].sVect_Left.vy
+		) / lolo.bp_44.vy;
 	} else {
-		lolo.i = lolo.pTracker->sPos_cur.f_02;
+		lolo.i = lolo.pTracker->sPos_cur.vy;
 	}
-	lolo.pTracker->sPos_cur.f_02 = (lolo.pTracker->sPos_prev.f_02 + lolo.i) / 2;
-	lolo.pTracker->sPos_prev.f_02 = lolo.pTracker->sPos_cur.f_02;
+	lolo.pTracker->sPos_cur.vy = (lolo.pTracker->sPos_prev.vy + lolo.i) / 2;
+	lolo.pTracker->sPos_prev.vy = lolo.pTracker->sPos_cur.vy;
 	//-- --
 	if(dwPlayerAsJockey && D_00E710F8) {//else 00776362
 		lolo.dwPathT = TARGET_CHOCOBO.wPathT_cur - lolo.pTracker->wPathT_cur;

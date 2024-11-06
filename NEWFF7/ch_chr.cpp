@@ -535,8 +535,8 @@ int C_0076F1B0(struct t_rsd_74 *bp08, struct t_aa0 *bp0c, int bp10) {
 		int (*local_261)[2];
 		char dir[_MAX_DIR];//local_260
 		char ext[_MAX_EXT];//local_196
-		unsigned short j; char _ocal_132[2];//local_132
-		unsigned short i; char _ocal_131[2];//local_131
+		DECL_unsigned_short(j);//local_132
+		DECL_unsigned_short(i);//local_131
 		struct t_chocobo_Model3D *pModel;//local_130
 		int dwModelsCount;//local_129
 		char szPath[0x100];//local_128

@@ -164,9 +164,9 @@ void C_0076D597(struct t_aa0 *bp08) {
 	D_00972174 = 1;//set release mode
 	D_00E3BAC8 = 0;
 	if(1) {
-		bp08->f_9a0 = 100.0f;
-		bp08->f_9a4 = 80000.0f;
-		bp08->f_984 = 1;//Direct3D2 flag?
+		bp08->fNear = 100.0f;
+		bp08->fFar = 80000.0f;
+		bp08->dwUseD3D2 = 1;
 		C_006619AA(D_00E3BA98);//psx:D_0090AAF0->f_08 = (double)?
 		C_006833D0(&lolo.local_66);//anm:get some default flags?
 		lolo.local_66 = 0x8000|0x40|0x10|1;//0x8051
@@ -207,17 +207,17 @@ void C_0076D6DF() {
 	//-- set transformation matrix for "bet menu" --
 	//(running chocobo model)
 	C_00661B68(0, 0);//psx:set view x,y?
-	lolo.sVectRot.f_00 = 0;
-	lolo.sVectRot.f_02 = 0;
-	lolo.sVectRot.f_04 = 0x800;
+	lolo.sVectRot.vx = 0;
+	lolo.sVectRot.vy = 0;
+	lolo.sVectRot.vz = 0x800;
 	psx_RotMatrixXYZ(&lolo.sVectRot, &D_00E73DB0);
 	//====
 	//D_00E73354, D_00E7334C and D_00E73350 hold the
 	// same values: 320, 240 and 900.
 	//====
-	lolo.lVectTrans.f_00 = 320;
-	lolo.lVectTrans.f_04 = 240;
-	lolo.lVectTrans.f_08 = 900;
+	lolo.lVectTrans.vx = 320;
+	lolo.lVectTrans.vy = 240;
+	lolo.lVectTrans.vz = 900;
 	psx_TransMatrix(&D_00E73DB0, &lolo.lVectTrans);
 	psx_SetRotMatrix(&D_00E73DB0);
 	psx_SetTransMatrix(&D_00E73DB0);
@@ -325,8 +325,8 @@ void C_0076DB33(struct t_aa0 *bp08) {
 		lolo.local_4.r = 0; lolo.local_4.g = 0; lolo.local_4.b = 0; lolo.local_4.a = 1.0f;
 		g_drv_clearColor(&lolo.local_4, bp08);
 		g_drv_clearAll(bp08);
-		D_00CC0D84 = 0x07;
-		D_00CBF9DC = 0x01;
+		D_00CC0D84 = MAIN_STATE_07;
+		D_00CBF9DC = MAIN_STATE_01;
 		lolo.local_11.f_10 = C_004090E6;//MainDispatcher[UPDATE][callback]
 		lolo.local_11.f_14 = C_00409DF1;//MainDispatcher[ONMOUSE][callback]
 		lolo.local_11.f_18 = C_00409E39;//MainDispatcher[ONKEY][callback]
@@ -410,18 +410,18 @@ void C_0076DCBF(int _p08, int _p0c) {
 	C_006602C1(0);//mem:set debug on/off?
 	lolo.local_1 = C_00676E7E();//init some game object?
 	if(lolo.local_1) {
-		lolo.local_1->f_95c = 16;//request 16bpp
-		lolo.local_1->f_964 = 1;
+		lolo.local_1->dwDisplayBPP = 16;
+		lolo.local_1->dwIsFullScreen = 1;
 		lolo.local_1->f_968 = 1;
 		lolo.local_1->f_96c = 0;
-		lolo.local_1->f_988 = 1;
+		lolo.local_1->f_988 = 1;//HEL on
 		if(lolo.local_1->f_988)
 			lolo.local_1->f_994 = 1;
 		lolo.local_1->f_948 = 0;
 		lolo.local_1->f_974 = 1;//hide cursor
-		lolo.local_1->f_9a0 = 100.0f;
-		lolo.local_1->f_9a4 = 80000.0f;
-		lolo.local_1->f_984 = 1;//Direct3D2 flag?
+		lolo.local_1->fNear = 100.0f;
+		lolo.local_1->fFar = 80000.0f;
+		lolo.local_1->dwUseD3D2 = 1;
 		C_006619AA(D_00E3BA98);//psx:D_0090AAF0->f_08 = (double)?
 		C_006833D0(&lolo.local_2);//anm:get some default flags?
 		lolo.local_2 = 0x8000|0x40|0x10|1;//0x8051

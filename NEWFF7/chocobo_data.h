@@ -192,12 +192,12 @@ struct t_chocobo_data_DG4 {//size 0x28
 };
 
 struct t_chocobo_data_floatDG3 {//size 0x30
-	/*00*/struct t_g_drv_0c fvect0,fvect1,fvect2;
+	/*00*/D3DVECTOR fvect0,fvect1,fvect2;
 	/*24*/tBGRA color0,color1,color2;
 };
 
 struct t_chocobo_data_floatDG4 {//size 0x40
-	/*00*/struct t_g_drv_0c fvect0,fvect1,fvect2,fvect3;
+	/*00*/D3DVECTOR fvect0,fvect1,fvect2,fvect3;
 	/*30*/tBGRA color0,color1,color2,color3;
 };
 

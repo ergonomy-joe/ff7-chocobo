@@ -343,7 +343,7 @@ void C_0076E2B0() {
 	[2]-----[3]
 */
 		//note:only wX0, wY0, dwWidth and dwHeight are used(because of the bug?)
-		D_00E3B758[lolo.i_1].wX0 = D_00E3B758[lolo.i_1].wX2 = lolo.pChocobo_B->sPos_cur.f_00 / 650 + 282;
+		D_00E3B758[lolo.i_1].wX0 = D_00E3B758[lolo.i_1].wX2 = lolo.pChocobo_B->sPos_cur.vx / 650 + 282;
 #if (_MSC_VER < 1500)// || defined(__JOE_FIX_BUGS__)
 		//original
 		D_00E3B758[lolo.i_1].wX1 = D_00E3B758[lolo.i_1].wX3 = *(short *)(D_00E710F0 + 0x186b8 + lolo.i_1 * 0x18) + 3;
@@ -351,7 +351,7 @@ void C_0076E2B0() {
 #else
 		D_00E3B758[lolo.i_1].wX1 = D_00E3B758[lolo.i_1].wX3 = D_00E3B758[lolo.i_1].wX0 + 3;
 #endif
-		D_00E3B758[lolo.i_1].wY0 = D_00E3B758[lolo.i_1].wY1 = lolo.pChocobo_B->sPos_cur.f_04 / 610 + 40;
+		D_00E3B758[lolo.i_1].wY0 = D_00E3B758[lolo.i_1].wY1 = lolo.pChocobo_B->sPos_cur.vz / 610 + 40;
 		D_00E3B758[lolo.i_1].wY2 = D_00E3B758[lolo.i_1].wY3 = D_00E3B758[lolo.i_1].wY0 + 3;
 		D_00E3B758[lolo.i_1].dwWidth = D_00E3B758[lolo.i_1].dwHeight = 3;
 		if(lolo.i_1 == D_00E71624 && (D_00E71018 & 8)) {

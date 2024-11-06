@@ -334,7 +334,7 @@ int D_00E72E0C;//index in D_00E72990[] for init
 //chocobo:2D elements.init
 void C_00770800(struct t_aa0 *bp08, struct t_rsd_74 *bp0c, int bp10, int dwRaceRank/*bp14*/) {
 	struct {
-		unsigned short i; char _p_118[2];//bp_118
+		DECL_unsigned_short(i);//bp_118
 		const char **bp_114;
 		int bp_110;
 		int dwBlendMode;//bp_10c

@@ -13,10 +13,10 @@
 ////////////////////////////////////////
 //(for unused stuff)
 struct t_chocobo_local_quad_2 {//size 0x50
-	/*00*/struct t_g_drv_0c vert_0;
-	/*0c*/struct t_g_drv_0c vert_1;
-	/*18*/struct t_g_drv_0c vert_2;
-	/*24*/struct t_g_drv_0c vert_3;
+	/*00*/D3DVECTOR vert_0;
+	/*0c*/D3DVECTOR vert_1;
+	/*18*/D3DVECTOR vert_2;
+	/*24*/D3DVECTOR vert_3;
 	/*30*/float fU_0,fV_0;
 	/*38*/float fU_1,fV_1;
 	/*40*/float fU_2,fV_2;
@@ -154,8 +154,8 @@ void __00779F59(struct t_aa0 *bp08) {
 	time_t local_1;
 
 	//-- a randomize macro? --
-	if(bp08->f_9b0) {
-		srand(bp08->f_9b0);
+	if(bp08->dwSeed) {
+		srand(bp08->dwSeed);
 	} else {
 		time(&local_1);
 		srand(local_1);
@@ -173,9 +173,9 @@ void __00779FA3(int bp08, int bp0c) {
 
 void __00779FB8(struct t_plytopd_e4 *bp08, float fX/*bp0c*/, float fY/*bp10*/, float fZ/*bp14*/) {
 	if(bp08) {
-		bp08->f_38.sPos.f_00 = fX;
-		bp08->f_38.sPos.f_04 = fY;
-		bp08->f_38.sPos.f_08 = fZ;
+		bp08->f_38.sPos.x = fX;
+		bp08->f_38.sPos.y = fY;
+		bp08->f_38.sPos.z = fZ;
 	}
 }
 
@@ -465,7 +465,7 @@ void C_0077AD89(struct t_chocobo_SpriteBillboard *pBillboard/*bp08*/) {
 //[unused]draw quad(background)?
 void __0077B03E(struct t_chocobo_SpriteUI *bp08) {
 	struct {
-		unsigned short i; char _ocal_5[2];//local_5
+		DECL_unsigned_short(i);//local_5
 		int dwGreen;//local_4
 		struct t_dx_sfx_84 *local_3;
 		int dwRed;//local_2
@@ -544,7 +544,7 @@ void C_0077B29E(struct t_aa0 *bp08) {
 void C_0077B2CA() {
 #pragma pack(1)
 	struct {
-		unsigned short i; char _ocal_6[2];//local_6
+		DECL_unsigned_short(i);//local_6
 		LARGE_INTEGER local_5;
 		LARGE_INTEGER local_3;
 		struct t_aa0 *local_1;
@@ -673,19 +673,19 @@ void C_0077B7E2(struct t_chocobo_Model3D *pModel/*bp08*/) {
 			pModel->pHRC->f_20 = pModel->dwAnimationFrame;
 		//-- rot --
 		lolo.fRotY = ((float)/*local_102*/pModel->bRotY * 360.0f) / 250.0f;
-		pModel->pHRC->f_38.sRot.f_00 = 0;
+		pModel->pHRC->f_38.sRot.x = 0;
 		if(pModel->dwPatchRotY == 0)
-			pModel->pHRC->f_38.sRot.f_04 = -lolo.fRotY;
+			pModel->pHRC->f_38.sRot.y = -lolo.fRotY;
 		else
-			pModel->pHRC->f_38.sRot.f_04 = -lolo.fRotY + 180.0f;
-		pModel->pHRC->f_38.sRot.f_08 = -180.0f;
+			pModel->pHRC->f_38.sRot.y = -lolo.fRotY + 180.0f;
+		pModel->pHRC->f_38.sRot.z = -180.0f;
 		//-- pos --
-		pModel->pHRC->f_38.sPos.f_00 = /*local_103*/(float)pModel->wX;
+		pModel->pHRC->f_38.sPos.x = /*local_103*/(float)pModel->wX;
 		if(pModel->dwAdjustYPos)
-			pModel->pHRC->f_38.sPos.f_04 = /*local_104*/(float)pModel->wY;
+			pModel->pHRC->f_38.sPos.y = /*local_104*/(float)pModel->wY;
 		else
-			pModel->pHRC->f_38.sPos.f_04 = /*local_105*/(float)(pModel->wY -10);
-		pModel->pHRC->f_38.sPos.f_08 = /*local_106*/(float)pModel->wZ;
+			pModel->pHRC->f_38.sPos.y = /*local_105*/(float)(pModel->wY -10);
+		pModel->pHRC->f_38.sPos.z = /*local_106*/(float)pModel->wZ;
 		//-- --
 		pModel->dwDoRender = 1;//why twice?
 	}
@@ -696,11 +696,11 @@ void __0077B964(struct MATRIX *bp08, LPD3DMATRIX bp0c) {
 }
 
 void __0077B979(LPD3DMATRIX bp08, float fX/*bp0c*/, float fY/*bp10*/, float fZ/*bp14*/, struct tVECTOR_F4 *bp18) {
-	struct t_g_drv_0c local_3;
+	D3DVECTOR local_3;
 
-	local_3.f_00 = fX; local_3.f_04 = fY; local_3.f_08 = fZ;
+	local_3.x = fX; local_3.y = fY; local_3.z = fZ;
 
-	C_0066CE40(bp08, &local_3, bp18);//[optimized]still another vector/matrix operation(w=1)
+	fast_multVectorByTransform(bp08, &local_3, bp18);
 }
 
 //chocobo:set transformation matrix[3D models]?
@@ -709,14 +709,14 @@ void C_0077B9A9(struct t_aa0 *bp08) {
 	C_0067CBF1(&D_00E73E60, bp08);//dx_mat:set "struct t_aa0::f_2fc"
 }
 
-//draw triangle?
+//[local]draw triangle
 void C_0077B9D4(
 	unsigned dwColor_0/*bp08*/,
 	unsigned dwColor_1/*bp0c*/,
 	unsigned dwColor_2/*bp10*/,
-	struct t_g_drv_0c *pFVect_0/*bp14*/,
-	struct t_g_drv_0c *pFVect_1/*bp18*/,
-	struct t_g_drv_0c *pFVect_2/*bp1c*/,
+	LPD3DVECTOR pFVect_0/*bp14*/,
+	LPD3DVECTOR pFVect_1/*bp18*/,
+	LPD3DVECTOR pFVect_2/*bp1c*/,
 	LPD3DMATRIX bp20,
 	struct t_dx_sfx_e0 *bp24
 ) {
@@ -733,17 +733,17 @@ void C_0077B9D4(
 	}lolo;
 
 	if(
-		(C_0066CE40(bp20, pFVect_0, &lolo.vert_0), lolo.vert_0.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp20, pFVect_1, &lolo.vert_1), lolo.vert_1.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp20, pFVect_2, &lolo.vert_2), lolo.vert_2.f_0c > 0.0)//[optimized]still another vector/matrix operation(w=1)
+		(fast_multVectorByTransform(bp20, pFVect_0, &lolo.vert_0), lolo.vert_0.w > 0.0) &&
+		(fast_multVectorByTransform(bp20, pFVect_1, &lolo.vert_1), lolo.vert_1.w > 0.0) &&
+		(fast_multVectorByTransform(bp20, pFVect_2, &lolo.vert_2), lolo.vert_2.w > 0.0)
 	) {
 		if(C_0066E272(1, bp24)) {
-			lolo.rhw_0 = 1.0f / lolo.vert_0.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[0]), lolo.local_14, lolo.vert_0.f_00 * lolo.rhw_0, lolo.vert_0.f_04 * lolo.rhw_0, lolo.vert_0.f_08 * lolo.rhw_0, lolo.rhw_0, dwColor_0);
-			lolo.rhw_1 = 1.0f / lolo.vert_1.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[1]), lolo.local_16, lolo.vert_1.f_00 * lolo.rhw_1, lolo.vert_1.f_04 * lolo.rhw_1, lolo.vert_1.f_08 * lolo.rhw_1, lolo.rhw_1, dwColor_1);
-			lolo.rhw_2 = 1.0f / lolo.vert_2.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[2]), lolo.local_18, lolo.vert_2.f_00 * lolo.rhw_2, lolo.vert_2.f_04 * lolo.rhw_2, lolo.vert_2.f_08 * lolo.rhw_2, lolo.rhw_2, dwColor_2);
+			lolo.rhw_0 = 1.0f / lolo.vert_0.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[0]), lolo.local_14, lolo.vert_0.x * lolo.rhw_0, lolo.vert_0.y * lolo.rhw_0, lolo.vert_0.z * lolo.rhw_0, lolo.rhw_0, dwColor_0);
+			lolo.rhw_1 = 1.0f / lolo.vert_1.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[1]), lolo.local_16, lolo.vert_1.x * lolo.rhw_1, lolo.vert_1.y * lolo.rhw_1, lolo.vert_1.z * lolo.rhw_1, lolo.rhw_1, dwColor_1);
+			lolo.rhw_2 = 1.0f / lolo.vert_2.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp24->f_70.asVertex[2]), lolo.local_18, lolo.vert_2.x * lolo.rhw_2, lolo.vert_2.y * lolo.rhw_2, lolo.vert_2.z * lolo.rhw_2, lolo.rhw_2, dwColor_2);
 		}
 	}
 }
@@ -758,7 +758,7 @@ void C_0077BB50(LPD3DMATRIX bp08, struct t_dx_sfx_e0 *bp0c, struct t_chocobo_dat
 		&(bp10->fvect1),
 		&(bp10->fvect2),
 		bp08, bp0c
-	);//draw triangle?
+	);//draw triangle
 }
 
 //[unused]draw triangle?
@@ -768,55 +768,55 @@ void __0077BB8C(
 	struct SVECTOR *pV0/*bp10*/,
 	struct SVECTOR *pV1/*bp14*/,
 	struct SVECTOR *pV2/*bp18*/,
-	unsigned dwColor0/*bp1c*/,
-	unsigned dwColor1/*bp20*/,
-	unsigned dwColor2/*bp24*/
+	unsigned dwRGB0/*bp1c*/,
+	unsigned dwRGB1/*bp20*/,
+	unsigned dwRGB2/*bp24*/
 ) {
 	struct {
-		struct t_g_drv_0c fvect0;//local_13
-		struct t_g_drv_0c fvect2;//local_10
-		tRGBA color2;//local_7
-		struct t_g_drv_0c fvect1;//local_6
-		tRGBA color0;//local_3
-		tRGBA color1;//local_2
-		unsigned char bTemp; char _ocal_1[3];
+		D3DVECTOR fvect0;//local_13
+		D3DVECTOR fvect2;//local_10
+		tBGRA color2;//local_7
+		D3DVECTOR fvect1;//local_6
+		tBGRA color0;//local_3
+		tBGRA color1;//local_2
+		DECL_unsigned_char(bTemp);
 	}lolo;
 
-	lolo.color0.rgba = dwColor0 | (0xff << 24);
-	SWAP(lolo.color0.c.r, lolo.color0.c.b, lolo.bTemp);
+	lolo.color0.bgra = dwRGB0 | (0xff << 24);
+	SWAP(lolo.color0.c.b, lolo.color0.c.r, lolo.bTemp);
 
-	lolo.color1.rgba = dwColor1 | (0xff << 24);
-	SWAP(lolo.color1.c.r, lolo.color1.c.b, lolo.bTemp);
+	lolo.color1.bgra = dwRGB1 | (0xff << 24);
+	SWAP(lolo.color1.c.b, lolo.color1.c.r, lolo.bTemp);
 
-	lolo.color2.rgba = dwColor2 | (0xff << 24);
-	SWAP(lolo.color2.c.r, lolo.color2.c.b, lolo.bTemp);
+	lolo.color2.bgra = dwRGB2 | (0xff << 24);
+	SWAP(lolo.color2.c.b, lolo.color2.c.r, lolo.bTemp);
 
-	lolo.fvect0.f_00 = (float)pV0->f_00; lolo.fvect0.f_04 = (float)pV0->f_02; lolo.fvect0.f_08 = (float)pV0->f_04;
-	lolo.fvect1.f_00 = (float)pV1->f_00; lolo.fvect1.f_04 = (float)pV1->f_02; lolo.fvect1.f_08 = (float)pV1->f_04;
-	lolo.fvect2.f_00 = (float)pV2->f_00; lolo.fvect2.f_04 = (float)pV2->f_02; lolo.fvect2.f_08 = (float)pV2->f_04;
+	lolo.fvect0.x = (float)pV0->vx; lolo.fvect0.y = (float)pV0->vy; lolo.fvect0.z = (float)pV0->vz;
+	lolo.fvect1.x = (float)pV1->vx; lolo.fvect1.y = (float)pV1->vy; lolo.fvect1.z = (float)pV1->vz;
+	lolo.fvect2.x = (float)pV2->vx; lolo.fvect2.y = (float)pV2->vy; lolo.fvect2.z = (float)pV2->vz;
 
 	C_0077B9D4(
-		lolo.color0.rgba,
-		lolo.color1.rgba,
-		lolo.color2.rgba,
+		lolo.color0.bgra,
+		lolo.color1.bgra,
+		lolo.color2.bgra,
 		&lolo.fvect0,
 		&lolo.fvect1,
 		&lolo.fvect2,
 		bp08,
 		bp0c
-	);//draw triangle?
+	);//draw triangle
 }
 
-//draw quad?
+//[local]draw quad
 void C_0077BCA4(
 	unsigned dwColor_0/*bp08*/,
 	unsigned dwColor_1/*bp0c*/,
 	unsigned dwColor_2/*bp10*/,
 	unsigned dwColor_3/*bp14*/,
-	struct t_g_drv_0c *pFVect_0/*bp18*/,
-	struct t_g_drv_0c *pFVect_1/*bp1c*/,
-	struct t_g_drv_0c *pFVect_2/*bp20*/,
-	struct t_g_drv_0c *pFVect_3/*bp24*/,
+	LPD3DVECTOR pFVect_0/*bp18*/,
+	LPD3DVECTOR pFVect_1/*bp1c*/,
+	LPD3DVECTOR pFVect_2/*bp20*/,
+	LPD3DVECTOR pFVect_3/*bp24*/,
 	LPD3DMATRIX bp28,
 	struct t_dx_sfx_e0 *bp2c
 ) {
@@ -836,20 +836,20 @@ void C_0077BCA4(
 	}lolo;
 
 	if(
-		(C_0066CE40(bp28, pFVect_0, &lolo.vert_0), lolo.vert_0.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp28, pFVect_1, &lolo.vert_1), lolo.vert_1.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp28, pFVect_2, &lolo.vert_2), lolo.vert_2.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp28, pFVect_3, &lolo.vert_3), lolo.vert_3.f_0c > 0.0)//[optimized]still another vector/matrix operation(w=1)
+		(fast_multVectorByTransform(bp28, pFVect_0, &lolo.vert_0), lolo.vert_0.w > 0.0) &&
+		(fast_multVectorByTransform(bp28, pFVect_1, &lolo.vert_1), lolo.vert_1.w > 0.0) &&
+		(fast_multVectorByTransform(bp28, pFVect_2, &lolo.vert_2), lolo.vert_2.w > 0.0) &&
+		(fast_multVectorByTransform(bp28, pFVect_3, &lolo.vert_3), lolo.vert_3.w > 0.0)
 	) {
 		if(C_0066E272(1, bp2c)) {
-			lolo.rhw_0 = 1.0f / lolo.vert_0.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[0]), lolo.local_18, lolo.vert_0.f_00 * lolo.rhw_0, lolo.vert_0.f_04 * lolo.rhw_0, lolo.vert_0.f_08 * lolo.rhw_0, lolo.rhw_0, dwColor_0);
-			lolo.rhw_1 = 1.0f / lolo.vert_1.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[1]), lolo.local_20, lolo.vert_1.f_00 * lolo.rhw_1, lolo.vert_1.f_04 * lolo.rhw_1, lolo.vert_1.f_08 * lolo.rhw_1, lolo.rhw_1, dwColor_1);
-			lolo.rhw_2 = 1.0f / lolo.vert_2.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[2]), lolo.local_22, lolo.vert_2.f_00 * lolo.rhw_2, lolo.vert_2.f_04 * lolo.rhw_2, lolo.vert_2.f_08 * lolo.rhw_2, lolo.rhw_2, dwColor_2);
-			lolo.rhw_3 = 1.0f / lolo.vert_3.f_0c;
-			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[3]), lolo.local_24, lolo.vert_3.f_00 * lolo.rhw_3, lolo.vert_3.f_04 * lolo.rhw_3, lolo.vert_3.f_08 * lolo.rhw_3, lolo.rhw_3, dwColor_3);
+			lolo.rhw_0 = 1.0f / lolo.vert_0.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[0]), lolo.local_18, lolo.vert_0.x * lolo.rhw_0, lolo.vert_0.y * lolo.rhw_0, lolo.vert_0.z * lolo.rhw_0, lolo.rhw_0, dwColor_0);
+			lolo.rhw_1 = 1.0f / lolo.vert_1.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[1]), lolo.local_20, lolo.vert_1.x * lolo.rhw_1, lolo.vert_1.y * lolo.rhw_1, lolo.vert_1.z * lolo.rhw_1, lolo.rhw_1, dwColor_1);
+			lolo.rhw_2 = 1.0f / lolo.vert_2.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[2]), lolo.local_22, lolo.vert_2.x * lolo.rhw_2, lolo.vert_2.y * lolo.rhw_2, lolo.vert_2.z * lolo.rhw_2, lolo.rhw_2, dwColor_2);
+			lolo.rhw_3 = 1.0f / lolo.vert_3.w;
+			MK_VERTEX_NOTEXTURE_1(&(bp2c->f_70.asVertex[3]), lolo.local_24, lolo.vert_3.x * lolo.rhw_3, lolo.vert_3.y * lolo.rhw_3, lolo.vert_3.z * lolo.rhw_3, lolo.rhw_3, dwColor_3);
 		}
 	}
 }
@@ -867,7 +867,7 @@ void C_0077BE95(LPD3DMATRIX bp08, struct t_dx_sfx_e0 *bp0c, struct t_chocobo_dat
 		&(bp10->fvect3),
 		bp08,
 		bp0c
-	);//draw quad?
+	);//draw quad
 }
 
 //[unused]draw quad?
@@ -878,55 +878,55 @@ void __0077BEDF(
 	struct SVECTOR *pV1/*bp14*/,
 	struct SVECTOR *pV2/*bp18*/,
 	struct SVECTOR *pV3/*bp1c*/,
-	unsigned dwColor0/*bp20*/,
-	unsigned dwColor1/*bp24*/,
-	unsigned dwColor2/*bp28*/,
-	unsigned dwColor3/*bp2c*/
+	unsigned dwRGB0/*bp20*/,
+	unsigned dwRGB1/*bp24*/,
+	unsigned dwRGB2/*bp28*/,
+	unsigned dwRGB3/*bp2c*/
 ) {
 	struct {
-		struct t_g_drv_0c fvect0;//local_17
-		struct t_g_drv_0c fvect2;//local_14
-		tRGBA color2;//local_11
-		struct t_g_drv_0c fvect1;//local_10
-		tRGBA color3;//local_7
-		tRGBA color0;//local_6
-		tRGBA color1;//local_5
-		unsigned char bTemp; char _ocal_4[3];
-		struct t_g_drv_0c fvect3;//local_3
+		D3DVECTOR fvect0;//local_17
+		D3DVECTOR fvect2;//local_14
+		tBGRA color2;//local_11
+		D3DVECTOR fvect1;//local_10
+		tBGRA color3;//local_7
+		tBGRA color0;//local_6
+		tBGRA color1;//local_5
+		DECL_unsigned_char(bTemp);
+		D3DVECTOR fvect3;//local_3
 	}lolo;
 
-	lolo.color0.rgba = dwColor0 | (0xff << 24);
-	SWAP(lolo.color0.c.r, lolo.color0.c.b, lolo.bTemp);
+	lolo.color0.bgra = dwRGB0 | (0xff << 24);
+	SWAP(lolo.color0.c.b, lolo.color0.c.r, lolo.bTemp);
 
-	lolo.color1.rgba = dwColor1 | (0xff << 24);
-	SWAP(lolo.color1.c.r, lolo.color1.c.b, lolo.bTemp);
+	lolo.color1.bgra = dwRGB1 | (0xff << 24);
+	SWAP(lolo.color1.c.b, lolo.color1.c.r, lolo.bTemp);
 
-	lolo.color2.rgba = dwColor2 | (0xff << 24);
-	SWAP(lolo.color2.c.r, lolo.color2.c.b, lolo.bTemp);
+	lolo.color2.bgra = dwRGB2 | (0xff << 24);
+	SWAP(lolo.color2.c.b, lolo.color2.c.r, lolo.bTemp);
 
-	lolo.color3.rgba = dwColor3 | (0xff << 24);
-	SWAP(lolo.color3.c.r, lolo.color3.c.b, lolo.bTemp);
+	lolo.color3.bgra = dwRGB3 | (0xff << 24);
+	SWAP(lolo.color3.c.b, lolo.color3.c.r, lolo.bTemp);
 
-	lolo.fvect0.f_00 = (float)pV0->f_00; lolo.fvect0.f_04 = (float)pV0->f_02; lolo.fvect0.f_08 = (float)pV0->f_04;
-	lolo.fvect1.f_00 = (float)pV1->f_00; lolo.fvect1.f_04 = (float)pV1->f_02; lolo.fvect1.f_08 = (float)pV1->f_04;
-	lolo.fvect2.f_00 = (float)pV2->f_00; lolo.fvect2.f_04 = (float)pV2->f_02; lolo.fvect2.f_08 = (float)pV2->f_04;
-	lolo.fvect3.f_00 = (float)pV3->f_00; lolo.fvect3.f_04 = (float)pV3->f_02; lolo.fvect3.f_08 = (float)pV3->f_04;
+	lolo.fvect0.x = (float)pV0->vx; lolo.fvect0.y = (float)pV0->vy; lolo.fvect0.z = (float)pV0->vz;
+	lolo.fvect1.x = (float)pV1->vx; lolo.fvect1.y = (float)pV1->vy; lolo.fvect1.z = (float)pV1->vz;
+	lolo.fvect2.x = (float)pV2->vx; lolo.fvect2.y = (float)pV2->vy; lolo.fvect2.z = (float)pV2->vz;
+	lolo.fvect3.x = (float)pV3->vx; lolo.fvect3.y = (float)pV3->vy; lolo.fvect3.z = (float)pV3->vz;
 
 	C_0077BCA4(
-		lolo.color0.rgba,
-		lolo.color1.rgba,
-		lolo.color2.rgba,
-		lolo.color3.rgba,
+		lolo.color0.bgra,
+		lolo.color1.bgra,
+		lolo.color2.bgra,
+		lolo.color3.bgra,
 		&lolo.fvect0,
 		&lolo.fvect1,
 		&lolo.fvect2,
 		&lolo.fvect3,
 		bp08,
 		bp0c
-	);//draw quad?
+	);//draw quad
 }
 
-//(called only by unused function)
+//[local](called only by unused function)
 void C_0077C04B(struct t_chocobo_local_quad_2 *bp08, LPD3DMATRIX bp0c, struct t_dx_sfx_e0 *bp10) {
 	struct {
 		struct t_dx_rend_vertex_20 *local_25;
@@ -946,20 +946,20 @@ void C_0077C04B(struct t_chocobo_local_quad_2 *bp08, LPD3DMATRIX bp0c, struct t_
 
 	lolo.dwColor = 0xffffffff;
 	if(
-		(C_0066CE40(bp0c, &(bp08->vert_0), &lolo.vert_0), lolo.vert_0.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp0c, &(bp08->vert_1), &lolo.vert_1), lolo.vert_1.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp0c, &(bp08->vert_2), &lolo.vert_2), lolo.vert_2.f_0c > 0.0) &&//[optimized]still another vector/matrix operation(w=1)
-		(C_0066CE40(bp0c, &(bp08->vert_3), &lolo.vert_3), lolo.vert_3.f_0c > 0.0)//[optimized]still another vector/matrix operation(w=1)
+		(fast_multVectorByTransform(bp0c, &(bp08->vert_0), &lolo.vert_0), lolo.vert_0.w > 0.0) &&
+		(fast_multVectorByTransform(bp0c, &(bp08->vert_1), &lolo.vert_1), lolo.vert_1.w > 0.0) &&
+		(fast_multVectorByTransform(bp0c, &(bp08->vert_2), &lolo.vert_2), lolo.vert_2.w > 0.0) &&
+		(fast_multVectorByTransform(bp0c, &(bp08->vert_3), &lolo.vert_3), lolo.vert_3.w > 0.0)
 	) {
 		if(C_0066E272(1, bp10)) {
-			lolo.rhw_0 = 1.0f / lolo.vert_0.f_0c;
-			MK_VERTEX_0(&(bp10->f_70.asVertex[0]), lolo.local_19, lolo.vert_0.f_00 * lolo.rhw_0, lolo.vert_0.f_04 * lolo.rhw_0, lolo.vert_0.f_08 * lolo.rhw_0, lolo.rhw_0, lolo.dwColor, bp08->fU_0, bp08->fV_0);
-			lolo.rhw_1 = 1.0f / lolo.vert_1.f_0c;
-			MK_VERTEX_0(&(bp10->f_70.asVertex[1]), lolo.local_21, lolo.vert_1.f_00 * lolo.rhw_1, lolo.vert_1.f_04 * lolo.rhw_1, lolo.vert_1.f_08 * lolo.rhw_1, lolo.rhw_1, lolo.dwColor, bp08->fU_1, bp08->fV_1);
-			lolo.rhw_2 = 1.0f / lolo.vert_2.f_0c;
-			MK_VERTEX_0(&(bp10->f_70.asVertex[2]), lolo.local_23, lolo.vert_2.f_00 * lolo.rhw_2, lolo.vert_2.f_04 * lolo.rhw_2, lolo.vert_2.f_08 * lolo.rhw_2, lolo.rhw_2, lolo.dwColor, bp08->fU_2, bp08->fV_2);
-			lolo.rhw_3 = 1.0f / lolo.vert_3.f_0c;
-			MK_VERTEX_0(&(bp10->f_70.asVertex[3]), lolo.local_25, lolo.vert_3.f_00 * lolo.rhw_3, lolo.vert_3.f_04 * lolo.rhw_3, lolo.vert_3.f_08 * lolo.rhw_3, lolo.rhw_3, lolo.dwColor, bp08->fU_3, bp08->fV_3);
+			lolo.rhw_0 = 1.0f / lolo.vert_0.w;
+			MK_VERTEX_0(&(bp10->f_70.asVertex[0]), lolo.local_19, lolo.vert_0.x * lolo.rhw_0, lolo.vert_0.y * lolo.rhw_0, lolo.vert_0.z * lolo.rhw_0, lolo.rhw_0, lolo.dwColor, bp08->fU_0, bp08->fV_0);
+			lolo.rhw_1 = 1.0f / lolo.vert_1.w;
+			MK_VERTEX_0(&(bp10->f_70.asVertex[1]), lolo.local_21, lolo.vert_1.x * lolo.rhw_1, lolo.vert_1.y * lolo.rhw_1, lolo.vert_1.z * lolo.rhw_1, lolo.rhw_1, lolo.dwColor, bp08->fU_1, bp08->fV_1);
+			lolo.rhw_2 = 1.0f / lolo.vert_2.w;
+			MK_VERTEX_0(&(bp10->f_70.asVertex[2]), lolo.local_23, lolo.vert_2.x * lolo.rhw_2, lolo.vert_2.y * lolo.rhw_2, lolo.vert_2.z * lolo.rhw_2, lolo.rhw_2, lolo.dwColor, bp08->fU_2, bp08->fV_2);
+			lolo.rhw_3 = 1.0f / lolo.vert_3.w;
+			MK_VERTEX_0(&(bp10->f_70.asVertex[3]), lolo.local_25, lolo.vert_3.x * lolo.rhw_3, lolo.vert_3.y * lolo.rhw_3, lolo.vert_3.z * lolo.rhw_3, lolo.rhw_3, lolo.dwColor, bp08->fU_3, bp08->fV_3);
 		}
 	}
 }
@@ -967,16 +967,16 @@ void C_0077C04B(struct t_chocobo_local_quad_2 *bp08, LPD3DMATRIX bp0c, struct t_
 //chocobo:projected Z?
 float C_0077C2AC(struct SVECTOR *pV/*bp08*/, LPD3DMATRIX bp0c) {
 	struct {
-		struct t_g_drv_0c fvert;//local_8
+		D3DVECTOR fvert;//local_8
 		struct tVECTOR_F4 vert;//local_5
 		float rhw;//local_1
 	}lolo;
 
-	lolo.fvert.f_00 = (float)pV->f_00; lolo.fvert.f_04 = (float)pV->f_02; lolo.fvert.f_08 = (float)pV->f_04;
+	lolo.fvert.x = (float)pV->vx; lolo.fvert.y = (float)pV->vy; lolo.fvert.z = (float)pV->vz;
 
-	if(C_0066CE40(bp0c, &lolo.fvert, &lolo.vert), lolo.vert.f_0c > 0.0) {//[optimized]still another vector/matrix operation(w=1)
-		lolo.rhw = 1.0f / lolo.vert.f_0c;
-		return lolo.vert.f_08 * lolo.rhw;
+	if(fast_multVectorByTransform(bp0c, &lolo.fvert, &lolo.vert), lolo.vert.w > 0.0) {
+		lolo.rhw = 1.0f / lolo.vert.w;
+		return lolo.vert.z * lolo.rhw;
 	}
 
 	return 0.999f;
@@ -996,10 +996,10 @@ void __0077C323(
 ) {
 	struct t_chocobo_local_quad_2 local_20;
 
-	local_20.vert_0.f_00 = (float)pVert_0->f_00; local_20.vert_0.f_04 = (float)pVert_0->f_02; local_20.vert_0.f_08 = (float)pVert_0->f_04;
-	local_20.vert_1.f_00 = (float)pVert_1->f_00; local_20.vert_1.f_04 = (float)pVert_1->f_02; local_20.vert_1.f_08 = (float)pVert_1->f_04;
-	local_20.vert_2.f_00 = (float)pVert_2->f_00; local_20.vert_2.f_04 = (float)pVert_2->f_02; local_20.vert_2.f_08 = (float)pVert_2->f_04;
-	local_20.vert_3.f_00 = (float)pVert_3->f_00; local_20.vert_3.f_04 = (float)pVert_3->f_02; local_20.vert_3.f_08 = (float)pVert_3->f_04;
+	local_20.vert_0.x = (float)pVert_0->vx; local_20.vert_0.y = (float)pVert_0->vy; local_20.vert_0.z = (float)pVert_0->vz;
+	local_20.vert_1.x = (float)pVert_1->vx; local_20.vert_1.y = (float)pVert_1->vy; local_20.vert_1.z = (float)pVert_1->vz;
+	local_20.vert_2.x = (float)pVert_2->vx; local_20.vert_2.y = (float)pVert_2->vy; local_20.vert_2.z = (float)pVert_2->vz;
+	local_20.vert_3.x = (float)pVert_3->vx; local_20.vert_3.y = (float)pVert_3->vy; local_20.vert_3.z = (float)pVert_3->vz;
 
 	local_20.fU_0 = fU_0; local_20.fV_0 = fV_0;
 	local_20.fU_1 = fU_1; local_20.fV_1 = fV_1;
@@ -1077,9 +1077,9 @@ void C_0077C462() {
 					D_00E71158[lolo.i].dwMaxStamina <<= 1;
 				}//end for
 				//-- start BGM --
-				D_00E71664->f_00 = 0x10;//"MUSIC"
+				D_00E71664->wOpCode = SOUND_OP_10;//"MUSIC"
 				D_00E71664->f_04[0] = 8;
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
 				//-- --
 				D_00E73EE8 = D_00E73EEC = 0;
 				D_00E71018 = 0;
@@ -1091,10 +1091,10 @@ void C_0077C462() {
 				if(D_00E710E0 > 3000) {//else 0077C69F
 					D_00E715D4 = 0x10;
 					if(D_00E73EFC == 0) {//else 0077C69F
-						D_00E71664->f_00 = 0xc1;//volume?
+						D_00E71664->wOpCode = SOUND_OP_C1;//volume trans(music)
 						D_00E71664->f_04[0] = 60;
 						D_00E71664->f_04[1] = 0;
-						C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0, 0);
+						C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0, 0);
 						D_00E73EFC = 1;
 					}
 				}
@@ -1158,10 +1158,10 @@ void C_0077C462() {
 				if((D_00E71620 & BIT(CH_KEY_START)) && D_00E71038) {
 					D_00E715D4 = 0x10;
 
-					D_00E71664->f_00 = 0xc1;//volume?
+					D_00E71664->wOpCode = SOUND_OP_C1;//volume trans(music)
 					D_00E71664->f_04[0] = 60;
 					D_00E71664->f_04[1] = 0;
-					C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0 ,0);
+					C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], D_00E71664->f_04[1], 0, 0, 0, 0, 0 ,0);
 				}
 				//-- --
 				C_0076E149();//chocobo:input.compute_mask
@@ -1228,9 +1228,9 @@ void C_0077C462() {
 					lolo.bp_68 ++;
 				}//end for
 				//-- --
-				D_00E71664->f_00 = 0xe4;//???
+				D_00E71664->wOpCode = SOUND_OP_E4;//???
 				D_00E71664->f_04[0] = 0x40;
-				C_00740D80(D_00E71664->f_00, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
+				C_00740D80(D_00E71664->wOpCode, D_00E71664->f_04[0], 0, 0, 0, 0, 0, 0, 0);
 				//-- --
 				if(D_00DC0AE4 == 0) {
 					C_00778A3C();//chocobo:before "bet results"
@@ -1292,9 +1292,9 @@ void C_0077CD69(int dwPathT_0/*bp08*/, int dwPathT_1/*bp0c*/) {
 			lolo.dwModelId = lolo.local_5->bModelId;
 			lolo.pModel = &(D_00E719E8[lolo.dwModelId]);
 			//-- pos --
-			lolo.pModel->wX = lolo.local_5->sPos.f_00;
-			lolo.pModel->wY = lolo.local_5->sPos.f_02;
-			lolo.pModel->wZ = lolo.local_5->sPos.f_04;
+			lolo.pModel->wX = lolo.local_5->sPos.vx;
+			lolo.pModel->wY = lolo.local_5->sPos.vy;
+			lolo.pModel->wZ = lolo.local_5->sPos.vz;
 			//-- rot --
 			lolo.pModel->bRotX = lolo.local_5->bRotX;
 			lolo.pModel->bRotY = lolo.local_5->bRotY;
@@ -1304,7 +1304,7 @@ void C_0077CD69(int dwPathT_0/*bp08*/, int dwPathT_1/*bp0c*/) {
 			C_0077B7E2(lolo.pModel);//chocobo:refresh position/rotation[3D model]?
 			lolo.local_5->wAnimationFrame += lolo.local_5->wAnimationIncr;
 			if(lolo.local_5->wAnimationFrame >= lolo.pModel->dwMaxAnimationFrame) {
-				if(lolo.local_5->sPos.f_06 & 2)
+				if(lolo.local_5->sPos.pad & 2)
 					lolo.local_5->wAnimationFrame = 0;
 				else
 					lolo.local_5->wAnimationFrame = lolo.pModel->dwMaxAnimationFrame;

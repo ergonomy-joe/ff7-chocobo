@@ -88,33 +88,33 @@ void C_0077170F(struct MATRIX *pMtxCam/*bp08*/, struct SVECTOR *sCamPos/*bp0c*/,
 	//-- --
 	VECTOR_init(lolo.unused_local_63, 0, 0xfff, 0);
 	//-- --
-	lolo.vect.f_00 = sLookAt->f_00 - sCamPos->f_00;
-	lolo.vect.f_04 = sLookAt->f_02 - sCamPos->f_02;
-	lolo.vect.f_08 = sLookAt->f_04 - sCamPos->f_04;
+	lolo.vect.vx = sLookAt->vx - sCamPos->vx;
+	lolo.vect.vy = sLookAt->vy - sCamPos->vy;
+	lolo.vect.vz = sLookAt->vz - sCamPos->vz;
 
-	lolo.vect.f_00 = -lolo.vect.f_00;
+	lolo.vect.vx = -lolo.vect.vx;
 	//-- pitch --
-	lolo.fAngle = _CIatan2((float)lolo.vect.f_04, _CIsqrt((float)(lolo.vect.f_00 * lolo.vect.f_00 + lolo.vect.f_08 * lolo.vect.f_08)));
-	lolo.fRotX = C_0067A268(lolo.fAngle);//dx_mat:radian2degree?
+	lolo.fAngle = _CIatan2((float)lolo.vect.vy, _CIsqrt((float)(lolo.vect.vx * lolo.vect.vx + lolo.vect.vz * lolo.vect.vz)));
+	lolo.fRotX = dx_mat_radianToDegree(lolo.fAngle);
 	C_0067BE13(lolo.fRotX, &lolo.sMatRotX);//dx_mat:x_rotate(1)
 	//-- yaw --
-	lolo.fAngle = _CIatan2(lolo.vect.f_00, lolo.vect.f_08);
-	lolo.fRotY = C_0067A268(lolo.fAngle);//dx_mat:radian2degree?
+	lolo.fAngle = _CIatan2(lolo.vect.vx, lolo.vect.vz);
+	lolo.fRotY = dx_mat_radianToDegree(lolo.fAngle);
 	C_0067BE71(lolo.fRotY, &lolo.sMatRotY);//dx_mat:y_rotate(1)
 	//-- roll[fixed value] --
 	lolo.fRotZ = 180.0f;
 	C_0067BECE(lolo.fRotZ, &lolo.sMatRotZ);//dx_mat:z_rotate(1)
 	//-- --
-	C_0066C56E(&lolo.sMatRotY, &lolo.sMatRotX, &lolo.sMatRotYX);//matrix multiplication 3x3?
-	C_0066C56E(&lolo.sMatRotYX, &lolo.sMatRotZ, &lolo.sMatRotYXZ);//matrix multiplication 3x3?
+	fast_MatrixMultiplication3x3(&lolo.sMatRotY, &lolo.sMatRotX, &lolo.sMatRotYX);
+	fast_MatrixMultiplication3x3(&lolo.sMatRotYX, &lolo.sMatRotZ, &lolo.sMatRotYXZ);
 
-	C_0066C53C(&lolo.sMatRotYXZ);//set matrix to "something"?
+	fast_MatrixResetTrans(&lolo.sMatRotYXZ);
 	C_0066134B(pMtxCam, &lolo.sMatRotYXZ);//psx:D3DMATRIX to transformation(1)
 	//-- --
 	psx_ApplyMatrix(pMtxCam, sCamPos, &lolo.vect);
-	pMtxCam->f_12[0] = -lolo.vect.f_00;
-	pMtxCam->f_12[1] = -lolo.vect.f_04;
-	pMtxCam->f_12[2] = -lolo.vect.f_08;
+	pMtxCam->t[0] = -lolo.vect.vx;
+	pMtxCam->t[1] = -lolo.vect.vy;
+	pMtxCam->t[2] = -lolo.vect.vz;
 }
 
 void C_00771F9F(void);//track chocobo?
@@ -131,13 +131,13 @@ void C_007718B0() {
 			D_00E71124 = (TRACKER_CHOCOBO.wPathT_cur + D_00E710E4 - 10) % D_00E710E4;
 			D_00E70FE8 = (D_00E71124 + D_00E715FC[TRACKER_CHOCOBO.wPathT_cur].bCullDistance) % D_00E710E4;
 			//-- pos --
-			D_00E72ED0.f_02 = D_00E3BAF4 + D_0097A108[D_00E7104C][0];
-			D_00E72ED0.f_00 = ((D_00E72ED0.f_00 + TRACKER_CHOCOBO.sPos_cur.f_00) - (psx_rsin(TRACKER_CHOCOBO.sRot_cur.f_02) >> D_0097A108[D_00E7104C][2])) / 2;
-			D_00E72ED0.f_04 = ((D_00E72ED0.f_04 + TRACKER_CHOCOBO.sPos_cur.f_04) - ((-psx_rcos(TRACKER_CHOCOBO.sRot_cur.f_02)) >> D_0097A108[D_00E7104C][2])) / 2;
+			D_00E72ED0.vy = D_00E3BAF4 + D_0097A108[D_00E7104C][0];
+			D_00E72ED0.vx = ((D_00E72ED0.vx + TRACKER_CHOCOBO.sPos_cur.vx) - (psx_rsin(TRACKER_CHOCOBO.sRot_cur.vy) >> D_0097A108[D_00E7104C][2])) / 2;
+			D_00E72ED0.vz = ((D_00E72ED0.vz + TRACKER_CHOCOBO.sPos_cur.vz) - ((-psx_rcos(TRACKER_CHOCOBO.sRot_cur.vy)) >> D_0097A108[D_00E7104C][2])) / 2;
 			//-- LookAt --
-			D_00E72ED8.f_02 = (D_00E72ED8.f_02 * 3 + TARGET_CHOCOBO.sPos_cur.f_02 + D_0097A108[D_00E7104C][1]) / 4;
-			D_00E72ED8.f_00 = (TARGET_CHOCOBO.sPos_cur.f_00 * 7 + TRACKER_CHOCOBO.sPos_cur.f_00) / 8;
-			D_00E72ED8.f_04 = (TARGET_CHOCOBO.sPos_cur.f_04 * 7 + TRACKER_CHOCOBO.sPos_cur.f_04) / 8;
+			D_00E72ED8.vy = (D_00E72ED8.vy * 3 + TARGET_CHOCOBO.sPos_cur.vy + D_0097A108[D_00E7104C][1]) / 4;
+			D_00E72ED8.vx = (TARGET_CHOCOBO.sPos_cur.vx * 7 + TRACKER_CHOCOBO.sPos_cur.vx) / 8;
+			D_00E72ED8.vz = (TARGET_CHOCOBO.sPos_cur.vz * 7 + TRACKER_CHOCOBO.sPos_cur.vz) / 8;
 		break;
 		case 1://fixed
 			//-- pos --
@@ -149,14 +149,14 @@ void C_007718B0() {
 				D_00E71124 = (TARGET_CHOCOBO.wPathT_cur + D_00E710E4 - 60) % D_00E710E4;
 				D_00E70FE8 = (D_00E71124 + 120) % D_00E710E4;
 				//-- LookAt --
-				D_00E72ED8.f_00 = TARGET_CHOCOBO.sPos_cur.f_00;
-				D_00E72ED8.f_02 = TARGET_CHOCOBO.sPos_cur.f_02;
-				D_00E72ED8.f_04 = TARGET_CHOCOBO.sPos_cur.f_04;
+				D_00E72ED8.vx = TARGET_CHOCOBO.sPos_cur.vx;
+				D_00E72ED8.vy = TARGET_CHOCOBO.sPos_cur.vy;
+				D_00E72ED8.vz = TARGET_CHOCOBO.sPos_cur.vz;
 			} else {
 				//look at point
 				//-- culling --
-				D_00E71124 = D_00E71110.sPos.f_06;
-				D_00E70FE8 = D_00E71110.sLookAt.f_06;
+				D_00E71124 = D_00E71110.sPos.pad;
+				D_00E70FE8 = D_00E71110.sLookAt.pad;
 				//-- LookAt --
 				D_00E72ED8 = D_00E71110.sLookAt;
 			}
@@ -171,49 +171,49 @@ void C_007718B0() {
 				D_00E70FE8 = (TARGET_CHOCOBO.wPathT_cur + D_00E710E4 + 100) % D_00E710E4;
 			}
 			//-- pos --
-			D_00E72ED0.f_02 = TRACKER_CHOCOBO.sPos_cur.f_02 + D_00E71110.wHeight;
-			D_00E72ED0.f_00 = TRACKER_CHOCOBO.sPos_cur.f_00 - (psx_rsin(TRACKER_CHOCOBO.sRot_cur.f_02) >> D_0097A108[D_00E7104C][2]);
-			D_00E72ED0.f_04 = TRACKER_CHOCOBO.sPos_cur.f_04 - ((-psx_rcos(TRACKER_CHOCOBO.sRot_cur.f_02)) >> D_0097A108[D_00E7104C][2]);
+			D_00E72ED0.vy = TRACKER_CHOCOBO.sPos_cur.vy + D_00E71110.wHeight;
+			D_00E72ED0.vx = TRACKER_CHOCOBO.sPos_cur.vx - (psx_rsin(TRACKER_CHOCOBO.sRot_cur.vy) >> D_0097A108[D_00E7104C][2]);
+			D_00E72ED0.vz = TRACKER_CHOCOBO.sPos_cur.vz - ((-psx_rcos(TRACKER_CHOCOBO.sRot_cur.vy)) >> D_0097A108[D_00E7104C][2]);
 			//-- LookAt --
-			D_00E72ED8.f_00 = (TARGET_CHOCOBO.sPos_cur.f_00 + TRACKER_CHOCOBO.sPos_cur.f_00) / 2;
-			D_00E72ED8.f_02 = (TARGET_CHOCOBO.sPos_cur.f_02 + TRACKER_CHOCOBO.sPos_cur.f_02) / 2 + 200;
-			D_00E72ED8.f_04 = (TARGET_CHOCOBO.sPos_cur.f_04 + TRACKER_CHOCOBO.sPos_cur.f_04) / 2;
+			D_00E72ED8.vx = (TARGET_CHOCOBO.sPos_cur.vx + TRACKER_CHOCOBO.sPos_cur.vx) / 2;
+			D_00E72ED8.vy = (TARGET_CHOCOBO.sPos_cur.vy + TRACKER_CHOCOBO.sPos_cur.vy) / 2 + 200;
+			D_00E72ED8.vz = (TARGET_CHOCOBO.sPos_cur.vz + TRACKER_CHOCOBO.sPos_cur.vz) / 2;
 		break;
 		case 3://rotate around target
 			//-- culling --
 			D_00E71124 = (TARGET_CHOCOBO.wPathT_cur + D_00E710E4 - 60) % D_00E710E4;
 			D_00E70FE8 = (D_00E71124 + 120) % D_00E710E4;
 			//-- pos --
-			D_00E72ED0.f_00 = TARGET_CHOCOBO.sPos_cur.f_00;
-			D_00E72ED0.f_02 = TARGET_CHOCOBO.sPos_cur.f_02;
-			D_00E72ED0.f_04 = TARGET_CHOCOBO.sPos_cur.f_04;
+			D_00E72ED0.vx = TARGET_CHOCOBO.sPos_cur.vx;
+			D_00E72ED0.vy = TARGET_CHOCOBO.sPos_cur.vy;
+			D_00E72ED0.vz = TARGET_CHOCOBO.sPos_cur.vz;
 
-			D_00E72ED0.f_02 += psx_rcos(D_00E71018 * 16) / D_00E71110.sPos.f_00 + D_00E71110.sPos.f_02;
-			D_00E72ED0.f_00 -= psx_rcos(D_00E71018 * 16) / D_00E71110.sPos.f_04;
-			D_00E72ED0.f_04 -= psx_rsin(D_00E71018 * 16) / D_00E71110.sPos.f_06;
+			D_00E72ED0.vy += psx_rcos(D_00E71018 * 16) / D_00E71110.sPos.vx + D_00E71110.sPos.vy;
+			D_00E72ED0.vx -= psx_rcos(D_00E71018 * 16) / D_00E71110.sPos.vz;
+			D_00E72ED0.vz -= psx_rsin(D_00E71018 * 16) / D_00E71110.sPos.pad;
 			//-- LookAt --
-			D_00E72ED8.f_00 = TARGET_CHOCOBO.sPos_cur.f_00;
-			D_00E72ED8.f_02 = TARGET_CHOCOBO.sPos_cur.f_02;
-			D_00E72ED8.f_04 = TARGET_CHOCOBO.sPos_cur.f_04;
+			D_00E72ED8.vx = TARGET_CHOCOBO.sPos_cur.vx;
+			D_00E72ED8.vy = TARGET_CHOCOBO.sPos_cur.vy;
+			D_00E72ED8.vz = TARGET_CHOCOBO.sPos_cur.vz;
 		break;
 		case 0xa://finish line(rotate around target)
 			//-- culling --
 			D_00E71124 = D_00E710E4 - 20;
 			D_00E70FE8 = 70;
 			//-- pos --
-			D_00E72ED0.f_00 = TARGET_CHOCOBO.sPos_cur.f_00;
-			D_00E72ED0.f_02 = TARGET_CHOCOBO.sPos_cur.f_02;
-			D_00E72ED0.f_04 = TARGET_CHOCOBO.sPos_cur.f_04;
+			D_00E72ED0.vx = TARGET_CHOCOBO.sPos_cur.vx;
+			D_00E72ED0.vy = TARGET_CHOCOBO.sPos_cur.vy;
+			D_00E72ED0.vz = TARGET_CHOCOBO.sPos_cur.vz;
 
-			D_00E72ED0.f_02 += 800;
-			D_00E72ED0.f_00 -= psx_rcos(D_00E71018 * 16) / 6;
-			D_00E72ED0.f_04 -= psx_rsin(D_00E71018 * 16) / 6;
+			D_00E72ED0.vy += 800;
+			D_00E72ED0.vx -= psx_rcos(D_00E71018 * 16) / 6;
+			D_00E72ED0.vz -= psx_rsin(D_00E71018 * 16) / 6;
 			//-- LookAt --
-			D_00E72ED8.f_00 = TARGET_CHOCOBO.sPos_cur.f_00;
-			D_00E72ED8.f_02 = TARGET_CHOCOBO.sPos_cur.f_02;
-			D_00E72ED8.f_04 = TARGET_CHOCOBO.sPos_cur.f_04;
+			D_00E72ED8.vx = TARGET_CHOCOBO.sPos_cur.vx;
+			D_00E72ED8.vy = TARGET_CHOCOBO.sPos_cur.vy;
+			D_00E72ED8.vz = TARGET_CHOCOBO.sPos_cur.vz;
 
-			D_00E72ED8.f_02 += 200;
+			D_00E72ED8.vy += 200;
 		break;
 	}//end switch
 	//-- --
@@ -232,7 +232,7 @@ void C_00771F9F() {
 			case 3: dwSpeed = TARGET_CHOCOBO.wSpeed * 2; break;
 		}//end switch
 		if(D_00E72EE0) {
-			C_007757CE(D_00E71624, dwSpeed, D_00E71110.sPos.f_06);//chocobo:for camera(bType 2):track chocobo?
+			C_007757CE(D_00E71624, dwSpeed, D_00E71110.sPos.pad);//chocobo:for camera(bType 2):track chocobo?
 			D_00E72EE0 = 0;
 		}
 	} else {
@@ -251,7 +251,7 @@ void C_007720B9() {
 	struct {
 		struct SVECTOR unused_local_16;
 		struct VECTOR unused_local_14;
-		struct MATRIX mtxCam; char _ocal_10[2];
+		DECL_struct_MATRIX(mtxCam);
 		int unused_local_2;
 		struct t_aa0 *local_1;
 	}lolo;
@@ -267,20 +267,20 @@ void C_007720B9() {
 		D_00E71054 = 0;
 	}
 	//-- null matrix --
-	lolo.mtxCam.f_00[0][0] = 0; lolo.mtxCam.f_00[0][1] = 0; lolo.mtxCam.f_00[0][2] = 0;
-	lolo.mtxCam.f_00[1][0] = 0; lolo.mtxCam.f_00[1][1] = 0; lolo.mtxCam.f_00[1][2] = 0;
-	lolo.mtxCam.f_00[2][0] = 0; lolo.mtxCam.f_00[2][1] = 0; lolo.mtxCam.f_00[2][2] = 0;
-	lolo.mtxCam.f_12[0] = 0;
-	lolo.mtxCam.f_12[1] = 0;
-	lolo.mtxCam.f_12[2] = 0;
+	lolo.mtxCam.m[0][0] = 0; lolo.mtxCam.m[0][1] = 0; lolo.mtxCam.m[0][2] = 0;
+	lolo.mtxCam.m[1][0] = 0; lolo.mtxCam.m[1][1] = 0; lolo.mtxCam.m[1][2] = 0;
+	lolo.mtxCam.m[2][0] = 0; lolo.mtxCam.m[2][1] = 0; lolo.mtxCam.m[2][2] = 0;
+	lolo.mtxCam.t[0] = 0;
+	lolo.mtxCam.t[1] = 0;
+	lolo.mtxCam.t[2] = 0;
 	//-- LookAt --
-	D_00E72EA0.f_00 = (D_00E72EA0.f_00 * 3 + D_00E72ED8.f_00) / 4;
-	D_00E72EA0.f_02 = (D_00E72EA0.f_02 * 7 + D_00E72ED8.f_02) / 8;
-	D_00E72EA0.f_04 = (D_00E72EA0.f_04 * 3 + D_00E72ED8.f_04) / 4;
+	D_00E72EA0.vx = (D_00E72EA0.vx * 3 + D_00E72ED8.vx) / 4;
+	D_00E72EA0.vy = (D_00E72EA0.vy * 7 + D_00E72ED8.vy) / 8;
+	D_00E72EA0.vz = (D_00E72EA0.vz * 3 + D_00E72ED8.vz) / 4;
 	//-- pos --
-	D_00E72E10.f_00 = (D_00E72E10.f_00 * 3 + D_00E72ED0.f_00) / 4;
-	D_00E72E10.f_02 = (D_00E72E10.f_02 * 7 + D_00E72ED0.f_02) / 8;
-	D_00E72E10.f_04 = (D_00E72E10.f_04 * 3 + D_00E72ED0.f_04) / 4;
+	D_00E72E10.vx = (D_00E72E10.vx * 3 + D_00E72ED0.vx) / 4;
+	D_00E72E10.vy = (D_00E72E10.vy * 7 + D_00E72ED0.vy) / 8;
+	D_00E72E10.vz = (D_00E72E10.vz * 3 + D_00E72ED0.vz) / 4;
 	//-- --
 	C_0077170F(&lolo.mtxCam, &D_00E72E10, &D_00E72EA0);//compute camera transform?
 	D_00E73DB0 = D_00E71138 = lolo.mtxCam;
@@ -294,7 +294,7 @@ void C_007720B9() {
 	psx_SetTransMatrix(&D_00E73DB0);
 #elif 0	//or like this:
 	psx_TransposeMatrix(&D_00E73DB0, &D_00E72EB0);
-	psx_TransMatrix(&D_00E72EB0, (struct VECTOR *)D_00E73DB0.f_12);
+	psx_TransMatrix(&D_00E72EB0, (struct VECTOR *)D_00E73DB0.t);
 	psx_SetRotMatrix(&D_00E72EB0);
 	psx_SetTransMatrix(&D_00E72EB0);
 #endif

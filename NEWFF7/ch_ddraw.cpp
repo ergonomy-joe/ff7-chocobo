@@ -18,7 +18,7 @@ LPDIRECTDRAWSURFACE D_00E73C28;
 ////////////////////////////////////////
 //ch_ddraw:init
 void C_007794F0(struct t_aa0 *bp08) {
-	D_00E73C20 = bp08->f_074;
+	D_00E73C20 = bp08->lpDD;
 	D_00E73C24 = bp08->f_07c[0];
 	D_00E73C28 = bp08->f_07c[1];
 }
@@ -142,12 +142,12 @@ int __007796FF(LPDIRECTDRAWSURFACE bp08, LPDIRECTDRAWSURFACE bp0c, LPRECT bp10, 
 }
 
 //ch_ddraw:SetColorKey
-void C_0077977B(LPDIRECTDRAWSURFACE bp08, int bp0c, int bp10) {
-	DDCOLORKEY local_2;
+void C_0077977B(LPDIRECTDRAWSURFACE bp08, int dwColorKey/*bp0c*/, int dwFlags/*bp10*/) {
+	DDCOLORKEY ddColorKey;
 
-	local_2.dwColorSpaceLowValue = bp0c;
-	local_2.dwColorSpaceHighValue = bp0c;
-	bp08->SetColorKey(bp10, &local_2);
+	ddColorKey.dwColorSpaceLowValue = dwColorKey;
+	ddColorKey.dwColorSpaceHighValue = dwColorKey;
+	bp08->SetColorKey(dwFlags, &ddColorKey);
 }
 
 //ch_ddraw:CreateSurface

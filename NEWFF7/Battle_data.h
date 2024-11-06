@@ -13,6 +13,54 @@
 ////////////////////////////////////////
 #define RAND_RANGE(mn, mx) ((0)?(mx):(rand() % ((mx) - (mn)) + (mn)))
 ////////////////////////////////////////
+//from __007C21C8[] and __007C21E0[]
+// set in "struct t_b3ddata_1aec::f_0023"
+#define BTL_01_TYPE         0x01
+
+#define BTL_MAGIC_TYPE      0x02
+#define BTL_SUMMON_TYPE     0x03
+#define BTL_ITEM_TYPE       0x04
+//steal
+#define BTL_05_TYPE         0x05
+#define BTL_06_TYPE         0x06
+//Yuffie?
+#define BTL_07_TYPE         0x07
+//item?GILs?
+#define BTL_08_TYPE         0x08
+
+#define BTL_0C_TYPE         0x0c
+
+#define BTL_BLUE_TYPE       0x0d
+
+#define BTL_0E_TYPE         0x0e
+#define BTL_0F_TYPE         0x0f
+
+//mug?
+#define BTL_11_TYPE         0x11
+//change?
+#define BTL_12_TYPE         0x12
+//defend?
+#define BTL_13_TYPE         0x13
+#define BTL_LIMIT_TYPE      0x14
+//W-magic
+#define BTL_15_TYPE         0x15
+//W-summon
+#define BTL_16_TYPE         0x16
+//W-item
+#define BTL_17_TYPE         0x17
+#define BTL_18_TYPE         0x18
+#define BTL_19_TYPE         0x19
+#define BTL_1A_TYPE         0x1a
+#define BTL_1B_TYPE         0x1b
+
+#define BTL_MONSTERMAG_TYPE 0x20
+//string?
+#define BTL_21_TYPE         0x21
+
+#define BTL_23_TYPE         0x23
+
+#define BTL_25_TYPE         0x25
+////////////////////////////////////////
 //unused stuff(remains from psx)?
 struct t_battle_40f4 {//size 0x40f4
 	char __0000[0x70];
@@ -116,11 +164,11 @@ struct t_battle_cam_0e {//size 0xe
 
 struct t_unk_0c_1 {//size 0xc
 	/*00*/char bSourceId;//009AAD70
-	/*01*/char f_01;//009AAD71
-	/*02*/unsigned char f_02;//009AAD72
-	/*03*/char f_03;//009AAD73
+	/*01*/char bCommandType;//009AAD71
+	/*02*/unsigned char bEffectId;//009AAD72
+	/*03*/char bEffectType;//009AAD73
 	/*04*/char f_04;//009AAD74
-	/*05*/char f_05;//009AAD75
+	/*05*/char bScriptId;//009AAD75
 	/*06*/short f_06;//009AAD76
 	/*08*/short wCamScript;//009AAD78
 	/*0a*/short wLink;//to D_009ACB98[]//009AAD7A
@@ -242,7 +290,7 @@ struct t_combat_static_38 {//size 0x38
 	/*28*/int f_28[4];//0099ce38
 };
 
-//kernel.bin/section 2
+//kernel.bin|section 2
 struct t_combat_static_f94 {//size 0xf94
 	/*000*/struct t_combat_static_38 f_000[9];//0099CE10
 	/*1f8*/unsigned char f_1f8[0xc];//0099d008
@@ -421,7 +469,7 @@ struct t_battle_local_08_HHHH {//size 8
 	/*00*/unsigned char f_00;
 	/*01*/unsigned char f_01;
 	/*02*/char f_02;
-	/*03*/char f_03;
+	/*03*/char bType;
 	/*04*/short f_04;
 	/*06*/unsigned short f_06;
 };
@@ -441,7 +489,7 @@ struct t_temp_battle_18 {//size 0x18
 	/*14*/int f_14;
 };
 
-struct t_battle_resolution {//size unknown
+struct t_battle_resolution {//size 0x264?more?
 	//-- --
 	int f_000;
 	int f_004;
@@ -452,8 +500,8 @@ struct t_battle_resolution {//size unknown
 	int f_018;
 	int f_01c;
 	int f_020;
-	int f_024;
-	int f_028;
+	int f_024;//attack id?
+	int f_028;//attack type?
 	int f_02c;
 	int f_030;
 	int __034;
@@ -708,7 +756,7 @@ struct t_battle_DAT_Header {//size 0x34
 	/*30*/struct t_char_local_0c *f_30;
 };
 
-struct t_battle_B_Header {
+struct t_battle_B_Header {//0xe8 or 0x190
 	/*00*/short f_00;
 	/*02*/short f_02;
 	/*04*/short f_04;
@@ -720,14 +768,25 @@ struct t_battle_B_Header {
 	/*10*/short f_10;
 	/*12*/char f_12[0x10];
 	/*22*/char __22[2];
-	/*24*/int f_24[8];
+	/*24*/int f_24[8];//TODO those are pointers
 	/*44*/short f_44[4];
 	/*4c*/short f_4c[6];
 	/*58*/short f_58[6];
 	/*64*/short f_64;
 	/*66*/char __66[2];
-	/*68*/unsigned char *f_68[1];//actualy 0x20~0x4a?
-	//...
+	/*68*/unsigned char *f_68[1];
+	// enemy:f_68[0x20]
+	// main chara:f_68[0x4a]
+	//... followed by data
+};
+
+struct t_battle_B_Summon_Header {//size 0x38
+	/*00*/unsigned char *f_00[8];
+	/*20*/short __20;
+	/*22*/short __22;
+	/*24*/short __24;
+	/*26*/char __26[0x12];
+	//... followed by script data
 };
 
 struct t_b3ddata_0c {//size 0xc
@@ -873,14 +932,6 @@ struct t_battle_20_3: t_battle_task_header {//size 0x20
 	/*18*/char f_18;//00BFC3B8
 	/*19*/char __19[7];//00BFC3B9
 };
-struct t_battle_task_local_20_B: t_battle_task_header {//size 0x20
-	/*04*/short f_04;
-	/*06*/short f_06;
-	/*08*/short f_08;
-	/*0a*/char __0a[2];
-	/*0c*/void (*f_0c)(int, int);
-	/*10*/char __10[0x10];
-};
 ////////////////////////////////////////
 #define CURTASK    D_00BFB718[D_00BF23B8]
 #define CURCAMTASK D_00BFCE08[D_00BE10B8]
@@ -942,7 +993,7 @@ struct t_b3ddata_1aec {//size 0x1aec
 	/*0ba0*/int f_0ba0;//00BE1D18
 	/*0ba4*/int dwCurAnim;//00BE1D1C
 	/*0ba8*/struct t_battle3d_char_94 *f_0ba8;//00BE1D20
-	/*0bac*/struct t_g_drv_0c f_0bac[0x32];//bones/joint related?//00BE1D24
+	/*0bac*/D3DVECTOR f_0bac[0x32];//bones/joint related?//00BE1D24
 	/*0e04*/D3DMATRIX f_0e04;//00BE1F7C
 	/*0e44*/D3DMATRIX f_0e44[0x32];//00BE1FBC
 	/*1ac4*/int dwUseAltAnim;//00BE2C3C
@@ -1108,14 +1159,14 @@ extern void C_00437D4E(int, int);
 extern void C_00437DB0(int);
 extern void C_004381D5(int);
 //-- C_00438610.cpp --
-extern void C_00438610(void);//(callback)"EFFECT/HITMARK"
+extern void C_00438610(void);//(callback)prepare "EFFECT/HITMARK"
 extern void C_00438BE4(int, int, int);
 extern void C_00438C36(int, int);//do "EFFECT/HITMARK"[1](callback)
 extern void C_00438C55(struct SVECTOR *, int, int);//do "EFFECT/HITMARK"[2](callback)
 //-- C_00438C80.cpp --
-extern void C_00438D10(int);//do "EFFECT/S_BARIA"[0](callback)
-extern void C_004390A0(int);//do "EFFECT/S_BARIA"[1](callback)
-extern void C_004390C2(int);//do "EFFECT/S_BARIA"[2](callback)
+extern void C_00438D10(int);//do "EFFECT/S_BARIA"[0]
+extern void C_004390A0(int);//do "EFFECT/S_BARIA"[1]
+extern void C_004390C2(int);//do "EFFECT/S_BARIA"[2]
 //-- --
 extern void C_005B9B30(char);
 extern void C_005B9EC2(char);
@@ -1333,7 +1384,7 @@ extern void C_005E2A85(int, struct t_battle_char_44 *, struct t_battle3d_char_94
 extern void C_005E2F00(struct t_b3ddata_0c *);//stage:...
 extern struct t_b3ddata_0c *C_005E2F49(int, struct t_battle_char_44 *, struct t_rsd_74 *, const char *);//stage:allocate/convert?[looks like C_005E0370/C_005E3900]
 extern int C_005E3592(int);//stage:V_DEPTHTEST/V_DEPTHMASK option related?
-extern void C_005E35AB(tRGBA, int, struct t_b3ddata_0c *);//stage:render one model
+extern void C_005E35AB(tBGRA, int, struct t_b3ddata_0c *);//stage:render one model
 extern struct t_rsd_0c *C_005E383E(int, struct t_b3ddata_0c *);//stage:...
 extern void C_005E388D(int, struct t_b3ddata_0c *);//stage:...
 //-- --

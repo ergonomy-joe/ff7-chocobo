@@ -157,7 +157,7 @@ void C_00770305(int dwPathT_0/*bp08*/, int dwPathT_1/*bp0c*/) {
 		int local_5;
 		int *pMAPTABLE;//local_4
 		int dwNumChunks;//local_3
-		short wMAPPOINTER; char _ocal_2[2];//local_2
+		DECL_short(wMAPPOINTER);//local_2
 		int local_1;
 	}lolo;
 
@@ -213,8 +213,8 @@ int C_00770434(LPD3DMATRIX bp08, short wInd/*bp0c*/, int dwPolyCount_unused/*_p1
 	lolo.dwDist = psx_RotTransPers(&lolo.pSPRITE.f_00, (int *)&lolo.local_20, &lolo.local_1, &lolo.local_6);
 	if(lolo.dwDist > 4000 || lolo.dwDist < 0)
 		return 0;
-	lolo.wX0 = lolo.local_20.f_00;
-	lolo.wY0 = lolo.local_20.f_02;
+	lolo.wX0 = lolo.local_20.vx;
+	lolo.wY0 = lolo.local_20.vy;
 	if(lolo.wX0 < -40 || lolo.wY0 < -40)
 		return 0;
 	if(lolo.wX0 > 350 || lolo.wY0 > 270)
@@ -230,10 +230,10 @@ int C_00770434(LPD3DMATRIX bp08, short wInd/*bp0c*/, int dwPolyCount_unused/*_p1
 
 	lolo.pBillboard->wX2 = lolo.wX0;
 	lolo.pBillboard->wX3 = lolo.wX1;
-	lolo.pSPRITE.f_00.f_02 -= lolo.pSPRITE.wHeight * 4;
+	lolo.pSPRITE.f_00.vy -= lolo.pSPRITE.wHeight * 4;
 	psx_RotTransPers(&lolo.pSPRITE.f_00, (int *)&lolo.local_20, &lolo.local_1, &lolo.local_6);
 	lolo.pBillboard->wY2 =
-	lolo.pBillboard->wY3 = lolo.local_20.f_02;
+	lolo.pBillboard->wY3 = lolo.local_20.vy;
 
 	lolo.pBillboard->fZ = C_0077C2AC(&lolo.pSPRITE.f_00, bp08);//chocobo:projected Z?
 	if(C_00770685(wInd + 1)) {//check y flip?

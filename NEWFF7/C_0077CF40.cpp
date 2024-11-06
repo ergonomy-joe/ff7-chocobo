@@ -28,10 +28,10 @@ short C_0077CF40(short bp08, short bp0c) {
 short C_0077CFBF(struct SVECTOR *bp08, struct SVECTOR *bp0c) {
 	struct VECTOR local_4;
 
-	local_4.f_00 = bp0c->f_00 - bp08->f_00;
-	local_4.f_04 = bp0c->f_02 - bp08->f_02;
-	local_4.f_08 = bp0c->f_04 - bp08->f_04;
+	local_4.vx = bp0c->vx - bp08->vx;
+	local_4.vy = bp0c->vy - bp08->vy;
+	local_4.vz = bp0c->vz - bp08->vz;
 	psx_VectorNormal(&local_4, &local_4);
 
-	return C_0077CF40(local_4.f_00, local_4.f_08);//chocobo:atan2?
+	return C_0077CF40(local_4.vx, local_4.vz);//chocobo:atan2?
 }
